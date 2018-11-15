@@ -15,6 +15,7 @@
 <meta property="og:site_name" content="Ronaldo Meneguite">
 <meta property="og:description" content="Nesse artigo pretendo apresentar como publicar um site estático com domínio próprio, HTTPS, Cache, proteção DDOS e o melhor, de forma totalmente gratuita usando Github Pages e CloudFlare. Essas instru">
 <meta property="og:locale" content="pt-BR">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/001.png">
 <meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/002.png">
 <meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/003.png">
 <meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/004.png">
@@ -37,11 +38,11 @@
 <meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/021.png">
 <meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/022.png">
 <meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/023.png">
-<meta property="og:updated_time" content="2018-11-15T21:30:31.970Z">
+<meta property="og:updated_time" content="2018-11-15T21:58:43.961Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Publicando um site de forma profissional com Github Pages e CloudFlare">
 <meta name="twitter:description" content="Nesse artigo pretendo apresentar como publicar um site estático com domínio próprio, HTTPS, Cache, proteção DDOS e o melhor, de forma totalmente gratuita usando Github Pages e CloudFlare. Essas instru">
-<meta name="twitter:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/002.png">
+<meta name="twitter:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/001.png">
 <meta property="fb:admins" content="ronaldomeneguite">
 <meta property="fb:app_id" content="284008812234350">
 
@@ -167,12 +168,6 @@
             <div class="columns">
                 <div class="column is-9-tablet is-9-desktop is-9-widescreen has-order-2 column-main"><div class="card">
     
-    <div class="card-image">
-        <span class="image is-7by1">
-            <img class="thumbnail" src="/2018/11/10/publish-site-with-github-pages-cloudflare/001.png" alt="Publicando um site de forma profissional com Github Pages e CloudFlare">
-        </span>
-    </div>
-    
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
@@ -187,7 +182,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    11 minutos read (About 1605 words)
+                    11 minutos read (About 1608 words)
                 </span>
                 
             </div>
@@ -199,7 +194,9 @@
             
         </h1>
         <div class="content">
-            <p>Nesse artigo pretendo apresentar como publicar um site estático com domínio próprio, HTTPS, Cache, proteção DDOS e o melhor, de forma totalmente gratuita usando <a href="https://pages.github.com/" target="_blank" rel="noopener">Github Pages</a> e <a href="https://www.cloudflare.com/" target="_blank" rel="noopener">CloudFlare</a>. Essas instruções são também válidas para aplicações mais complexas como uma SPA (Single Page Application) por exemplo.<br><a id="more"></a></p>
+            <p>Nesse artigo pretendo apresentar como publicar um site estático com domínio próprio, HTTPS, Cache, proteção DDOS e o melhor, de forma totalmente gratuita usando <a href="https://pages.github.com/" target="_blank" rel="noopener">Github Pages</a> e <a href="https://www.cloudflare.com/" target="_blank" rel="noopener">CloudFlare</a>. Essas instruções são também válidas para aplicações mais complexas como uma SPA (Single Page Application) por exemplo.</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/001.png">
+<a id="more"></a>
 <p>Já a algum tempo percebo que muitas pessoas usam linguagens dinâmicas para produção de sites estáticos, pela simples motivação de buscar um reaproveitamento do código, já vi e até mesmo já fiz isso. Hoje com o frontend cada vez mais inteligente podemos gerar interfaces extremamente ricas sem ao menos a necessidade de um servidor dinâmico próprio, apenas servindo HTML de forma estática e deixando toda interatividade do lado do cliente.</p>
 <p>Hoje, até mesmo plataformas como o <a href="https://wordpress.org/" target="_blank" rel="noopener">Wordpress</a>, <a href="hhttps://www.joomla.org/" target="_blank" rel="noopener">Joomla</a> e <a href="https://www.drupal.org/" target="_blank" rel="noopener">Drupal</a> podem ser substituídas, em alguns casos, por geradores de sites estáticos como <a href="https://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a>, <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>, ou <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> por exemplo, que a partir de dados dinâmicos podem gerar sites “estáticos” e reduzir consideravelmente o custo com servidores dinâmicos, escalando aplicações de uma forma muito mais simples, com uma performance incrível e um custo de hospedagem mínimo, ou como no exemplo desse artigo, a custo zero.</p>
 <p>Entenda que não estou de forma alguma dizendo que sites estáticos são a bala de prata para resolver todos os seus problemas, mas sem dúvida ter uma visão sobre eles e perceber o valor dessa abordagem em alguns momentos pode ser um diferencial em sua carreira.</p>
