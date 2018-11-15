@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Publicando um site de forma profissional com Github Pages e CloudFlare - Ronaldo Meneguite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="Nesse artigo pretendo apresentar como publicar um site estático com domínio próprio, HTTPS, Cache, proteção DDOS e o melhor, de forma totalmente gratuita usando Github Pages e CloudFlare. Essas instru">
+<meta name="keywords" content="Frontend,Cloudflare,Github Pages">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Publicando um site de forma profissional com Github Pages e CloudFlare">
+<meta property="og:url" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/index.html">
+<meta property="og:site_name" content="Ronaldo Meneguite">
+<meta property="og:description" content="Nesse artigo pretendo apresentar como publicar um site estático com domínio próprio, HTTPS, Cache, proteção DDOS e o melhor, de forma totalmente gratuita usando Github Pages e CloudFlare. Essas instru">
+<meta property="og:locale" content="pt-BR">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/002.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/003.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/004.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/005.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/006.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/007.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/008.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/009.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/010.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/011.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/012.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/013.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/014.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/015.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/016.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/017.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/018.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/019.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/020.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/021.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/022.png">
+<meta property="og:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/023.png">
+<meta property="og:updated_time" content="2018-11-15T21:30:31.970Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Publicando um site de forma profissional com Github Pages e CloudFlare">
+<meta name="twitter:description" content="Nesse artigo pretendo apresentar como publicar um site estático com domínio próprio, HTTPS, Cache, proteção DDOS e o melhor, de forma totalmente gratuita usando Github Pages e CloudFlare. Essas instru">
+<meta name="twitter:image" content="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/002.png">
+<meta property="fb:admins" content="ronaldomeneguite">
+<meta property="fb:app_id" content="284008812234350">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">-->
+<link rel="stylesheet" href="/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129084799-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129084799-1');
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <!--<div class="navbar-brand is-flex-center">-->
+            <!--<a class="navbar-item navbar-logo" href="/">-->
+            <!---->
+                <!--<img src="/images/logo.svg" alt="" height="28">-->
+            <!---->
+            <!--</a>-->
+        <!--</div>-->
+        <div class="navbar-menu alignright">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Histórico</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Pesquisar" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-9-tablet is-9-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/2018/11/10/publish-site-with-github-pages-cloudflare/001.png" alt="Publicando um site de forma profissional com Github Pages e CloudFlare">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-11-10T20:40:12.000Z">10/11/2018</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Infraestrutura/">Infraestrutura</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11 minutos read (About 1605 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Publicando um site de forma profissional com Github Pages e CloudFlare
+            
+        </h1>
+        <div class="content">
+            <p>Nesse artigo pretendo apresentar como publicar um site estático com domínio próprio, HTTPS, Cache, proteção DDOS e o melhor, de forma totalmente gratuita usando <a href="https://pages.github.com/" target="_blank" rel="noopener">Github Pages</a> e <a href="https://www.cloudflare.com/" target="_blank" rel="noopener">CloudFlare</a>. Essas instruções são também válidas para aplicações mais complexas como uma SPA (Single Page Application) por exemplo.<br><a id="more"></a></p>
+<p>Já a algum tempo percebo que muitas pessoas usam linguagens dinâmicas para produção de sites estáticos, pela simples motivação de buscar um reaproveitamento do código, já vi e até mesmo já fiz isso. Hoje com o frontend cada vez mais inteligente podemos gerar interfaces extremamente ricas sem ao menos a necessidade de um servidor dinâmico próprio, apenas servindo HTML de forma estática e deixando toda interatividade do lado do cliente.</p>
+<p>Hoje, até mesmo plataformas como o <a href="https://wordpress.org/" target="_blank" rel="noopener">Wordpress</a>, <a href="hhttps://www.joomla.org/" target="_blank" rel="noopener">Joomla</a> e <a href="https://www.drupal.org/" target="_blank" rel="noopener">Drupal</a> podem ser substituídas, em alguns casos, por geradores de sites estáticos como <a href="https://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a>, <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>, ou <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> por exemplo, que a partir de dados dinâmicos podem gerar sites “estáticos” e reduzir consideravelmente o custo com servidores dinâmicos, escalando aplicações de uma forma muito mais simples, com uma performance incrível e um custo de hospedagem mínimo, ou como no exemplo desse artigo, a custo zero.</p>
+<p>Entenda que não estou de forma alguma dizendo que sites estáticos são a bala de prata para resolver todos os seus problemas, mas sem dúvida ter uma visão sobre eles e perceber o valor dessa abordagem em alguns momentos pode ser um diferencial em sua carreira.</p>
+<p>Pensando nisso e para atender alguns questionamentos que vinham me fazendo há algum tempo, resolvi escrever este artigo, que pretende demonstrar uma forma muito simples de publicar um site de forma profissional e totalmente gratuita, com domínio próprio, deploy automatizado, cache habilitado, proteção DDOS, certificado HTTPS válido e muitas outras demandas de um site realmente profissional.</p>
+<p>Para atender essa demanda, vamos nos utilizar de uma composição de ferramentas muito conhecidas no mercado, como o Github Pages e Cloudflare para prover toda a estrutura necessária para disponibilizar nosso site na internet.</p>
+<p>Para entender todo o conteúdo desse artigo é importante possuir conhecimentos básicos de versionamento usando o Git, e o ter instalado em sua máquina para que possa interagir com o github. Além disso vai precisar de uma conta no Github e uma no CloudFlare, caso não tenha pode providenciar com bastante facilidade, pois são ambas gratuitas e muito úteis para um desenvolvedor.</p>
+<h2 id="Criando-um-repositorio-no-Github-Pages"><a href="#Criando-um-repositorio-no-Github-Pages" class="headerlink" title="Criando um repositório no Github Pages"></a>Criando um repositório no Github Pages</h2><p>O primeiro passo para iniciarmos, é criar um repositório ao qual irá hospedar nosso site junto ao github, pressuponho que já tenha uma conta por lá, mas caso não tenha ainda é bem tranquilo de cadastrar uma, e para projetos públicos é totalmente gratuita.</p>
+<p>Já logado em sua conta você ira criar um novo repositório no canto superior direito, como pode ser visto nas imagens abaixo:</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/002.png">
+<p>Escolha um prefixo válido e único dentro do domínio github.io, para esse exemplo vou usar meu domínio pessoal que por completa falta de tempo está abandonado mesmo 😄.</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/003.png">
+<p>Após esse processo irá visualizar uma tela similar a essa:</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/004.png">
+<p>Agora precisamos iniciar nosso repositório para habilitá-lo no github pages, para isso vamos seguir os comandos para inicializar nosso repositório.</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span> <span class="hljs-string">"# My personal site"</span> &gt;&gt; README.md</span><br><span class="line">git init</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m <span class="hljs-string">"First Commit"</span></span><br><span class="line">git remote add origin git@github.com:meneguite/meneguite.github.io.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<p>Após esse processo, é esperado que ao acessar seu repositório novamente visualize algo como:</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/005.png">
+<p>Agora já estamos prontos, se acessar seu endereço, no meu caso <a href="https://meneguite.github.io" target="_blank" rel="noopener">https://meneguite.github.io</a>, já deve encontrar seu site já com https rodando normalmente. Assim é hora de avançar :).</p>
+<h2 id="Preparando-o-site-ao-qual-iremos-publicar"><a href="#Preparando-o-site-ao-qual-iremos-publicar" class="headerlink" title="Preparando o site ao qual iremos publicar"></a>Preparando o site ao qual iremos publicar</h2><p>O segundo passo em nossa jornada será obter um site estático para usarmos de exemplo, durante esse artigo usarei o Hielo (<a href="https://templated.co/hielo)" target="_blank" rel="noopener">https://templated.co/hielo)</a>, um template gratuito que utilizarei apenas para demonstrar a publicação durante esse artigo. Pelo link <a href="https://templated.co/hielo/download" target="_blank" rel="noopener">https://templated.co/hielo/download</a> baixei um arquivo zip que descompactei na pasta do projeto e removi o arquivo inicial README.md que criamos no passo anterior para testes.</p>
+<p>A estrutura dos arquivos ficou assim:</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/006.png">
+<p>Agora vamos atualizar nosso repositório e publicar nosso novo site, para isso executaremos os seguintes comandos:</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="hljs-string">"Include new site implementation"</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<p>Com esses comandos acima você já tem um deploy automatizado, bastando atualizar seu repositório e seu site já estará atualizado.</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/007.png">
+<p>Prontinho, nosso site já está no ar e completamente funcional, já é um endereço válido e se não possuir um domínio próprio já pode usar dessa forma sem maiores problemas.</p>
+<h2 id="Configurando-o-DNS-do-seu-dominio-na-Cloudflare"><a href="#Configurando-o-DNS-do-seu-dominio-na-Cloudflare" class="headerlink" title="Configurando o DNS do seu domínio na Cloudflare"></a>Configurando o DNS do seu domínio na Cloudflare</h2><p>Agora precisamos de uma conta na CloudFlare, é um cadastro bastante simples, não terá nenhum problema em seguir o fluxo de cadastro deles, assim que terminar o processo irá entrar no dashboard onde poderá cadastrar seus domínios como imagem abaixo:</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/008.png">
+<p>Ao clicar em “+ Add Site” seguirá o seguinte fluxo:</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/009.png">
+<p>Selecione o plano mais indicado para a sua necessidade:</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/010.png">
+<p>E confirmar o plano selecionado novamente :</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/011.png">
+<p>Se já usa seu domínio em outro provedor de DNS nesse momento a CloudFlare irá buscar todos os registros atuais para que possa administra-los dentro de sua conta, no meu caso eu removi todos os registros do DNS o que deixou da seguinte forma:</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/012.png">
+<p>Agora precisamos adicionar dois registros, seu domínio principal e um para o subdomínio www, assim independente da forma que vier o acesso o mesmo será redirecionado corretamente. Eles devem ficar assim:</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/013.png">
+<p>A CloudFlare tem uma feature bem bacana no seu DNS chamada de CNAME Flattening que possibilita criar um CNAME para o root de um domínio. (Pode ler mais informações sobre isso em <a href="https://support.cloudflare.com/hc/en-us/articles/200169056-CNAME-Flattening-RFC-compliant-support-for-CNAME-at-the-root" target="_blank" rel="noopener">https://support.cloudflare.com/hc/en-us/articles/200169056-CNAME-Flattening-RFC-compliant-support-for-CNAME-at-the-root</a>)</p>
+<p>Após configurado será lhe apresentado a seguinte tela:</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/014.png">
+<p>Nessa tela recebemos a solicitação de alterar o endereço de DNS junto ao nosso provedor do domínio. Esse passo varia de acordo com cada provedor, mas normalmente é bastante simples.. basta alterar o endereço dos servidores de DNS atuais para esses novos endereços.</p>
+<p>** Precisa se atentar que está transferindo o DNS autoritativo para o serviço do CloudFlare e precisa ajustar registros como o MX para que não tenha nenhum problema na migração de seus e-mails por exemplo.</p>
+<p>Após alterar os endereços de DNS junto ao seu provedor, a propagação do mesmo pode demorar um tempo para acontecer, no caso do registro.br é indicado que pode demorar até 2 horas para essa transição.</p>
+<h2 id="Ajustes-finais-para-nosso-dominio"><a href="#Ajustes-finais-para-nosso-dominio" class="headerlink" title="Ajustes finais para nosso domínio"></a>Ajustes finais para nosso domínio</h2><p>Ainda dentro da cloudflare vamos acessar nosso domínio para finalizar alguns configurações adicionais bem importantes. A primeira aba que vamos alterar é a de Crypto.</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/015.png">
+<p>Dentro dessa aba devemos nos certificar que está configurado para Full, esse já é o padrão e provavelmente não tera que alterar nada.</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/016.png">
+<p>Após esse processo devemos habilitar o redirecionamento de HTTP para HTTPS por padrão, assim qualquer acesso vindo ao nosso site será redirecionado.</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/017.png">
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/018.png">
+<h2 id="Otimizacoes-na-entrega-de-conteudo"><a href="#Otimizacoes-na-entrega-de-conteudo" class="headerlink" title="Otimizações na entrega de conteúdo"></a>Otimizações na entrega de conteúdo</h2><p>Após as configurações básicas passadas acima existem outras que podemos fazer para otimizar nosso site, esses passos são opcionais, mas podem ajudar bastante a aumentar a performance de sua aplicação.</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/019.png">
+<p>Na aba Speed, vamos encontrar algumas configurações para otimizar a entrega de conteúdo, a principal delas é a minificação dos assets de sua aplicação de forma automática, o que é extremamente útil.</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/020.png">
+<p>Existem diversas outras opções muito interessantes como o Rate Limiting que fica na aba de Firewall, que pode ser configurado também mas que não são tão importantes nesse momento, mas não deixe de dar uma olhada com mais calma em todas as opções que a CloudFlare disponibiliza.</p>
+<p>Após concluída a migração do DNS é esperado que seja mostrado essa mensagem na tela inicial do seu domínio dentro CloudFlare.</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/021.png">
+<h2 id="Migrando-sua-Github-Page-para-seu-dominio-definitivo"><a href="#Migrando-sua-Github-Page-para-seu-dominio-definitivo" class="headerlink" title="Migrando sua Github Page para seu domínio definitivo"></a>Migrando sua Github Page para seu domínio definitivo</h2><p>Após finalizada a configuração necessária dentro da CloudFlare chegou a hora de transferir sua Github Page para o seu domínio. O processo é bastante simples, dentro do seu repositório no Github acesse a aba Settings, alterando em Custom domain para seu domínio como abaixo:</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/022.png">
+<p>Tudo correndo bem no processo, já temos nosso site no ar com o certificado SSL implementado, e com toda infraestrutura necessária para um site de pequeno e até de médio porte.</p>
+<img src="/2018/11/10/publish-site-with-github-pages-cloudflare/023.png">
+<p>Por hoje é isso, espero que esse artigo lhe seja útil. Qualquer dúvida ou sugestões de melhora deixe aqui nos comentários.</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Cloudflare/">Cloudflare</a>, <a class="has-link-grey -link" href="/tags/Frontend/">Frontend</a>, <a class="has-link-grey -link" href="/tags/Github-Pages/">Github Pages</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5be9af6fb1e18cc9"></script>
+
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2017/11/15/golang-desbravando-uma-linguagem-de-programacao-parte-3/">
+                <span class="level-item">GoLang, desbravando uma linguagem de programação — Parte 3 (Final)</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comentários</h3>
+        <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-comments" data-width="100%" data-href="https://meneguite.com/2018/11/10/publish-site-with-github-pages-cloudflare/" data-num-posts="5"></div>
+
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-3-tablet is-3-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6 is-rounded" src="https://avatars0.githubusercontent.com/u/8209481">
+                    
+                    <p class="is-size-4 is-block">
+                        Ronaldo Meneguite
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Just another tech enthusiast
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Brasil</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        
+        
+            <div class="level is-mobile">
+                
+                <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/meneguite">
+                    
+                        <i class="fab fa-github fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank" title="Linkedin" href="https://www.linkedin.com/in/ronaldomeneguite">
+                    
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://www.facebook.com/ronaldomeneguite">
+                    
+                        <i class="fab fa-facebook fa-2x"></i>
+                    
+                </a>
+                
+            </div>
+        
+        <hr>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Artigos
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        4
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categorias
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+    
+        
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categorias
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/">
+            <span class="level-start">
+                <span class="level-item">Desenvolvimento</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/">
+            <span class="level-start">
+                <span class="level-item">Infraestrutura</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Backend/">
+                        <span class="level-start">
+                            <span class="level-item">Backend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Cloudflare/">
+                        <span class="level-start">
+                            <span class="level-item">Cloudflare</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Frontend/">
+                        <span class="level-start">
+                            <span class="level-item">Frontend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Github-Pages/">
+                        <span class="level-start">
+                            <span class="level-item">Github Pages</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Golang/">
+                        <span class="level-start">
+                            <span class="level-item">Golang</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Programacao/">
+                        <span class="level-start">
+                            <span class="level-item">Programação</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <!--<a class="footer-logo is-block has-mb-6" href="/">-->
+                <!---->
+                    <!--<img src="/images/logo.svg" alt="" height="28">-->
+                <!---->
+                <!--</a>-->
+                <p class="is-size-7">
+                &copy; 2018 Ronaldo Meneguite&nbsp;
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons fa-2x"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by fa-2x"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("pt-BR");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+<script src="/js/back-to-top.js"></script>
+
+
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Digite alguma coisa...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Artigos',
+                PAGES: 'Páginas',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
