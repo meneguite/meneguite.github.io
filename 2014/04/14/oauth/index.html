@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html  lang="pt">
+<head>
+    <meta charset="utf-8">
+<title>OAuth - Ronaldo Meneguite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+
+
+    <meta name="description" content="O OAuth é um padrão aberto para autorização, responsável por fornecer um método para acessar os recursos do servidor em nome de seu proprietário, além de fornecer também um processo para que os usuári">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OAuth">
+<meta property="og:url" content="https://meneguite.com/2014/04/14/oauth/index.html">
+<meta property="og:site_name" content="Ronaldo Meneguite">
+<meta property="og:description" content="O OAuth é um padrão aberto para autorização, responsável por fornecer um método para acessar os recursos do servidor em nome de seu proprietário, além de fornecer também um processo para que os usuári">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://meneguite.com/2014/04/14/oauth/002.jpg">
+<meta property="og:image" content="https://meneguite.com/2014/04/14/oauth/003.jpg">
+<meta property="og:image" content="https://meneguite.com/2014/04/14/oauth/004.jpg">
+<meta property="og:image" content="https://meneguite.com/2014/04/14/oauth/005.jpg">
+<meta property="article:published_time" content="2014-04-14T21:00:00.000Z">
+<meta property="article:modified_time" content="2020-02-09T21:15:55.509Z">
+<meta property="article:author" content="Ronaldo Meneguite">
+<meta property="article:tag" content="Autenticação Centralizada">
+<meta property="article:tag" content="OAuth">
+<meta property="article:tag" content="OAuth 2">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://meneguite.com/2014/04/14/oauth/002.jpg">
+<meta property="fb:admins" content="ronaldomeneguite">
+<meta property="fb:app_id" content="284008812234350">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<!--
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+-->
+
+<link rel="stylesheet" href="/css/bulma.css">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro.css">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129084799-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129084799-1');
+</script>
+
+
+    
+    
+
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body class="is-2-column ">
+    <nav class="navbar navbar-main">
+    <div class="container is-fluid">
+        <!--<div class="navbar-brand is-flex-center">-->
+            <!--<a class="navbar-item navbar-logo" href="/">-->
+            <!---->
+                <!--<img src="/images/logo.svg" alt="" height="28">-->
+            <!---->
+            <!--</a>-->
+        <!--</div>-->
+        <div class="navbar-menu alignright">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categorias</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/archives">Histórico</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Pesquisar" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section ">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main is-fullwidth"><div class="card">
+    <div class="card-content article ">
+
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                OAuth
+            
+        </h1>
+        
+            <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+                <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2014-04-14T21:00:00.000Z">14/04/2014</time>
+                    
+                        <div class="level-item">
+                            <a class="has-link-grey -link" href="/categories/Infraestrutura/">Infraestrutura</a>
+                        </div>
+                    
+                    
+                    <span class="level-item has-text-grey">
+                    
+                    
+                    [ Ronaldo Meneguite ]
+                    <!--13 minutos read (About 1918 words)-->
+                    </span>
+                    
+                </div>
+            </div>
+        
+        
+        <div class="content">
+            <html><head></head><body><p>O OAuth é um padrão aberto para autorização, responsável por fornecer um método para acessar os recursos do servidor em nome de seu proprietário, além de fornecer também um processo para que os usuários possam autorizar o acesso de terceiros aos seus recursos, sem compartilhar suas credenciais.</p>
+<p>O OAuth permite a aplicações acessar dados de um usuário de forma segura, sem que para isso o usuário necessite disponibilizar suas senhas.</p>
+<a id="more"></a>
+
+<h2 id="Historia"><a href="#Historia" class="headerlink" title="História"></a>História</h2><p>O OAuth teve seu início por volta de novembro de 2006, quando Blaine Cook foi trabalhar na implementação Twitter OpenID e ao buscar uma maneira de usar o OpenID em conjunto com a API do Twitter se juntou a outros que possuíam necessidades similares, como Chris Messina, David Recordon e Larry Halff,  analisaram as funcionalidades do OpenID e soluções práticas de outras empresas, e chegaram a conclusão de que não havia nenhum padrão aberto para a delegação de acesso à API. Em julho de 2007, agora com o apoio do Google, foi elaborada uma especificação inicial e o projeto foi aberto a qualquer pessoa interessada em contribuir. Em 3 de Outubro de 2007, a versão final do Núcleo OAuth 1.0 foi lançada.</p>
+<p>A primeira versão do OAuth foi projetada para lidar com autorização de aplicações web cliente-servidor, não definindo como lidar com autorização em aplicações móveis, desktop, javascript ou extensões do navegador por exemplo. Assim essas aplicações ao implementar o OAuth 1.0, normalmente possuíam métodos inconsistentes e muitas vezes de qualidade inferior,  visto que eram obrigados a adaptar o protocolo a sua necessidade. </p>
+<p>Com o lançamento da versão 2.0 do protocolo, essa limitação foi eliminada, visto que já foi projetada para trabalhar com todos esses tipos de aplicações de forma nativa. </p>
+<h2 id="Porque-usar-uma-OAuth-ao-inves-de-senhas"><a href="#Porque-usar-uma-OAuth-ao-inves-de-senhas" class="headerlink" title="Porque usar uma OAuth ao invés de senhas?"></a>Porque usar uma OAuth ao invés de senhas?</h2><p>Para Boyd(2012) existem várias razões para se utilizar OAuth, sendo as principais:</p>
+<ul>
+<li><strong><em>Confiança</em></strong>: O usuário pode não confiar em fornecer a senha a sua aplicação.</li>
+<li><strong><em>Acesso e risco além do necessário</em></strong>: Ao fornecer sua senha a uma aplicação, o usuário disponibiliza não somente os dados necessários para ela, mais sim todos os dados que estão vinculados a aquela conta. Assim quando o usuário confia sua senha, cabe à mesma armazená-las de forma segura, criando mecanismos com o objetivo de evitar o vazamento dessa informação, o que pode gerar um custo desnecessário para a empresa.</li>
+<li><strong><em>Alteração de Senha</em></strong>: Ao alterar a senha de uma conta, todas as aplicações vinculadas a ela irão parar de funcionar, fazendo que o usuário tenha que acessar aplicação a aplicação para inserir a nova senha. </li>
+<li><strong><em>Revogação</em></strong>: A única maneira de revogar o acesso à aplicação será o usuário alterar suas senhas, o que também revoga o acesso a todos os outros aplicativos que o mesmo tenha concedido essa informação.</li>
+</ul>
+<h2 id="Papeis-no-OAuth"><a href="#Papeis-no-OAuth" class="headerlink" title="Papéis no OAuth"></a>Papéis no OAuth</h2><p>Existem vários componentes chaves que compõe os fluxos do protocolo OAuth. São eles:</p>
+<ul>
+<li><strong><em>Servidor de recursos</em></strong> : O servidor que hospeda os recursos de propriedade do usuário que estão protegidos por OAuth. Este é normalmente um provedor de API que mantém e protege os dados, como fotos, vídeos, calendários e contatos. </li>
+<li><strong><em>Proprietário dos recursos</em></strong>: Normalmente, o usuário de um aplicativo, o proprietário do recurso tem a capacidade de conceder acesso aos seus próprios dados hospedado no servidor de recursos. </li>
+<li><strong><em>Cliente</em></strong>: É aquele que envia uma requisição à API, solicitando um recurso protegido em nome do proprietário. </li>
+<li><strong><em>Servidor de autorização</em></strong>: O servidor responsável por receber a autorização de proprietário do recurso e conceder tokens de acesso para o cliente poder acessar, em nome do proprietário, os recursos protegidos hospedados em um servidor de recursos. </li>
+</ul>
+<p>Fornecedores de API menores podem usar o mesmo aplicativo e URL, tanto para o servidor de autorização, quanto para o servidor de recursos. </p>
+<h2 id="Perfis-de-Clientes-no-OAuth-2-0"><a href="#Perfis-de-Clientes-no-OAuth-2-0" class="headerlink" title="Perfis de Clientes no OAuth 2.0"></a>Perfis de Clientes no OAuth 2.0</h2><p>Existem três perfis de clientes implementados no OAuth 2.0, são eles: Aplicação executada pelo servidor (server-side), Aplicação executada pelo navegador de internet do cliente (client-side) e Aplicações nativas</p>
+<h3 id="Aplicacao-executada-pelo-servidor-server-side"><a href="#Aplicacao-executada-pelo-servidor-server-side" class="headerlink" title="Aplicação executada pelo servidor (server-side)"></a>Aplicação executada pelo servidor (server-side)</h3><p>Para esse perfil a aplicação web é acessada por um usuário, proprietário do recurso, e ao ser consultada faz as chamadas da API apropriadas usando uma linguagem de programação do lado do servidor, não disponibilizando ao usuário o acesso aos tokens OAuth emitidos pelo servidor de autorização . </p>
+<p>Na ilustração abaixo é demonstrado o fluxo de uma aplicação que busca autorização pelo lado do servidor.</p>
+<img src="/2014/04/14/oauth/002.jpg" class title="Aplicação executada pelo servidor (server-side)">
+<p align="center">Aplicação executada pelo servidor (server-side)</p>
+
+<h3 id="Aplicacao-executada-pelo-navegador-do-cliente-client-side"><a href="#Aplicacao-executada-pelo-navegador-do-cliente-client-side" class="headerlink" title="Aplicação executada pelo navegador do cliente (client-side)"></a>Aplicação executada pelo navegador do cliente (client-side)</h3><p>Nesse perfil o acesso a API é efetuada diretamente no cliente, por intermédio de seu navegador, onde o mesmo tem acesso ao código do aplicativo e suas solicitações. Dessa forma o aplicativo pode ser distribuído em linguagem javascript, ou em uma extensão do navegador ou ainda usando uma tecnologia plug-in como o Flash. </p>
+<p>Esse perfil, por rodar em um ambiente com pouco ou nenhum controle, possui fragilidades as quais fazem com que, por medida de segurança, alguns provedores não permitam o armazenamento de credenciais para clientes que utilizam esse perfil.</p>
+<img src="/2014/04/14/oauth/003.jpg" class title="Aplicação executada pelo cliente (client-side)">
+<p align="center">Aplicação executada pelo cliente (client-side)</p>
+
+<h3 id="Aplicacoes-nativas"><a href="#Aplicacoes-nativas" class="headerlink" title="Aplicações nativas"></a>Aplicações nativas</h3><p>Aplicações com esse perfil são desenvolvidas para rodar como um aplicativo nativo em diversos dispositivos como computadores, smartphones ou tablets. Podendo assim aproveitar de todos os recursos do sistema operacional ao qual o dispositivo disponibiliza. Essas aplicações possuem características muito similares às executadas pelos navegadores de internet, como por exemplo, o fato de não ser um ambiente confiável para o armazenamento de credenciais. Porém como destaca Boyd(2012), uma vez que o aplicativo é instalado, pode não ter acesso a todos os recursos, como teria em um navegador de internet.</p>
+<h3 id="Fluxo-de-Autorizacao"><a href="#Fluxo-de-Autorizacao" class="headerlink" title="Fluxo de Autorização"></a>Fluxo de Autorização</h3><p>Cada um dos perfis citados anteriormente precisa fazer uso de um protocolo adequado para a obtenção de autorização do proprietário do recurso de acesso a seus dados. </p>
+<p>Em seu núcleo, o protocolo OAuth 2.0 define quatro principais mecanismos para a obtenção dessa autorização, além de também definir um de extensão para permitir tipos de autorização adicionais .</p>
+<h3 id="Concessao-de-codigo-de-autorizacao"><a href="#Concessao-de-codigo-de-autorizacao" class="headerlink" title="Concessão de código de autorização"></a>Concessão de código de autorização</h3><p>Esse tipo de concessão é mais adequado para aplicações web que utilizam o perfil server-side. Depois que o proprietário do recurso autorizou o acesso a seus dados, eles são redirecionados de volta para a aplicação web com um código de autorização como um parâmetro de consulta na URL, sendo que este código deve ser trocado por um token de acesso pelo aplicativo cliente. Esta troca é feita de servidor para servidor e requer o client_id e client_secret, impedindo até mesmo o proprietário do recurso de obter o token de acesso. </p>
+<p>Este tipo de concessão também permite o acesso de longa duração para uma API usando fichas de atualização.</p>
+<p>Uma representação desse fluxo é demonstrada na ilustração abaixo, onde podemos visualizar a solicitação do recurso pelo cliente para o proprietário do recurso, que responde com uma concessão de autorização gerada pelo servidor de autorização, logo após a concessão de autorização é enviada ao servidor de autorização, que responde com um token de acesso que é usado para acessar o servidor de recursos e obter os dados aos quais obteve autorização prévia.</p>
+<img src="/2014/04/14/oauth/004.jpg" class title="Fluxo de Código de Autorização">
+<p align="center">Fluxo de Código de Autorização</p>
+
+<h3 id="Concessao-implicita"><a href="#Concessao-implicita" class="headerlink" title="Concessão implícita"></a>Concessão implícita</h3><p>As concessões implícitas estão disponíveis como um método simplificado de geração do token de acesso para clientes públicos baseados em navegadores, pois ao invés de gerar uma concessão intermediária, como acontece no fluxo de Código de autorização, o token de acesso é emitido diretamente ao cliente depois de autenticar o proprietário do recurso.</p>
+<p>As etapas ilustradas na imagem abaixo demonstram o fluxo de uma concessão implícita, onde :</p>
+<ul>
+<li>1ª Etapa: O aplicativo solicita ao usuário a permissão de acesso a API do Facebook.</li>
+<li>2ª Etapa: O usuário se conecta ao servidor de recursos por meio de uma URL que inclui informações sobre o aplicativo que está tentando acessar a API, como por exemplo, o client_id, e fornece um nome de usuário e senha para fazer login no facebook.</li>
+<li>3ª Etapa: Com login efetuado com sucesso, o facebook concede ao aplicativo um token de acesso.</li>
+<li>4ª Etapa: O aplicativo pode obter acesso aos recursos do usuário ao se utilizar do token recebido na etapa anterior.</li>
+</ul>
+<img src="/2014/04/14/oauth/005.jpg" class title="Fluxo de concessão implícita">
+<p align="center">Fluxo de concessão implícita</p>
+<p align="center">Fonte: KULP (2013)</p>
+
+<h3 id="Concessao-com-usuario-e-senha"><a href="#Concessao-com-usuario-e-senha" class="headerlink" title="Concessão com usuário e senha"></a>Concessão com usuário e senha</h3><p>Este tipo de concessão consiste em ao obter um nome de usuário do proprietário de um recurso e uma senha para que esses dados possam ser trocados por um token de acesso OAuth. Este tipo de concessão deve ser usado somente para clientes altamente confiáveis, tais como aplicações móveis escritas pelo provedor da API, visto que a senha do usuário é exposta ao cliente, que não necessita de armazená-la no dispositivo. </p>
+<p>Após a autenticação inicial, apenas o token OAuth precisa de ser armazenado. Como a senha não é armazenada, o usuário pode revogar o acesso ao aplicativo sem alterar a senha, e o token é limitado a um conjunto de dados previamente autorizado pelo proprietário dos recursos, de modo que este tipo de concessão ainda proporciona maior segurança sobre a autenticação de usuário / senha tradicional.</p>
+<h3 id="Concessao-de-credenciais-para-o-cliente"><a href="#Concessao-de-credenciais-para-o-cliente" class="headerlink" title="Concessão de credenciais para o cliente"></a>Concessão de credenciais para o cliente</h3><p>A concessão de credenciais de um cliente permite que um aplicativo possa obter um token de acesso a recurso de propriedade do cliente quando a autorização foi previamente definida com o servidor de autorização. Sendo esse tipo de concessão adequada para aplicações que precisam acessar APIs, tais como serviços de armazenamento ou banco de dados em nome da aplicação ou do fornecedor da aplicação e não em nome de um usuário específico.</p>
+<h3 id="Concessao-de-credenciais-para-um-dispositivo"><a href="#Concessao-de-credenciais-para-um-dispositivo" class="headerlink" title="Concessão de credenciais para um dispositivo"></a>Concessão de credenciais para um dispositivo</h3><p>O concessão de credenciais para um dispositivo foi criada para permitir que o protocolo OAuth possa ser usado em dispositivos mais limitados, sem os recursos necessários para obter uma autorização por si só. Essa consiste em iniciar o fluxo no dispositivo e então utilizar dispositivo auxiliar, como um computador, por exemplo, para acessar um site e aprovar o acesso, digitando um código de autorização exibida no dispositivo.</p>
+<h2 id="Bibliografia"><a href="#Bibliografia" class="headerlink" title="Bibliografia"></a>Bibliografia</h2><p>BOYD, R. Getting Started with OAuth 2.0. Sebastopol: O’Reilly Media, 2012.</p>
+<p>KULP, T. Access Online Services with the Windows Runtime and OAuth. MSDN Magazine, 2014. Disponivel em:<br><<a href="http://msdn.microsoft.com/pt-br/magazine/jj883954(en-us).aspx" target="_blank" rel="noopener">http://msdn.microsoft.com/pt-br/magazine/jj883954(en-us).aspx</a>>. Acesso em: Março 2014.</p>
+</body></html>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Autenticacao-Centralizada/" rel="tag">Autenticação Centralizada</a>, <a class="has-link-grey -link" href="/tags/OAuth/" rel="tag">OAuth</a>, <a class="has-link-grey -link" href="/tags/OAuth-2/" rel="tag">OAuth 2</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5be9af6fb1e18cc9"></script>
+
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2017/10/01/golang-desbravando-uma-linguagem-de-programacao-parte-1/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">GoLang, desbravando uma linguagem de programação - Parte 1</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2010/03/04/replicacao-com-openldap/">
+                <span class="level-item">Replicação com OpenLdap</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comentários</h3>
+        <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-comments" data-width="100%" data-href="https://meneguite.com/2014/04/14/oauth/" data-num-posts="5"></div>
+
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6 is-rounded" src="https://avatars0.githubusercontent.com/u/8209481" alt="avatar">
+                    
+                    <p class="is-size-4 is-block">
+                        Ronaldo Meneguite
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Just another tech enthusiast
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Brasil</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        
+        
+            <div class="level is-mobile">
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Github" href="http://github.com/meneguite">
+                    
+                        <i class="fab fa-github fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Linkedin" href="https://www.linkedin.com/in/ronaldomeneguite">
+                    
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Facebook" href="https://www.facebook.com/ronaldomeneguite">
+                    
+                        <i class="fab fa-facebook fa-2x"></i>
+                    
+                </a>
+                
+            </div>
+        
+        <hr />
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Artigos
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        11
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categorias
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        4
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        23
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+    
+        
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categorias
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/">
+            <span class="level-start">
+                <span class="level-item">Desenvolvimento</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/Backend/">
+            <span class="level-start">
+                <span class="level-item">Backend</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/Frontend/">
+            <span class="level-start">
+                <span class="level-item">Frontend</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/">
+            <span class="level-start">
+                <span class="level-item">Infraestrutura</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Adapter-Pattern/">
+                        <span class="level-start">
+                            <span class="level-item">Adapter Pattern</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Autenticacao-Centralizada/">
+                        <span class="level-start">
+                            <span class="level-item">Autenticação Centralizada</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Backend/">
+                        <span class="level-start">
+                            <span class="level-item">Backend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Cloudflare/">
+                        <span class="level-start">
+                            <span class="level-item">Cloudflare</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Design-Patterns/">
+                        <span class="level-start">
+                            <span class="level-item">Design Patterns</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Frontend/">
+                        <span class="level-start">
+                            <span class="level-item">Frontend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Github-Pages/">
+                        <span class="level-start">
+                            <span class="level-item">Github Pages</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Golang/">
+                        <span class="level-start">
+                            <span class="level-item">Golang</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Infraestrutura/">
+                        <span class="level-start">
+                            <span class="level-item">Infraestrutura</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/LDAP/">
+                        <span class="level-start">
+                            <span class="level-item">LDAP</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Ldap/">
+                        <span class="level-start">
+                            <span class="level-item">Ldap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OAuth/">
+                        <span class="level-start">
+                            <span class="level-item">OAuth</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OAuth-2/">
+                        <span class="level-start">
+                            <span class="level-item">OAuth 2</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Observer-Pattern/">
+                        <span class="level-start">
+                            <span class="level-item">Observer Pattern</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OpenLdap/">
+                        <span class="level-start">
+                            <span class="level-item">OpenLdap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/PWA/">
+                        <span class="level-start">
+                            <span class="level-item">PWA</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Padroes-de-Projeto/">
+                        <span class="level-start">
+                            <span class="level-item">Padrões de Projeto</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Programacao/">
+                        <span class="level-start">
+                            <span class="level-item">Programação</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Progressive-Web-Apps/">
+                        <span class="level-start">
+                            <span class="level-item">Progressive Web Apps</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Slack/">
+                        <span class="level-start">
+                            <span class="level-item">Slack</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Tutoriais/">
+                        <span class="level-start">
+                            <span class="level-item">Tutoriais</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Typescript/">
+                        <span class="level-start">
+                            <span class="level-item">Typescript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Utilitario/">
+                        <span class="level-start">
+                            <span class="level-item">Utilitario</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="card card-transparent is-hidden-desktop is-hidden-widescreen">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+	<div class="container">
+		<div class="level">
+			<div class="level-start has-text-centered-mobile">
+				<!-- <a class="footer-logo is-block has-mb-6" href="/">
+					
+					<img src="/images/logo.svg" alt="" height="28">
+					
+				</a> -->
+				<p class="is-size-7">
+					&copy; 2020 Ronaldo Meneguite&nbsp;
+				</p>
+			</div>
+			<div class="level-end">
+				
+				<div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+					
+					
+					<span class="control">
+						<a class="button is-white is-large" target="_blank"
+							title="Creative Commons" href="https://creativecommons.org/">
+							
+							<i class="fab fa-creative-commons fa-2x"></i>
+							
+						</a>
+					</span>
+					
+					<span class="control">
+						<a class="button is-white is-large" target="_blank"
+							title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+							
+							<i class="fab fa-creative-commons-by fa-2x"></i>
+							
+						</a>
+					</span>
+					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</footer>
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+
+<script>moment.locale("pt-BR");</script>
+
+
+    
+    
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+
+    
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+
+<script src="/js/back-to-top.js"></script>
+
+
+
+    
+    
+
+    
+    
+    
+
+
+
+<script src="/js/main.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Digite alguma coisa..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Artigos',
+                PAGES: 'Páginas',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+<link rel="stylesheet" href="/css/search.css">
+
+
+<link rel="stylesheet" href="/css/insight.css">
+
+    
+</body>
+</html>
