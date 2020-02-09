@@ -2,26 +2,24 @@
 <html  lang="pt">
 <head>
     <meta charset="utf-8">
-<title>PWA - More than Web Apps, Progressive Web Apps! - Ronaldo Meneguite</title>
+<title>Replicação com OpenLdap - Ronaldo Meneguite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
 
 
-    <meta name="description" content="Falar sobre PWA é algo que sempre curto bastante, e ontem tive a oportunidade de apresentar uma talk em nosso grupo do GDG (Google Developer Groups) Cataguases, onde tentei passar minha visão sobre es">
+    <meta name="description" content="Nesse artigo iremos demonstrar o funcionamento do sistema de replicação com o OpenLDAP. Replicação é a manutenção de uma cópia, seja parcial ou total, dos dados em outros servidores. Este é um método">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PWA - More than Web Apps, Progressive Web Apps!">
-<meta property="og:url" content="https://meneguite.com/2019/09/09/pwa-processive-web-apps/index.html">
+<meta property="og:title" content="Replicação com OpenLdap">
+<meta property="og:url" content="https://meneguite.com/2010/03/04/replicacao-com-openldap/index.html">
 <meta property="og:site_name" content="Ronaldo Meneguite">
-<meta property="og:description" content="Falar sobre PWA é algo que sempre curto bastante, e ontem tive a oportunidade de apresentar uma talk em nosso grupo do GDG (Google Developer Groups) Cataguases, onde tentei passar minha visão sobre es">
+<meta property="og:description" content="Nesse artigo iremos demonstrar o funcionamento do sistema de replicação com o OpenLDAP. Replicação é a manutenção de uma cópia, seja parcial ou total, dos dados em outros servidores. Este é um método">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:image" content="https://meneguite.com/2019/09/09/pwa-processive-web-apps/001.png">
-<meta property="article:published_time" content="2019-09-09T15:10:12.000Z">
-<meta property="article:modified_time" content="2020-02-09T16:35:47.696Z">
+<meta property="article:published_time" content="2010-03-04T23:52:23.000Z">
+<meta property="article:modified_time" content="2019-11-09T01:51:19.000Z">
 <meta property="article:author" content="Ronaldo Meneguite">
-<meta property="article:tag" content="PWA">
-<meta property="article:tag" content="Progressive Web Apps">
+<meta property="article:tag" content="Infraestrutura">
+<meta property="article:tag" content="Ldap">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://meneguite.com/2019/09/09/pwa-processive-web-apps/001.png">
 <meta property="fb:admins" content="ronaldomeneguite">
 <meta property="fb:app_id" content="284008812234350">
 
@@ -178,16 +176,16 @@
 
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                PWA - More than Web Apps, Progressive Web Apps!
+                Replicação com OpenLdap
             
         </h1>
         
             <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
                 <div class="level-left">
-                    <time class="level-item has-text-grey" datetime="2019-09-09T15:10:12.000Z">09/09/2019</time>
+                    <time class="level-item has-text-grey" datetime="2010-03-04T23:52:23.000Z">04/03/2010</time>
                     
                         <div class="level-item">
-                            <a class="has-link-grey -link" href="/categories/Desenvolvimento/">Desenvolvimento</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Desenvolvimento/Frontend/">Frontend</a>
+                            <a class="has-link-grey -link" href="/categories/Infraestrutura/">Infraestrutura</a>
                         </div>
                     
                     
@@ -195,32 +193,50 @@
                     
                     
                     [ Ronaldo Meneguite ]
-                    <!--poucos segundos read (About 94 words)-->
+                    <!--6 minutos read (About 954 words)-->
                     </span>
                     
                 </div>
             </div>
         
         
-          <div class="card-image">
-             <span  class="image">
-             <img class="thumbnail" src="/2019/09/09/pwa-processive-web-apps/001.png" alt="PWA - More than Web Apps, Progressive Web Apps!" />
-             </span>
-          </div>
-        
         <div class="content">
-            <html><head></head><body><p>Falar sobre PWA é algo que sempre curto bastante, e ontem tive a oportunidade de apresentar uma talk em nosso grupo do GDG (Google Developer Groups) Cataguases, onde tentei passar minha visão sobre esse tema e demonstrar o quão relevante será seu futuro ( o presente também é claro :) ), passando os conceitos envolvidos no tema, bem como ferramentas e soluções que o completam e fazem das progressive web apps, ao meu ver, o futuro da esmagadora maioria das aplicações.</p>
+            <html><head></head><body><p>Nesse artigo iremos demonstrar o funcionamento do sistema de replicação com o OpenLDAP. Replicação é a manutenção de uma cópia, seja parcial ou total, dos dados em outros servidores. Este é um método muito utilizado quando trabalhamos em um ambiente corporativo, onde temos a necessidade de alta disponibilidade nos serviços.</p>
 <a id="more"></a>
-<p>Abaixo deixo os slides da talk, feedback são sempre bem vindos ;)</p>
-<div style="text-align:center">
-    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQEFZo-OKmPJ2elNJrlXxVw24utgMCvMTYnSZmlUtupXJij5Lt1cQLWImJPcPR8JMhD6KKiSApSTTgZ/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" <pre><code>&gt;&lt;/iframe&gt;</code></pre></div></iframe></div></body></html>
+
+<h2 id="Base-Teorica-Sobre-Replicacao-no-OpenLdap"><a href="#Base-Teorica-Sobre-Replicacao-no-OpenLdap" class="headerlink" title="Base Teórica Sobre Replicação no OpenLdap"></a>Base Teórica Sobre Replicação no OpenLdap</h2><p>Replicação é a manutenção de uma cópia, seja parcial ou total, dos dados em outros servidores. Esse é um método muito utilizado quando trabalhamos em um ambiente corporativo, onde temos a necessidade de alta disponibilidade nos serviços.</p>
+<p>No OpenLDAP existem duas técnicas distintas de replicação as quais são o slurpd e o syncrepl, sendo que a slurpd é uma técnica mais antiga a qual foi descontinuada na versão 2.4 do OpenLDAP por possuir uma série de limitações que foram supridas por sua sucessora a syncrepl. As principais limitações eram a replicação parcial de uma base e a utilização de mais de um servidor master.</p>
+<p>Quando trabalhamos com o syncrepl, o servidor LDAP pode assumir duas posturas quanto à replicação: master ou slave. Quando master, o servidor assume todas as funções de um servidor OpenLDAP, desde a inserção, atualização e consulta dos dados. Porém, quando slave, o servidor só aceitará execuções de consultas em sua base de dados quando originadas de máquinas clientes. Assim, para que qualquer informação seja alterada, a solicitação deverá ser feita ao servidor Master, o qual se encarregará de replicar as alterações para seus servidores slaves.</p>
+<h2 id="Replicacao-Master-x-Slave"><a href="#Replicacao-Master-x-Slave" class="headerlink" title="Replicação Master x Slave"></a>Replicação Master x Slave</h2><p>Nesse método de replicação temos um único servidor master, o qual tem seu conteúdo replicado em todos os seus servidores slaves. Nesses servidores slaves não ocorre entrada de dados, apenas replicam passivamente os dados de um servidor principal. Esse método de replicação é o mais comum e atende a grande parte das demandas de servidores LDAP.</p>
+<h2 id="Replicacao-Master-x-Master-Multimaster"><a href="#Replicacao-Master-x-Master-Multimaster" class="headerlink" title="Replicação Master x Master (Multimaster)"></a>Replicação Master x Master (Multimaster)</h2><p>Replicação multimaster é o método de replicação mais recente no OpenLDAP, porém já implementado no Active Directory desde suas primeiras versões. Esta é uma replicação que atende a demandas muito singulares e apesar de funcionar muito bem, ainda é pouco difundida e aplicada.</p>
+<p>Esta replicação consiste na utilização de dois ou mais servidores masters, independentes, os quais possuem todas as suas funcionalidades ativadas, porém é criado por parte dos servidores um controle interno para que seja possível manter a integridade dos dados, algo que era muito mais simples de controlar quando existia uma única entrada de dados.</p>
+<h2 id="Diretorios-Distribuidos"><a href="#Diretorios-Distribuidos" class="headerlink" title="Diretórios Distribuídos"></a>Diretórios Distribuídos</h2><p>Utilizando o OpenLDAP com o método de replicação syncrepl podemos não somente criar uma cópia da árvore de diretórios em outros servidores, mas também criar políticas de replicação e replicar a cada servidor somente aquilo que se pretende que o mesmo tenha acesso, assim por exemplo, quando temos uma empresa com sede em Minas Gerais e filial em São Paulo, a mesma não precisa replicar toda sua base para a filial, apenas aqueles usuários que a pertençam, evitando assim um tráfego desnecessário na rede além de aumentar a segurança.</p>
+<h2 id="Exemplo-de-Configuracao"><a href="#Exemplo-de-Configuracao" class="headerlink" title="Exemplo de Configuração"></a>Exemplo de Configuração</h2><p>Bom, abaixo iremos apresentar um exemplo de configuração de replicação para o OpenLDAP fazendo uso da estrutura Master x Slave. Consideraremos que já possuímos dois servidores configurados com o servidor OpenLDAP instalado e funcionando, assim apenas demonstraremos os parâmetros relacionados as replicações entre os servidores. A distribuição Linux utilizada foi Debian 5 e o OpenLDAP na versão 2.4.9.</p>
+<h3 id="Configuracao-Master-X-Slave"><a href="#Configuracao-Master-X-Slave" class="headerlink" title="Configuração Master X Slave"></a>Configuração Master X Slave</h3><h4 id="Configurando-o-Servidor-Master"><a href="#Configurando-o-Servidor-Master" class="headerlink" title="Configurando o Servidor Master"></a>Configurando o Servidor Master</h4><p>Inicialmente o arquivo a ser alterado é o arquivo principal de configuração do OpenLDAP o /etc/ldap/slapd.conf. Alterando o parâmetro modulepath para syncprov e inserindo as seguintes linhas logo abaixo da opção “index”:</p>
+<figure class="highlight pgsql hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">overlay syncprov</span><br><span class="line">syncprov-<span class="hljs-keyword">checkpoint</span> <span class="hljs-number">100</span> <span class="hljs-number">10</span></span><br><span class="line">syncprov-sessionlog <span class="hljs-number">100</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>Devemos Inserir também junto a ACL responsável pelos atributos de senha, userPassword e shadowLastChange a seguinte linha:</p>
+<figure class="highlight applescript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">by</span> dn=<span class="hljs-string">"cn=replicator,dc=dominio,dc=com,dc=br"</span> <span class="hljs-built_in">read</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>Assim inserimos a permissão para o usuário replicador, ao qual deve ser criado anteriormente para ler os campos de senha dos usuários, pois sem o acesso a leitura ele não conseguiria efetuar a replicação completa da base.</p>
+<p>Neste ponto foi reiniciado o servidor com o comando:</p>
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/slapd restart</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="Configurando-o-Servidor-Slave"><a href="#Configurando-o-Servidor-Slave" class="headerlink" title="Configurando o Servidor Slave"></a>Configurando o Servidor Slave</h4><p>Iniciaremos a configuração do servidor slave editando o arquivo de configuração /etc/ldap/slapd.conf e removendo o caractere “#” antes da linha “rootdn”, e logo após inserimos as seguintes linhas abaixo de “index”:</p>
+<figure class="highlight routeros hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">syncrepl <span class="hljs-attribute">rid</span>=1</span><br><span class="line"><span class="hljs-attribute">provider</span>=ldap:// servidor1.dominio.com.br:389</span><br><span class="line"><span class="hljs-attribute">type</span>=refreshAndPersist</span><br><span class="line"><span class="hljs-attribute">retry</span>=<span class="hljs-string">"5 + 5 +"</span></span><br><span class="line"><span class="hljs-attribute">interval</span>=00:00:00:10</span><br><span class="line"><span class="hljs-attribute">searchbase</span>=<span class="hljs-string">"dc=dominio,dc=com,dc=br"</span></span><br><span class="line"><span class="hljs-attribute">filter</span>=<span class="hljs-string">"(objectClass=*)"</span></span><br><span class="line"><span class="hljs-attribute">scope</span>=sub</span><br><span class="line"><span class="hljs-attribute">attrs</span>=<span class="hljs-string">"*"</span></span><br><span class="line"><span class="hljs-attribute">schemachecking</span>=on 41</span><br><span class="line"><span class="hljs-attribute">bindmethod</span>=simple</span><br><span class="line"><span class="hljs-attribute">binddn</span>=<span class="hljs-string">"cn=replicator,dc=dominio,dc=com,dc=br"</span></span><br><span class="line"><span class="hljs-attribute">credentials</span>=senha_do_usuario_replicator</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Após os procedimentos acima citados, paramos o servidor OpenLDAP, removemos os diretórios e novamente iniciamos o servidor. Para isso utilizamos as seguintes linhas de comando:</p>
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/slapd stop</span><br><span class="line">rm /var/lib/ldap/*</span><br><span class="line">/etc/init.d/slapd start</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Assim temos agora os dois servidores configurados, sendo que os dados do servidor1.dominio.com.br estão sendo replicados para o servidor2.dominio.com.br, porém o mesmo não tem autoridade sobre os dados fazendo com que para alterarmos qualquer informação na base, teremos que fazer isso no servidor1.dominio.com.br e essa atualização será replicada de imediato para o servidor slave.</p>
+</body></html>
         </div>
         
         <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/PWA/" rel="tag">PWA</a>, <a class="has-link-grey -link" href="/tags/Progressive-Web-Apps/" rel="tag">Progressive Web Apps</a>
+                    <a class="has-link-grey -link" href="/tags/Infraestrutura/" rel="tag">Infraestrutura</a>, <a class="has-link-grey -link" href="/tags/Ldap/" rel="tag">Ldap</a>
                 </div>
             </div>
         </div>
@@ -239,10 +255,17 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2017/10/01/golang-desbravando-uma-linguagem-de-programacao-parte-1/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">GoLang, desbravando uma linguagem de programação - Parte 1</span>
+            </a>
+        </div>
+        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/08/02/como-remover-arquivos-antigos-do-slack/">
-                <span class="level-item">Como remover arquivos antigos do slack</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2009/12/01/ldap-lightweight-directory-access-protocol/">
+                <span class="level-item">LDAP - Lightweight Directory Access Protocol</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -262,7 +285,7 @@
     js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-comments" data-width="100%" data-href="https://meneguite.com/2019/09/09/pwa-processive-web-apps/" data-num-posts="5"></div>
+<div class="fb-comments" data-width="100%" data-href="https://meneguite.com/2010/03/04/replicacao-com-openldap/" data-num-posts="5"></div>
 
 
     </div>
