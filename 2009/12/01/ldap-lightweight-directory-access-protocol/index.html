@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html  lang="pt">
+<head>
+    <meta charset="utf-8">
+<title>LDAP - Lightweight Directory Access Protocol - Ronaldo Meneguite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+
+
+    <meta name="description" content="Este documento tem por objetivo orientar e discorrer sobre um protocolo que, apesar de ser muito utilizado, sendo um padrão em empresas de médio a grande porte, são poucos os que realmente conhecem su">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LDAP - Lightweight Directory Access Protocol">
+<meta property="og:url" content="https://meneguite.com/2009/12/01/ldap-lightweight-directory-access-protocol/index.html">
+<meta property="og:site_name" content="Ronaldo Meneguite">
+<meta property="og:description" content="Este documento tem por objetivo orientar e discorrer sobre um protocolo que, apesar de ser muito utilizado, sendo um padrão em empresas de médio a grande porte, são poucos os que realmente conhecem su">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://meneguite.com/2009/12/01/ldap-lightweight-directory-access-protocol/001.jpg">
+<meta property="article:published_time" content="2009-12-01T21:00:00.000Z">
+<meta property="article:modified_time" content="2020-02-09T20:37:08.970Z">
+<meta property="article:author" content="Ronaldo Meneguite">
+<meta property="article:tag" content="Autenticação Centralizada">
+<meta property="article:tag" content="LDAP">
+<meta property="article:tag" content="OpenLdap">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://meneguite.com/2009/12/01/ldap-lightweight-directory-access-protocol/001.jpg">
+<meta property="fb:admins" content="ronaldomeneguite">
+<meta property="fb:app_id" content="284008812234350">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<!--
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+-->
+
+<link rel="stylesheet" href="/css/bulma.css">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro.css">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129084799-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129084799-1');
+</script>
+
+
+    
+    
+
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body class="is-2-column ">
+    <nav class="navbar navbar-main">
+    <div class="container is-fluid">
+        <!--<div class="navbar-brand is-flex-center">-->
+            <!--<a class="navbar-item navbar-logo" href="/">-->
+            <!---->
+                <!--<img src="/images/logo.svg" alt="" height="28">-->
+            <!---->
+            <!--</a>-->
+        <!--</div>-->
+        <div class="navbar-menu alignright">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categorias</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/archives">Histórico</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Pesquisar" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section ">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main is-fullwidth"><div class="card">
+    <div class="card-content article ">
+
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                LDAP - Lightweight Directory Access Protocol
+            
+        </h1>
+        
+            <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+                <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2009-12-01T21:00:00.000Z">01/12/2009</time>
+                    
+                        <div class="level-item">
+                            <a class="has-link-grey -link" href="/categories/Infraestrutura/">Infraestrutura</a>
+                        </div>
+                    
+                    
+                    <span class="level-item has-text-grey">
+                    
+                    
+                    [ Ronaldo Meneguite ]
+                    <!--39 minutos read (About 5881 words)-->
+                    </span>
+                    
+                </div>
+            </div>
+        
+        
+          <div class="card-image">
+             <span  class="image">
+             <img class="thumbnail" src="/2009/12/01/ldap-lightweight-directory-access-protocol/001.jpg" alt="LDAP - Lightweight Directory Access Protocol" />
+             </span>
+          </div>
+        
+        <div class="content">
+            <html><head></head><body><p>Este documento tem por objetivo orientar e discorrer sobre um protocolo que, apesar de ser muito utilizado, sendo um padrão em empresas de médio a grande porte, são poucos os que realmente conhecem suas funcionalidades mais avançadas. Isso ocorre visto que soluções proprietárias tendem a abstrair esse nível de configuração, engessando um protocolo extremamente flexível, limitando-os a apenas frações de suas funcionalidades.</p>
+<p>No decorrer desse material o leitor será encaminhado por uma introdução sobre os conceitos que são necessários para o entendimento do protocolo, passando pelas implementações dessa ferramenta, hoje disponíveis no mercado; um exemplo de estudo de caso, onde a partir de uma necessidade inicial de um cliente é desenvolvido um estudo de quais ferramentas mais se adequariam aos requisitos, sempre focando a centralização das informações em uma única base LDAP.</p>
+<a id="more"></a>
+
+<h2 id="O-PROTOCOLO-LDAP"><a href="#O-PROTOCOLO-LDAP" class="headerlink" title="O PROTOCOLO LDAP"></a>O PROTOCOLO LDAP</h2><h3 id="Origens-do-LDAP"><a href="#Origens-do-LDAP" class="headerlink" title="Origens do LDAP"></a>Origens do LDAP</h3><p>No início da década de 80, ao se unirem a ISO e o CCITT com o objetivo de criar um serviço de mensagens, surgiu a necessidade de desenvolver um protocolo que tivesse a capacidade de organizar entradas em um serviço de nomes de forma hierárquica, capaz de suportar grandes quantidades de dados e com uma enorme capacidade de procura de informações. Esse serviço criado pelas duas instituições, foi apresentado em 1988, sendo denominado X.500, juntamente com um conjunto de recomendações e normas ISO 9594. O X.500 especificava que a comunicação entre o cliente e o servidor do diretório deveria usar o Directory Access Protocol (DAP) que era executado sobre a pilha de protocolos do modelo OSI.</p>
+<p>Devido à alta complexidade e o custo elevado, pesquisadores da Universidade de Michigan criaram um servidor LDAP, o slapd, que atuava sobre os protocolos TCP/IP. Este servidor foi apresentado como uma alternativa ao protocolo DAP em 1993, como citado por GOUVEIA (2005), disponibilizando as fontes na Internet e criando listas de discussão para divulgar e aperfeiçoar esse novo protocolo. Assim a evolução do mesmo foi acompanhada por pessoas do mundo inteiro, e o mesmo deixou de ser uma mera alternativa para o protocolo DAP, tornando-se um serviço de diretório completo, agora competindo diretamente com o X.500.</p>
+<p>O LDAP é um protocolo especializado em organizar os recursos de rede de forma hierárquica, através de uma árvore de diretórios, que roda sobre os protocolos TCP/IP, diferente do protocolo no qual foi baseado, o DAP, o qual roda sobre o modelo OSI. Para BARTH e SIEWERT (2009) essa foi uma das principais causas da adoção em larga escala do protocolo, visto que com essa nova plataforma foi possível reduzir consideravelmente o overhead1 de camadas superiores do modelo OSI.</p>
+<p>Segundo GOUVEIA (2005) o LDAP ganhou força após o ano de 1997, quando foi lançada sua terceira versão, além de uma fundação a qual mantém uma solução OpenSource a OpenLDAP Foudation, várias outras empresas como Novell, Microsoft e Netscape começaram a oferecer produtos baseados nessa nova plataforma.</p>
+<h3 id="Protocolo-LDAP-vs-X-500"><a href="#Protocolo-LDAP-vs-X-500" class="headerlink" title="Protocolo LDAP vs X.500"></a>Protocolo LDAP vs X.500</h3><p>Segundo TRIGO (2007), o LDAP possui as seguintes simplificações em relação ao X.500:</p>
+<ul>
+<li>É executado diretamente sobre o TCP/IP;</li>
+<li>A maioria dos elementos de dados são representados como cadeias de caracteres, processadas de modo mais fácil que os dados na representação estruturada Abstract Syntax Notation One (ASN.1) usada pelo X.500;</li>
+<li>Codifica dados para transporte em redes usando uma versão simplificada das mesmas regras de codificação usadas pelo X.500;</li>
+<li>Elimina características pouco usadas e também operações redundantes do X.500.</li>
+</ul>
+<img src="/2009/12/01/ldap-lightweight-directory-access-protocol/002.jpg" class>
+<p align="center">Figura 1: Aplicação LDAP</p>
+<p align="center">Fonte: OpenLDAP Foundation (2009)</p>
+
+
+<h3 id="Nocoes-teoricas-sobre-o-LDAP"><a href="#Nocoes-teoricas-sobre-o-LDAP" class="headerlink" title="Noções teóricas sobre o LDAP"></a>Noções teóricas sobre o LDAP</h3><h4 id="Definicoes-de-diretorios"><a href="#Definicoes-de-diretorios" class="headerlink" title="Definições de diretórios"></a>Definições de diretórios</h4><p>TRIGO (2007) descreve que diretório é literalmente definido como “algo usado para indicar direções”, ou seja, para indicar um caminho para se chegar àquilo que se procura.</p>
+<p>Segundo a definição de TUTTLE (2009):</p>
+<p>“Diretório é uma lista de informações sobre objetos organizados ou catalogados em uma ordem, e que fornece o acesso aos dados dos objetos. São os diretórios que permitem que usuários ou aplicações encontrem recursos no ambiente com as características necessárias para um tipo de tarefa particular.”</p>
+<p>Diretórios nos cercam a todo tempo, seja em uma lista telefônica, na estrutura de pastas do computador, em blogs, em serviços de buscas, além de vários outros lugares. Outro exemplo de diretório é o DNS o qual possui uma relação de nomes de host2 e seu respectivo<br>IP.</p>
+<p>Segundo TRIGO (2007) é muito comum ocorrer confusão com o uso de diretórios,<br>pois apesar de ser possível fazer com eles praticamente qualquer coisa, desde salvar informações como um banco de dados, salvar arquivos como um sistema de arquivos e disponibilizar arquivos como um sistema FTP, não se justifica o mesmo, pois para cada uma dessas funções existe um sistema que foi desenvolvido para fazer somente essa tarefa, assim sem dúvida, o fará muito melhor do que o diretório.</p>
+<h4 id="Caracteristicas-do-LDAP"><a href="#Caracteristicas-do-LDAP" class="headerlink" title="Características do LDAP"></a>Características do LDAP</h4><p>Segundo TRIGO (2007), o LDAP foi padronizado em junho de 1993, no RFC 1487 da IETF.</p>
+<p>O LDAP, segundo BARTH e SIEWERT (2009) foi projetado para resolver problemas de distribuição de diretórios pela rede, contando com nove aspectos que lhe garantiram essa habilidade, sendo eles:</p>
+<ul>
+<li>Seu desenho genérico</li>
+<li>Simplicidade do protocolo</li>
+<li>Arquitetura distribuída Segurança</li>
+<li>Padrão aberto</li>
+<li>Solicitação de funcionalidades e esquemas do servidor</li>
+<li>Internacionalização</li>
+<li>Suporte ao IPv6</li>
+<li>Berkeley ́s Data Base (BDB)</li>
+</ul>
+<p>Ainda segundo BARTH e SIEWERT (2009) uma aplicação que o LDAP disponibiliza é o conceito de Single Sign On (SSO), ou seja, autenticação unificada, possibilitando e facilitando a integração com diversos outros serviços, assim o usuário tem apenas um userid ou identificação única na rede e com esse pode acessar diversos recursos da mesma.</p>
+<p>TUTTLE (2009) afirma que o LDAP é um padrão aberto capaz de facilitar, de forma flexível, o compartilhamento, a manutenção e o gerenciamento de grandes volumes de informações, definindo um método-padrão de acesso e atualização de informações dentro de um diretório.<br>Para LOSANO (2009) a principal característica do LDAP é a integração com outros serviços, complementando assim a infra-estrutura de redes, fornecendo novos recursos e, especialmente, maior integração, diferentemente de outros protocolos e linguagens estabelecidos como exemplo: SNMP, HTTP, SMTP, IMAP ou SQL.</p>
+<p>Abaixo a figura 2 representa essa característica.</p>
+<img src="/2009/12/01/ldap-lightweight-directory-access-protocol/003.jpg" class>
+<p align="center">Figura 2: Característica do LDAP</p>
+<p align="center">Fonte: OpenLDAP Foundation (2009)</p>
+
+<h4 id="Estrutura-do-LDAP"><a href="#Estrutura-do-LDAP" class="headerlink" title="Estrutura do LDAP"></a>Estrutura do LDAP</h4><p>TRIGO (2007) afirma que o grande fator responsável pela<br>flexibilidade do LDAP é a sua organização de forma hierárquica. A árvore de informações possui um elemento-raiz, por onde começa a busca das informações. A partir daí, o sistema vai percorrendo os nós filhos até que consiga encontrar o elemento desejado. A raiz e os ramos da árvore são os diretórios os quais podem conter outros diretórios. Abaixo desses diretórios estão os elementos ou também chamados de entradas. Para cada entrada podemos ter um ou mais valores associados a ela. A tabela 1 abaixo mostra os principais atributos e suas descrições.</p>
+<p>Tabela 1: Exemplos de atributos, com suas respectivas descrições:</p>
+<table>
+    <thead>
+        <tr>
+            <th>Atibuto</th>
+            <th>Descrição</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Dc</td>
+            <td>Identificação única do objeto (do inglês <em>Distinguished Name</em>)</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>Para diretórios que representam países (do inglês <em>country</em>)</td>
+        </tr>
+        <tr>
+            <td>O</td>
+            <td>Para o nome da empresa (do inglês <em>organization</em>)</td>
+        </tr>
+        <tr>
+            <td>Ou</td>
+            <td>Para departamento (do inglês <em>organization unit</em>)</td>
+        </tr>
+        <tr>
+            <td>Cn</td>
+            <td>Atributo de nome (do inglês <em>common name</em>)</td>
+        </tr>
+        <tr>
+            <td>Uid</td>
+            <td>Identidade do usuário (do inglês <em>user id</em>)</td>
+        </tr>
+        <tr>
+            <td>Gn</td>
+            <td>Nome próprio do usuário (do inglês <em>given name</em>)</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>Segundo TRIGO (2007), existem duas maneiras de organizar uma árvore de diretórios; no estilo X.500 onde a estrutura da árvore de diretórios é baseado em regiões, como é demonstrado na figura 3 e no estilo DNS, no qual, os dados são organizados como se fossem domínios. A grande vantagem de se usar o estilo DNS é o fato de poder configurar o serviço de LDAP para uma empresa a partir de um nome de domínio válido, garantindo o caráter único da identidade quando disponibilizado através da Internet.</p>
+<p>Na figura 4 abaixo podemos visualizar uma estrutura baseada nesse estilo.</p>
+<img src="/2009/12/01/ldap-lightweight-directory-access-protocol/004.jpg" class title="Estrutura no estilo X.500">
+<p align="center">Figura 3: Estrutura no estilo X.500</p>
+
+<img src="/2009/12/01/ldap-lightweight-directory-access-protocol/005.jpg" class title="Estrutura no estilo DNS">
+<p align="center">Figura 4: Estrutura no estilo DNS</p>
+#### Schema 
+
+<p>Segundo GOUVEIA (2005), os schemas são responsáveis por manter a integridade dos dados do diretório. São extensíveis, possibilitando a adição de atributos ou classes de acordo com a necessidade.</p>
+<p>Schemas definem quais object class podem ser inseridos no diretório, quais os atributos<br>de uma determinada object class e quais os valores possíveis para esses atributos. Assim, caso um objeto não obedeça às regras do schema, não poderá ser inserido no mesmo.</p>
+<h4 id="Arquivos-LDIF"><a href="#Arquivos-LDIF" class="headerlink" title="Arquivos LDIF"></a>Arquivos LDIF</h4><p>Segundo TRIGO (2007), arquivos LDIFs são arquivos de texto puro, usados para importar, modificar e exportar informações. Esse formato de arquivo é o único meio de entrada de dados em um servidor LDAP; mesmo programas que trabalham diretamente com o servidor LDAP, inserindo e removendo registros, como é o caso do PHPMyAdmin, utilizam-se de arquivos LDIF para suas transações. Abaixo é colocado dois arquivos LDIF onde o primeiro é responsável pela inserção de um usuário em uma base, e o seguinte pela modificação do valor do atributo userPassword, no caso, a senha do usuário.</p>
+<p>Arquivo insereUser.ldif</p>
+<figure class="highlight ldif hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">dn</span>: cn=ronaldo,dc=secure,dc=inf,dc=br</span><br><span class="line"><span class="hljs-attribute">cn</span>: ronaldo</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: simpleSecurityObject</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: organizationalRole</span><br><span class="line"><span class="hljs-attribute">userPassword</span>: {SSHA}4P4F2gCtCh7PthUlS1AJ+DOMXOI0iUpH description: Usuario Ronaldo</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Arquivo atualizaUser.ldif</p>
+<figure class="highlight ldif hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">dn</span>: cn=ronaldo,dc=secure,dc=inf,dc=br</span><br><span class="line"><span class="hljs-attribute">changetype</span>: modify</span><br><span class="line"><span class="hljs-attribute">replace</span>: userPassword</span><br><span class="line"><span class="hljs-attribute">userPassword</span>: {SSHA}tNnd/KF/Rg/dCTq4S1yo7OEiUK4aFk9g</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="IMPLEMENTACOES-DO-PROTOCOLO-LDAP"><a href="#IMPLEMENTACOES-DO-PROTOCOLO-LDAP" class="headerlink" title="IMPLEMENTAÇÕES DO PROTOCOLO LDAP"></a>IMPLEMENTAÇÕES DO PROTOCOLO LDAP</h2><p>Como mencionado anteriormente, o protocolo LDAP é apenas um conjunto de conceitos e definições que possibilitam uma padronização na troca de informações entre diversas soluções baseadas no protocolo. Assim os métodos utilizados para armazenar as informações internamente e de replicação, por exemplo, são peculiaridades de cada implementação. Abaixo é apresentado algumas características dessas principais implementações.</p>
+<h3 id="Active-Directory"><a href="#Active-Directory" class="headerlink" title="Active Directory"></a>Active Directory</h3><p>O Active Directory é uma implementação do serviço de diretório utilizando o protocolo LDAP que armazena informações sobre objetos em redes de computadores e disponibiliza essas informações a usuários e administradores desta rede. É um software da Microsoft utilizado em ambientes Windows e que segundo SANTANA (2009) surgiu juntamente com o Windows 2000 Server.</p>
+<p>Objetos como usuários, grupos, membros dos grupos, senhas, contas de computadores, relações de confiança, informações sobre o domínio, unidades organizacionais, etc., ficam armazenados no banco de dados do AD que além de armazenar esses vários objetos em seu banco de dados, disponibiliza vários serviços, como: autenticação de usuários, replicação do seu banco de dados, pesquisa dos objetos disponíveis na rede, administração centralizada da segurança utilizando GPO, entre outros. Esses recursos tornam a administração do AD bem mais fácil, sendo possível administrar todos os recursos disponíveis na rede centralizadamente.</p>
+<img src="/2009/12/01/ldap-lightweight-directory-access-protocol/006.jpg" class title="Exemplo de implementação do Active Directory">
+<p align="center">Figura 5: Exemplo de implementação do Active Directory</p>
+
+<h3 id="eDirectory"><a href="#eDirectory" class="headerlink" title="eDirectory"></a>eDirectory</h3><p>Assim como a Microsoft, a Novell também disponibiliza uma implementação do LDAP, o eDirectory, que é a base de identidade que vincula os usuários e seus direitos de acesso aos recursos, dispositivos e políticas de segurança da empresa. Ele oferece a compatibilidade, segurança, confiabilidade, escalabilidade e gerenciabilidade necessárias para distribuições internas e de Internet. O eDirectory possui características muito próximas do Active Directory da Microsoft.</p>
+<img src="/2009/12/01/ldap-lightweight-directory-access-protocol/007.jpg" class title="Exemplo de implementação do Active Directory">
+<p align="center">Figura 6: Exemplo de implementação do eDirectory</p>
+<p align="center">Fonte: Novel (2009)</p>
+
+<h3 id="OpenLDAP"><a href="#OpenLDAP" class="headerlink" title="OpenLDAP"></a>OpenLDAP</h3><p>O OpenLDAP é uma implementação do LDAP desenvolvida pela Universidade de Michigan e mantido pelo Projeto OpenLDAP , possui como principais características: suporte ao IPv4 e IPv6, autenticação, segurança no transporte usando SSL e TSL, controle de acessos, alta performance em múltiplas chamadas e a replicação de base. O OpenLDAP tem uma licença específica chamada de The OpenLDAP Public License (OpenLDAP Project, 2009) e é independente de plataforma, assim várias distribuições Linux já disponibilizam o mesmo em seus repositórios. Além do Linux o OpenLDAP é também compatível com AIX, variantes de BSD, HP-UX, Mac OS X, Solaris e Microsoft Windows ( Baseados na tecnologia NT).</p>
+<img src="/2009/12/01/ldap-lightweight-directory-access-protocol/008.jpg" class title="Implementação do LDAP + phpLDAPAdmin">
+<p align="center">Figura 7: Implementação do LDAP + phpLDAPAdmin</p>
+
+<h4 id="Replicacao"><a href="#Replicacao" class="headerlink" title="Replicação"></a>Replicação</h4><p>A replicação é um método muito utilizado quando trabalhamos em um ambiente corporativo, onde existe a necessidade de alta disponibilidade nos serviços. É na verdade a manutenção de uma cópia, seja parcial ou total, dos dados em outros servidores.</p>
+<p>No OpenLDAP existem duas técnicas distintas de replicação, as quais são o slurpd e o syncrepl, sendo que a slurpd, é uma técnica mais antiga a qual foi descontinuada na versão 2.4 do OpenLDAP , por possuir uma série de limitações que foram supridas por sua sucessora a syncrepl. As principais limitações eram as limitações para replicar uma base parcialmente e a utilização de mais de um servidor Master.</p>
+<p>Quando trabalhamos com o syncrepl o servidor LDAP pode assumir duas posturas quanto à replicação, Master ou Slave. Quando Master o servidor assume todas as funções de um servidor OpenLDAP , desde a inserção, atualização e consulta dos dados. Porém quando slave o servidor só aceitará execuções de consultas em sua base de dados quando originadas de máquinas clientes, assim para que qualquer informação seja alterada, a solicitação deverá<br>ser feita ao servidor Master o qual se encarregará de replicar as alterações para seus servidores slaves.</p>
+<p><strong><em>Replicação Master x Slave</em></strong> – Nesse método de replicação temos um único servidor Master o qual tem seu conteúdo replicado em todos os seus servidores escravos. Nesses servidores slaves não ocorre entrada de dados, apenas replicam passivamente os dados de um servidor principal. Esse método de replicação é o mais comum e atende a grande parte das demandas de servidores LDAP.</p>
+<p><strong><em>Replicação Master x Master (multimaster)</em></strong> – Replicação multimaster é um método de replicação mais recente no OpenLDAP , porém já implementado no Active Directory desde sua primeira versão. Esta é uma replicação que atende a demandas muito singulares e apesar de funcionar muito bem ainda é pouco difundida e aplicada.<br>Esta replicação consiste na utilização de dois ou mais servidores Masters, independentes, os quais possuem todas as suas funcionalidades ativadas, porém é criado por parte dos servidores um controle interno para que seja possível manter a integridade dos dados, algo que era muito mais simples de controlar quando existia uma única entrada de dados.</p>
+<p><strong><em>Diretórios Distribuídos</em></strong> – Utilizando o OpenLpad com o método de replicação syncrepl podemos não somente criar uma cópia da árvore de diretórios em outros servidores, mas também criar políticas de replicação e replicar a cada servidor somente aquilo que se pretende que o mesmo tenha acesso, assim por exemplo, quando temos uma empresa com sede em Minas Gerais e filial em São Paulo, a mesma não precisa replicar toda sua base para a filial, apenas aqueles usuários que a pertençam, evitando assim um tráfego desnecessário na<br>rede além de aumentar a segurança.</p>
+<h4 id="Criptografia"><a href="#Criptografia" class="headerlink" title="Criptografia"></a>Criptografia</h4><p>Fazendo-se uso da definição de FADEL (2009):</p>
+<p>“O termo Criptografia tem origem grega e surgiu da fusão das palavras “kryptós” e “graphein”, que significam “oculto” e “escrever”, respectivamente. Trata-se de um conjunto de conceitos e técnicas que visa codificar uma informação de forma que somente o emissor e o receptor possam acessá-la, evitando que um intruso consiga interceptá-la.”</p>
+<p>Segundo TRIGO (2007), na maioria das vezes, o servidor LDAP é utilizado para armazenar dados de usuários, como senha de autenticação, por exemplo, assim segurança é algo fundamental. Para aumentarmos a segurança no transporte de dados é possível criptografá-los, usando TLS ou SSL, assim mesmo que alguém consiga interceptar os dados, não conseguirá visualizar o que está sendo trafegado.</p>
+<h4 id="Modulos-de-Banco-de-Dados"><a href="#Modulos-de-Banco-de-Dados" class="headerlink" title="Módulos de Banco de Dados"></a>Módulos de Banco de Dados</h4><p>Como mencionado anteriormente o LDAP é apenas um protocolo de comunicação entre um cliente e um serviço de diretórios. A definição do armazenamento das informações da árvore de diretórios é independente do mesmo, assim cada implementação do protocolo é responsável por fazer essa definição, podendo variar desde um simples arquivo texto até um banco de dados relacional completo. Segundo TRIGO (2007), o OpenLDAP possui dois bancos de dados nativos, o LDBM e o BerkeleyDB, sendo que o segundo é para ele a melhor opção quanto ao desempenho.</p>
+<h4 id="Listas-de-Controle-de-Acesso-ACLs"><a href="#Listas-de-Controle-de-Acesso-ACLs" class="headerlink" title="Listas de Controle de Acesso (ACLs)"></a>Listas de Controle de Acesso (ACLs)</h4><p>ACL é a definição de todos os recursos de acesso controlado e todos aqueles usuários que têm acesso a eles. Segundo CARTER (2009), as ACLs disponibilizadas pelo OpenLDAP possuem uma sintaxe simples, além de serem também muito flexíveis e robustas em sua implementação. A idéia básica das ACLs é definir quem tem acesso a quê. Abaixo é exposto um exemplo de ACL no OpenLDAP :</p>
+<figure class="highlight oxygene hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># ACL <span class="hljs-keyword">do</span> Atributo userPassword </span><br><span class="line">Access <span class="hljs-keyword">to</span> attrs=userPassword</span><br><span class="line">    <span class="hljs-keyword">by</span> <span class="hljs-keyword">self</span>                             <span class="hljs-keyword">write</span> </span><br><span class="line">    <span class="hljs-keyword">by</span> cn=backup,dc=secure,dc=inf,dc=br <span class="hljs-keyword">read</span> </span><br><span class="line">    <span class="hljs-keyword">by</span> *                                auth</span><br></pre></td></tr></tbody></table></figure>
+
+<p>A ACL acima tem a função de permitir que apenas o dono tenha acesso de escrita no campo userPassword, ou seja, só ele pode mudar sua senha, que o usuário cn=backup,dc=secure,dc=inf,dc=br consiga apenas ler esse atributo e que todos os demais deverão se autenticar como um usuário com permissão de acesso a esse atributo.</p>
+<p>Resumidamente a sintaxe das ACLs no OpenLDAP é:</p>
+<figure class="highlight lasso hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">access <span class="hljs-keyword">to</span> &#60;o que&#62; <span class="hljs-keyword">by</span> &#60;quem&#62; &#60;controle&#62;</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="Backups-e-Restauracao"><a href="#Backups-e-Restauracao" class="headerlink" title="Backups e Restauração"></a>Backups e Restauração</h4><p>O backup e restauração de uma base LDAP é extremamente fácil, como demonstrado com os comandos abaixo:</p>
+<p>Para efetuarmos Backup de toda a base:</p>
+<figure class="highlight sh hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slapcat > backup.ldif</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Retornar o backup (é necessário estarmos com a base parada) </p>
+<figure class="highlight sh hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slapadd –l backup.ldif</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Existem outras maneiras de fazer os procedimentos acima relacionados. Por exemplo, usando o ldapadd, não precisamos parar o serviço do OpenLDAP para efetuarmos o retorno dos dados, porém precisaremos ter um usuário com permissão administrativa para inserir os mesmos, diferente do slapcat o qual só precisa ter acesso ao diretório do banco de dados do OpenLDAP no caminho /var/lib/ldap/. Saber definir qual o procedimento mais adequado para a necessidade do cliente é extremamente importante.</p>
+<h2 id="ESTUDO-DE-CASO"><a href="#ESTUDO-DE-CASO" class="headerlink" title="ESTUDO DE CASO"></a>ESTUDO DE CASO</h2><h3 id="Levantamento-de-requisitos"><a href="#Levantamento-de-requisitos" class="headerlink" title="Levantamento de requisitos"></a>Levantamento de requisitos</h3><p>Para uma demonstração prática sobre o tema foi feito um estudo de caso da empresa Secure Info Ltda, uma empresa de consultoria na área de segurança da informação a qual está se preparando para entrar no mercado. A Secure Info possui demanda de uma série de serviços os quais pretende prover internamente, sendo eles:</p>
+<ul>
+<li>Servidor interno de e-mail (com soluções SMTP, POP e IMAP);</li>
+<li>Sistema gerenciador de domínio e autenticação (máquinas Windows e Linux); Servidor FTP;</li>
+<li>Sistema de Webmail;</li>
+<li>Servidor de Proxy;</li>
+<li>Servidor Web;</li>
+<li>Servidor SSH;</li>
+<li>Servidor de Arquivos.</li>
+</ul>
+<p>Para esta implementação foi definido como requisito a integração da autenticação entre os serviços, assim não deverá haver redundância de informações cadastrais dos usuários e lista de contatos, outro requisito é a utilização de soluções OpenSource de maneira a não dispor de recursos na aquisição de novas licenças.</p>
+<p>Este documento abordará somente a instalação e configuração dos servidores LDAP, informações sobre a instalação dos outros serviços citados podem ser encontradas no próprio website do desenvolvedor, onde normalmente já disponibilizam materiais com instruções para a instalação, como também nos livros de CARTER (2009) e TRIGO (2007).</p>
+<h3 id="Definicao-de-Softwares-a-serem-usados"><a href="#Definicao-de-Softwares-a-serem-usados" class="headerlink" title="Definição de Softwares a serem usados"></a>Definição de Softwares a serem usados</h3><h4 id="Sistema-operacional"><a href="#Sistema-operacional" class="headerlink" title="Sistema operacional"></a>Sistema operacional</h4><p>Para a implementação destes servidores o primeiro item a ser definido é o sistema operacional que será usado, pois todos os softwares definidos posteriormente dependerão diretamente dessa definição.</p>
+<p>Diversos sistemas foram considerados nessa implementação, porém alguns como o Windows Server e Unix foram descartados por termos como requisito, um sistema OpenSource o qual não demande custo de licenças, o que não é o caso dos mesmos. Assim se enquadram nesse perfil os sistemas LINUX, porém os mesmos possuem uma infinidade de derivações, denominadas distro ou distribuições, as quais se diferenciam em diversos casos muito uma da outra, assim escolher uma distribuição que se enquadre melhor aos requisitos do projeto é fundamental para o sucesso do mesmo.</p>
+<p>As distribuições avaliadas foram:</p>
+<figure class="highlight routeros hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Suse Linux Enterprise 11;</span><br><span class="line">OpenSuse 11.1;</span><br><span class="line">RedHat Enterprise 5.4;</span><br><span class="line">Fedora 11;</span><br><span class="line">Unbutu<span class="hljs-built_in"> Server </span>8.04 LTS;</span><br><span class="line">Debian 5;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Diante das distribuições avaliadas, duas inicialmente já foram descartadas por se tratarem de distribuições comerciais as quais demandam um custo elevado para aquisição da licença de uso, são elas: Suse Linux Enterprise 11 e RedHat Enterprise 5.4. Das demais, todas cumpririam os pré-requisitos identificados, assim definimos o Debian 5 como a solução a ser implementada, pois trata-se de um sistema robusto, leve, possui um gerenciador de pacotes extremamente poderoso, o APT, além de contar com um sistema massivo de testes que garantem que os softwares disponibilizados para o mesmo, estarão realmente maduros, sendo esse seu principal diferencial.</p>
+<h4 id="Sistema-Gerenciador-de-Dominio-e-Autenticacao"><a href="#Sistema-Gerenciador-de-Dominio-e-Autenticacao" class="headerlink" title="Sistema Gerenciador de Domínio e Autenticação"></a>Sistema Gerenciador de Domínio e Autenticação</h4><p>Para essa definição foram considerados as três principais implementações do protocolo LDAP, o Active Directory, eDirectory e uma solução integrada entre OpenLDAP + Samba, porém a única solução que cumpre os requisitos é a junção OpenLDAP + Samba, já que os outros são proprietários e demandam um investimento alto na aquisição de suas licenças.</p>
+<h4 id="Sistema-de-e-mail"><a href="#Sistema-de-e-mail" class="headerlink" title="Sistema de e-mail"></a>Sistema de e-mail</h4><p>Diversos sistemas gerenciadores de e-mails também conhecidos como MTA estão disponíveis hoje no mercado, os principais são Microsoft Exchange, Qmail e Postfix. O Microsoft Exchange é um sistema muito bom, porém não é compatível com o sistema operacional adotado, assim restam-nos duas soluções o Qmail e PostFix, diante das mesmas optaremos pela solução Postfix a qual conta com um desenvolvimento bem mais ativo que o Qmail, além de possuir material de apoio muito bom e amplo.</p>
+<h4 id="Servidor-FTP"><a href="#Servidor-FTP" class="headerlink" title="Servidor FTP"></a>Servidor FTP</h4><p>Existe hoje uma infinidade de opções em soluções FTP, como por exemplo, proftpd, pureftp e o vsftpd, porém as mesmas possuem características muito similares sendo assim optaremos pela implementação da solução proftpd a qual atende os requisitos e possui uma maior compatibilidade de integração com o servidor de autenticação baseada no OpenLDAP.</p>
+<h4 id="Servidor-de-Arquivo"><a href="#Servidor-de-Arquivo" class="headerlink" title="Servidor de Arquivo"></a>Servidor de Arquivo</h4><p>Para servidor de arquivo utilizaremos o SAMBA por atender os requisitos iniciais do projeto além de já estar disponível no sistema devido a necessidade do mesmo para autenticarmos os usuários na rede.</p>
+<h3 id="Definicao-da-divisao-dos-servicos-entre-os-servidores"><a href="#Definicao-da-divisao-dos-servicos-entre-os-servidores" class="headerlink" title="Definição da divisão dos serviços entre os servidores"></a>Definição da divisão dos serviços entre os servidores</h3><p>Para esta implementação usaremos a seguinte estrutura:</p>
+<img src="/2009/12/01/ldap-lightweight-directory-access-protocol/009.jpg" class title="Estrutura de divisão dos serviços entre os servidores">
+<p align="center">Figura 8: Estrutura de divisão dos serviços entre os servidores</p>
+
+<p>Cada figura de servidor representa um serviço rodando dentro do respectivo servidor.</p>
+<h3 id="Instalacao-do-Servidor-OpenLDAP"><a href="#Instalacao-do-Servidor-OpenLDAP" class="headerlink" title="Instalação do Servidor OpenLDAP"></a>Instalação do Servidor OpenLDAP</h3><h4 id="Requisitos-para-a-instalacao-do-OpenLDAP"><a href="#Requisitos-para-a-instalacao-do-OpenLDAP" class="headerlink" title="Requisitos para a instalação do OpenLDAP"></a>Requisitos para a instalação do OpenLDAP</h4><p>O primeiro procedimento adotado foi a atualização dos repositórios instalados com o comando:</p>
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Logo depois a atualização dos pacotes instalados:</p>
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get upgrade</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Antes de iniciar a instalação verificamos alguns parâmetros importantes no sistema, os quais, farão grande diferença no ato da instalação do OpenLDAP .</p>
+<p>O primeiro parâmetro verificado se encontra no arquivo /etc/hosts, onde deverá ser informado o IP do servidor, nome, domínio e apelido da máquina.</p>
+<p>Foram inseridos os seguintes parâmetros logo abaixo da linha, que referencia o localhost.</p>
+<figure class="highlight css hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127<span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.1</span>       <span class="hljs-selector-tag">serv1</span><span class="hljs-selector-class">.secure</span><span class="hljs-selector-class">.inf</span><span class="hljs-selector-class">.br</span> <span class="hljs-selector-tag">serv1</span> </span><br><span class="line">192<span class="hljs-selector-class">.168</span><span class="hljs-selector-class">.239</span><span class="hljs-selector-class">.134</span> <span class="hljs-selector-tag">serv1</span><span class="hljs-selector-class">.secure</span><span class="hljs-selector-class">.inf</span><span class="hljs-selector-class">.br</span> <span class="hljs-selector-tag">serv1</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>O segundo parâmetro verificado foi no arquivo /etc/hostname onde substituímos o nome serv1 para seu nome completo serv1.secure.inf.br.</p>
+<p>Com esses parâmetros configurados cumprimos os requisitos básicos para iniciarmos a instalação.</p>
+<h4 id="Instalacao-do-OpenLDAP-e-seus-utilitarios"><a href="#Instalacao-do-OpenLDAP-e-seus-utilitarios" class="headerlink" title="Instalação do OpenLDAP e seus utilitários"></a>Instalação do OpenLDAP e seus utilitários</h4><p>Para a instalação do OpenLDAP e seus utilitários utilizamos o seguinte comando:</p>
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install slapd ldap-utils</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Na instalação inicial, o próprio debian cria baseado nos parâmetros os quais foram alterados anteriormente uma estrutura previa da árvore, assim não precisamos fazer esse processo manualmente.</p>
+<p>Nesta instalação a árvore em formato DNS foi criada com a raiz “dc=secure,dc=inf,dc=br”, parâmetro esse que servirá de base para todos os itens que o sucederem.</p>
+<p>O arquivo de configuração principal do OpenLDAP é o /etc/ldap/slapd.conf, este é<br>algo como um centro de controle do OpenLDAP e é nele que faremos várias configurações durante todo o processo de instalação do servidor.</p>
+<p>Com a base montada procedemos com o seguinte comando para verificar se o servidor OpenLDAP está de fato configurado corretamente:</p>
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -h localhost -b <span class="hljs-string">"dc=secure,dc=inf,dc=br"</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>O retorno foi:</p>
+<figure class="highlight ldif hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">dn</span>: dc=secure,dc=inf,dc=br</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: top </span><br><span class="line"><span class="hljs-attribute">objectClass</span>: dcObject</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: organization </span><br><span class="line"><span class="hljs-attribute">o</span>: secure.inf.br</span><br><span class="line"><span class="hljs-attribute">dc</span>: doctum</span><br><span class="line"></span><br><span class="line"><span class="hljs-attribute">dn</span>: cn=admin,dc=secure,dc=inf,dc=br</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: simpleSecurityObject </span><br><span class="line"><span class="hljs-attribute">objectClass</span>: organizationalRole</span><br><span class="line"><span class="hljs-attribute">cn</span>: admin</span><br><span class="line"><span class="hljs-attribute">description</span>: LDAP administrator</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Com esse retorno demos sequência à instalação inserindo alguns objetos na árvore, de maneira a povoá-la adequadamente. Como descrito anteriormente, a única maneira de transferir dados a um servidor LDAP é fazendo uso de arquivos do tipo ldif, assim prosseguiremos criando um arquivo, o qual será o responsável por criar alguns grupos em nossa árvore.</p>
+<p>Abaixo podemos visualizar o conteúdo do arquivo grupos.ldif :</p>
+<figure class="highlight ldif hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">dn</span>: ou=grupos,dc=secure,dc=inf,dc=br </span><br><span class="line"><span class="hljs-attribute">ou</span>: Grupos</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: organizationalUnit </span><br><span class="line"><span class="hljs-attribute">objectClass</span>: top</span><br><span class="line"></span><br><span class="line"><span class="hljs-attribute">dn</span>: ou=usuarios,dc=secure,dc=inf,dc=br </span><br><span class="line"><span class="hljs-attribute">ou</span>: Grupos</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: organizationalUnit </span><br><span class="line"><span class="hljs-attribute">objectClass</span>: top</span><br><span class="line"></span><br><span class="line"><span class="hljs-attribute">dn</span>: ou=ti,ou=usuarios,dc=secure,dc=inf,dc=br </span><br><span class="line"><span class="hljs-attribute">ou</span>: ti</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: organizationalUnit</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: top</span><br><span class="line"></span><br><span class="line"><span class="hljs-attribute">dn</span>: ou=base_teste,ou=usuarios,dc=secure,dc=inf,dc=br </span><br><span class="line"><span class="hljs-attribute">ou</span>: base_teste</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: organizationalUnit</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: top</span><br><span class="line"></span><br><span class="line"><span class="hljs-attribute">dn</span>: ou=administracao,ou=usuarios,dc=secure,dc=inf,dc=br </span><br><span class="line"><span class="hljs-attribute">ou</span>: administracao</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: organizationalUnit</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: top</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Para inserirmos esses grupos em nossa árvore faremos uso do seguinte comando:</p>
+<figure class="highlight llvm hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapadd -h localhost -<span class="hljs-keyword">x</span> -D cn=admin,dc=secure,dc=inf,dc=<span class="hljs-keyword">br</span> -w senha -f grupos.ldif</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Para a inserção de usuários usaremos o arquivo usuarios.ldif descrito abaixo:</p>
+<figure class="highlight ldif hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">dn</span>: uid=ronaldo,ou=ti,ou=usuarios,dc=secure,dc=inf,dc=br</span><br><span class="line"><span class="hljs-attribute">uid</span>: ronaldo</span><br><span class="line"><span class="hljs-attribute">cn</span>: Ronaldo Meneguite</span><br><span class="line"><span class="hljs-attribute">sn</span>: Meneguite</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: inetOrgPerson </span><br><span class="line"><span class="hljs-attribute">objectClass</span>: posixAccount </span><br><span class="line"><span class="hljs-attribute">homeDirectory</span>: /home/ronaldo </span><br><span class="line"><span class="hljs-attribute">loginShell</span>: /bin/bash </span><br><span class="line"><span class="hljs-attribute">uidNumber</span>: 1000</span><br><span class="line"><span class="hljs-attribute">gidNumber</span>: 1000</span><br><span class="line"><span class="hljs-attribute">userPassword</span>: {SSHA}sZmrhpFA7XTkVGVrljx7QiUqU8kFLMlo dn: cn=replicator,dc=secure,dc=inf,dc=br</span><br><span class="line"><span class="hljs-attribute">cn</span>: replicator</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: simpleSecurityObject</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: organizationalRole</span><br><span class="line"><span class="hljs-attribute">userPassword</span>: {SSHA}sZmrhpFA7XTkVGVrljx7QiUqU8kFLMlo </span><br><span class="line"><span class="hljs-attribute">description</span>: LDAP Replicator</span><br><span class="line"></span><br><span class="line"><span class="hljs-attribute">dn</span>: uid=estagio,ou=ti,ou=usuarios,dc=secure,dc=inf,dc=br </span><br><span class="line"><span class="hljs-attribute">uid</span>: estagio</span><br><span class="line"><span class="hljs-attribute">cn</span>: Estagiario</span><br><span class="line"><span class="hljs-attribute">sn</span>: Estagiaro</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: inetOrgPerson</span><br><span class="line"><span class="hljs-attribute">objectClass</span>: posixAccount</span><br><span class="line"><span class="hljs-attribute">homeDirectory</span>: /home/estagio</span><br><span class="line"><span class="hljs-attribute">loginShell</span>: /bin/bash</span><br><span class="line"><span class="hljs-attribute">uidNumber</span>: 1002</span><br><span class="line"><span class="hljs-attribute">gidNumber</span>: 1000</span><br><span class="line"><span class="hljs-attribute">userPassword</span>: {SSHA}sZmrhpFA7XTkVGVrljx7QiUqU8kFLMlo</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Para inserirmos esses grupos em nossa árvore faremos uso do seguinte comando:</p>
+<figure class="highlight llvm hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapadd -<span class="hljs-keyword">x</span> -D cn=admin,dc=secure,dc=inf,dc=<span class="hljs-keyword">br</span> -w senha -f usuarios.ldif</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Com o comando abaixo, podemos verificar se os grupos e usuários foram inseridos com sucesso.</p>
+<figure class="highlight llvm hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch –<span class="hljs-keyword">x</span> –b =secure,dc=inf,dc=<span class="hljs-keyword">br</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>Com sucesso nos comandos acima, foi listado todo o conteúdo do diretório LDAP inclusive com os grupos e usuários inseridos anteriormente, tendo assim em mãos um servidor OpenLDAP configurado e pronto para usar.</p>
+<p>Para o segundo servidor o serv2.secure.inf.br foi efetuado o mesmo procedimento de instalação do serviço, não inserindo os usuários e grupos como no servidor principal, visto que os mesmos serão replicados quando configurarmos a replicação.</p>
+<h3 id="Ativando-suporte-a-criptografia"><a href="#Ativando-suporte-a-criptografia" class="headerlink" title="Ativando suporte a criptografia"></a>Ativando suporte a criptografia</h3><p>O servidor OpenLDAP suporta trabalhar com dois esquemas de criptografia sendo eles, o SSL ou TLS onde a diferença entre eles é que o SSL por ser uma camada de segurança, tem sua porta alterada para uma porta diferente da padrão, a 389, enquanto no TLS, a criptografia é feita na camada de transporte, o que propicia ser ativado sem alteração da porta do serviço.</p>
+<p>A resistência da criptografia quando em ataque, tanto na SSL quanto do TLS é<br>basicamente a mesma, visto que ambos são fornecidos pelo OpenSSL. Para este estudo de caso utilizaremos o TLS como método de criptografia.</p>
+<h4 id="Ativando-suporte-a-TLS"><a href="#Ativando-suporte-a-TLS" class="headerlink" title="Ativando suporte a TLS"></a>Ativando suporte a TLS</h4><p>Para ativar o suporte a TLS será usado a seguinte sequência de comandos:</p>
+<figure class="highlight haxe hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta"># Instalar o OpenSSL</span></span><br><span class="line">apt-<span class="hljs-keyword">get</span> install openssl</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta"># Criar o diretório para armazenamento da chave</span></span><br><span class="line">mkdir /etc/ldap/tls</span><br><span class="line">cd /etc/ldap/tls</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta"># Criando a agência certificadora</span></span><br><span class="line">/usr/lib/ssl/misc/CA.sh –<span class="hljs-keyword">new</span><span class="hljs-type">ca</span></span><br><span class="line"><span class="hljs-type"></span></span><br><span class="line"><span class="hljs-type"></span># Criando certificado <span class="hljs-keyword">do</span> servidor:<span class="hljs-type"></span></span><br><span class="line"><span class="hljs-type">openssl req </span>–<span class="hljs-keyword">new</span> <span class="hljs-type"></span>–nodes –keyout <span class="hljs-keyword">new</span><span class="hljs-type">req</span>.pen –out <span class="hljs-keyword">new</span><span class="hljs-type">req</span>.pem</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta"># Assinando o certificado do servidor com o da agência certificadora criada:</span></span><br><span class="line">/usr/lib/ssl/misc/CA.sh –sign</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta"># Alterando os nomes dos certificados gerados para facilitar a identificação:</span></span><br><span class="line">mv <span class="hljs-keyword">new</span><span class="hljs-type">cert</span>.pem srvcert.pem mv <span class="hljs-keyword">new</span><span class="hljs-type">req</span>.pem srvkey.pem</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta"># Copiando o certificado da agência certificadora para o mesmo diretórios dos outros: </span></span><br><span class="line">cp demoCA/cacert.pem .</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="Ativando-TLS-no-OpenLDAP"><a href="#Ativando-TLS-no-OpenLDAP" class="headerlink" title="Ativando TLS no OpenLDAP"></a>Ativando TLS no OpenLDAP</h4><p>Para ativarmos o suporte a TLS no OpenLDAP devemos adicionar no arquivo /etc/ldap/slapd.conf as seguintes linhas logo após a inclusão dos schemas:</p>
+<figure class="highlight awk hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TLSCertificateFile <span class="hljs-regexp">/etc/</span>ldap<span class="hljs-regexp">/tls/</span>srvcert.pem</span><br><span class="line">TLSCertificateKeyFile <span class="hljs-regexp">/etc/</span>ldap<span class="hljs-regexp">/tls/</span>srvkey.pem</span><br><span class="line">TLSCACertificateFile <span class="hljs-regexp">/etc/</span>ldap<span class="hljs-regexp">/tls/</span>cacert.pem</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Após a inserção das linhas acima mencionadas reiniciamos o servidor com o seguinte comando:</p>
+<figure class="highlight awk hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-regexp">/etc/i</span>nit.d<span class="hljs-regexp">/slapd restart</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>Para testarmos a comunicação criptografada, prosseguimos com a configuração do cliente LDAP, sendo ele instalado junto com o servidor, de maneira que o mesmo possa utilizar TLS, bastando para isso inserirmos no final do arquivo a seguinte linha:</p>
+<figure class="highlight awk hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TLS_CACERT <span class="hljs-regexp">/etc/</span>ldap<span class="hljs-regexp">/tls/</span>cacert.pem</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Para visualizamos o funcionamento da criptografia, faremos uso do seguinte comando:</p>
+<figure class="highlight gml hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch –<span class="hljs-symbol">x</span> –ZZ</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Para futuro uso copiaremos os certificados gerados para a pasta /etc/ldap/tls/ do serv2.secure.inf.br.</p>
+<h3 id="Replicacao-1"><a href="#Replicacao-1" class="headerlink" title="Replicação"></a>Replicação</h3><p>Como descrito anteriormente existe hoje duas maneiras de fazermos uma replicação utilizando o OpenLDAP , uma é usando o slurpd e outra usando o syncrepl, porém o slurpd foi descontinuado na versão 2.4 do OpenLDAP , além de possuir uma série de limitações. Assim foi definido a utilização do syncrepl.</p>
+<h4 id="Configurando-o-serv1-secure-inf-br-MASTER"><a href="#Configurando-o-serv1-secure-inf-br-MASTER" class="headerlink" title="Configurando o serv1.secure.inf.br (MASTER)"></a>Configurando o serv1.secure.inf.br (MASTER)</h4><p>Foi iniciado a configuração do servidor Master alterando o arquivo de configuração /etc/ldap/slapd.conf, alterando o parâmetro modulepath para syncprov e inserindo as seguintes linhas logo abaixo da opção “índex”:</p>
+<figure class="highlight pgsql hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">overlay syncprov </span><br><span class="line">syncprov-<span class="hljs-keyword">checkpoint</span> <span class="hljs-number">100</span> <span class="hljs-number">10</span> </span><br><span class="line">syncprov-sessionlog <span class="hljs-number">100</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>Inserimos também junto a ACL responsável pelos atributos de senha, userPassword e shadowLastChange a seguinte linha:</p>
+<figure class="highlight applescript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">by</span> dn=<span class="hljs-string">"cn=replicator,dc=secure,dc=inf,dc=br"</span> <span class="hljs-built_in">read</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>Assim inserimos a permissão para o usuário replicador ler os campos de senha dos usuários, pois sem o acesso a leitura ele não conseguiria efetuar a replicação completa da base. Neste ponto foi reiniciado o servidor com o comando:</p>
+<figure class="highlight awk hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-regexp">/etc/i</span>nit.d<span class="hljs-regexp">/slapd restart</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="Configurando-o-serv2-secure-inf-br-SLAVE"><a href="#Configurando-o-serv2-secure-inf-br-SLAVE" class="headerlink" title="Configurando o serv2.secure.inf.br (SLAVE)"></a>Configurando o serv2.secure.inf.br (SLAVE)</h4><p>Iniciamos a configuração do servidor slave editando o arquivo de configuração /etc/ldap/slapd.conf e removendo o caracter # antes da linha “rootdn”, e logo após inserimos as seguintes linhas abaixo de “index”:</p>
+<figure class="highlight routeros hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">syncrepl <span class="hljs-attribute">rid</span>=1</span><br><span class="line">    <span class="hljs-attribute">provider</span>=ldap://serv1.secure.inf.br:389</span><br><span class="line">    <span class="hljs-attribute">type</span>=refreshAndPersist</span><br><span class="line">    <span class="hljs-attribute">retry</span>=<span class="hljs-string">"5 + 5 +"</span></span><br><span class="line">    <span class="hljs-attribute">interval</span>=00:00:00:10</span><br><span class="line">    <span class="hljs-attribute">searchbase</span>=<span class="hljs-string">"dc=secure,dc=inf,dc=br"</span></span><br><span class="line">    <span class="hljs-attribute">filter</span>=<span class="hljs-string">"(objectClass=*)"</span></span><br><span class="line">    <span class="hljs-attribute">scope</span>=sub</span><br><span class="line">    <span class="hljs-attribute">attrs</span>=<span class="hljs-string">"*"</span></span><br><span class="line">    <span class="hljs-attribute">schemachecking</span>=on</span><br><span class="line">    <span class="hljs-attribute">bindmethod</span>=simple </span><br><span class="line">    <span class="hljs-attribute">binddn</span>=<span class="hljs-string">"cn=replicator,dc=secure,dc=inf,dc=br"</span></span><br><span class="line">    <span class="hljs-attribute">credentials</span>=doctum2009</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Após os procedimentos acima citamos, inserimos a linha “TLS_CACERT /etc/ldap/tls/cacert.pem” no aquivo /etc/ldap/ldap.conf , paramos o servidor OpenLDAP , removemos os diretórios e novamente iniciamos o servidor, para isso utilizamos as seguintes linhas de comando:</p>
+<figure class="highlight crystal hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/slapd stop </span><br><span class="line">rm /var/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">ldap</span>/* </span></span><br><span class="line">/etc/init.d/slapd start</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Assim temos agora os dois servidores configurados, sendo que os dados do serv1.secure.inf.br estão sendo replicados para o servidor serv2.secure.inf.br, porém o mesmo não tem autoridade sobre os dados fazendo com que para alterarmos qualquer informação na base, teremos que fazer isso no serv1.secure.inf.br e essa atualização será replicada de imediato para o serv2.secure.inf.br.</p>
+<h2 id="CONCLUSAO"><a href="#CONCLUSAO" class="headerlink" title="CONCLUSÃO"></a>CONCLUSÃO</h2><p>Este trabalho tem por objetivo apresentar um protocolo extremamente importante quando falamos em centralização de aplicativos conectados em rede, o LDAP, demonstrando que este é uma ótima solução por contar com uma arquitetura distribuída, métodos nativos de segurança, contar com padrão aberto, internacionalização e suporte ao ipv6, além de diversas outras funcionalidades. Também foi demonstrado nesse trabalho o quanto flexível o protocolo LDAP pode ser, possibilitando uma gama de possibilidades para o uso do mesmo. Este foi focado na solução livre OpenLDAP , a qual, apresentou características compatíveis com ferramentas proprietárias e, em alguns casos, até mesmo os superando, isso sem a necessidade de desprendermos recursos para aquisição de licenças.</p>
+<p>Acredita-se que este servirá como instrumento de referência para estudantes e profissionais da área de tecnologia que pretendem se aprofundar nesse protocolo, que a longa data é utilizado, massivamente, em empresas de médio a grande porte de todo o mundo.</p>
+<h2 id="REFERENCIAS-BIBLIOGRAFICAS"><a href="#REFERENCIAS-BIBLIOGRAFICAS" class="headerlink" title="REFERÊNCIAS BIBLIOGRÁFICAS"></a>REFERÊNCIAS BIBLIOGRÁFICAS</h2><p>BARTH, D. G.; SIEWERT, V. C. Conceituação de DNS. Disponível em:<br><a href="http://artigocientifico.uol.com.br/uploads/artc_1148560980_24.pdf" target="_blank" rel="noopener">http://artigocientifico.uol.com.br/uploads/artc_1148560980_24.pdf</a>. Acesso em: jun. 2009.</p>
+<p>CARTER, G.. LDAP Administração de Sistemas. Rio de Janeiro: Alta Books, 2009.</p>
+<p>FADEL, D.. Criptografia RSA. Disponível em: < <a href="http://www.ime.unicamp.br/~ftorres/ENSINO/MONOGRAFIAS/desi_RSA.pdf>" target="_blank" rel="noopener">http://www.ime.unicamp.br/~ftorres/ENSINO/MONOGRAFIAS/desi_RSA.pdf></a>. Acesso em: nov. 2009.</p>
+<p>GOUVEIA, B.. LDAP para iniciantes. Disponível em: <a href="http://www.ldap.org.br/" target="_blank" rel="noopener">http://www.ldap.org.br/</a>. Acesso em: jun. 2009.</p>
+<p>LOSANO, F.. Integração de Rede com Diretórios LDAP. Disponível em: <a href="http://www.revistadolinux.com.br/ed/025/assinantes/rede.php3" target="_blank" rel="noopener">http://www.revistadolinux.com.br/ed/025/assinantes/rede.php3</a>. Acesso em: mar. 2009.</p>
+<p>NOVELL. Novell Documentation: Novel Audit 2.0. Disponível em: <<a href="http://www.novell.com/documentation/novellaudit20/index.html?page=/documentation/nove" target="_blank" rel="noopener">http://www.novell.com/documentation/novellaudit20/index.html?page=/documentation/nove</a> llaudit20/novellaudit20/data/b27qg60.html>. Acesso em: abr. 2009.</p>
+<p>OPENLDAP FOUNDATION. OpenLDAP Software 2.4 Administrator’s Guide. Disponível em: <a href="http://www.openldap.org/doc/admin24/" target="_blank" rel="noopener">http://www.openldap.org/doc/admin24/</a>. Acesso em: mai. 2009.</p>
+<p>SANTANA, F.. Instalação do Active Directory. Disponível em: <a href="http://www.fabianosantana.com.br/windows-2000/287-ad" target="_blank" rel="noopener">http://www.fabianosantana.com.br/windows-2000/287-ad</a>. Acesso em: mai 2009.</p>
+<p>TRIGO, C. H. OpenLDAP: Uma abordagem integrada. São Paulo: Novatec Editora, 2007.</p>
+<p>TUTTLE, S. EHLENBERGER, A.; GORTHI, R. Understanding LDAP: Design and Implementation. Disponível em: <a href="http://www.redbooks.ibm.com/" target="_blank" rel="noopener">http://www.redbooks.ibm.com/</a>. Acesso em: abr. 2009.</p>
+</body></html>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Autenticacao-Centralizada/" rel="tag">Autenticação Centralizada</a>, <a class="has-link-grey -link" href="/tags/LDAP/" rel="tag">LDAP</a>, <a class="has-link-grey -link" href="/tags/OpenLdap/" rel="tag">OpenLdap</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5be9af6fb1e18cc9"></script>
+
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2017/10/01/golang-desbravando-uma-linguagem-de-programacao-parte-1/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">GoLang, desbravando uma linguagem de programação - Parte 1</span>
+            </a>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comentários</h3>
+        <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-comments" data-width="100%" data-href="https://meneguite.com/2009/12/01/ldap-lightweight-directory-access-protocol/" data-num-posts="5"></div>
+
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6 is-rounded" src="https://avatars0.githubusercontent.com/u/8209481" alt="avatar">
+                    
+                    <p class="is-size-4 is-block">
+                        Ronaldo Meneguite
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Just another tech enthusiast
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Brasil</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        
+        
+            <div class="level is-mobile">
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Github" href="http://github.com/meneguite">
+                    
+                        <i class="fab fa-github fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Linkedin" href="https://www.linkedin.com/in/ronaldomeneguite">
+                    
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Facebook" href="https://www.facebook.com/ronaldomeneguite">
+                    
+                        <i class="fab fa-facebook fa-2x"></i>
+                    
+                </a>
+                
+            </div>
+        
+        <hr />
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Artigos
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        9
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categorias
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        4
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+    
+        
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categorias
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/">
+            <span class="level-start">
+                <span class="level-item">Desenvolvimento</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/Backend/">
+            <span class="level-start">
+                <span class="level-item">Backend</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/Frontend/">
+            <span class="level-start">
+                <span class="level-item">Frontend</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/">
+            <span class="level-start">
+                <span class="level-item">Infraestrutura</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Adapter-Pattern/">
+                        <span class="level-start">
+                            <span class="level-item">Adapter Pattern</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Autenticacao-Centralizada/">
+                        <span class="level-start">
+                            <span class="level-item">Autenticação Centralizada</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Backend/">
+                        <span class="level-start">
+                            <span class="level-item">Backend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Cloudflare/">
+                        <span class="level-start">
+                            <span class="level-item">Cloudflare</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Design-Patterns/">
+                        <span class="level-start">
+                            <span class="level-item">Design Patterns</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Frontend/">
+                        <span class="level-start">
+                            <span class="level-item">Frontend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Github-Pages/">
+                        <span class="level-start">
+                            <span class="level-item">Github Pages</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Golang/">
+                        <span class="level-start">
+                            <span class="level-item">Golang</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/LDAP/">
+                        <span class="level-start">
+                            <span class="level-item">LDAP</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Observer-Pattern/">
+                        <span class="level-start">
+                            <span class="level-item">Observer Pattern</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OpenLdap/">
+                        <span class="level-start">
+                            <span class="level-item">OpenLdap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/PWA/">
+                        <span class="level-start">
+                            <span class="level-item">PWA</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Padroes-de-Projeto/">
+                        <span class="level-start">
+                            <span class="level-item">Padrões de Projeto</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Programacao/">
+                        <span class="level-start">
+                            <span class="level-item">Programação</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Progressive-Web-Apps/">
+                        <span class="level-start">
+                            <span class="level-item">Progressive Web Apps</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Slack/">
+                        <span class="level-start">
+                            <span class="level-item">Slack</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Tutoriais/">
+                        <span class="level-start">
+                            <span class="level-item">Tutoriais</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Typescript/">
+                        <span class="level-start">
+                            <span class="level-item">Typescript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Utilitario/">
+                        <span class="level-start">
+                            <span class="level-item">Utilitario</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="card card-transparent is-hidden-desktop is-hidden-widescreen">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+	<div class="container">
+		<div class="level">
+			<div class="level-start has-text-centered-mobile">
+				<!-- <a class="footer-logo is-block has-mb-6" href="/">
+					
+					<img src="/images/logo.svg" alt="" height="28">
+					
+				</a> -->
+				<p class="is-size-7">
+					&copy; 2020 Ronaldo Meneguite&nbsp;
+				</p>
+			</div>
+			<div class="level-end">
+				
+				<div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+					
+					
+					<span class="control">
+						<a class="button is-white is-large" target="_blank"
+							title="Creative Commons" href="https://creativecommons.org/">
+							
+							<i class="fab fa-creative-commons fa-2x"></i>
+							
+						</a>
+					</span>
+					
+					<span class="control">
+						<a class="button is-white is-large" target="_blank"
+							title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+							
+							<i class="fab fa-creative-commons-by fa-2x"></i>
+							
+						</a>
+					</span>
+					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</footer>
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+
+<script>moment.locale("pt-BR");</script>
+
+
+    
+    
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+
+    
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+
+<script src="/js/back-to-top.js"></script>
+
+
+
+    
+    
+
+    
+    
+    
+
+
+
+<script src="/js/main.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Digite alguma coisa..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Artigos',
+                PAGES: 'Páginas',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+<link rel="stylesheet" href="/css/search.css">
+
+
+<link rel="stylesheet" href="/css/insight.css">
+
+    
+</body>
+</html>
