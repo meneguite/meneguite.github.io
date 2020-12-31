@@ -129,7 +129,7 @@
     
 
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 <body class="is-2-column ">
     <nav class="navbar navbar-main">
     <div class="container is-fluid">
@@ -214,15 +214,15 @@
 <a id="more"></a>
 
 <h2 id="Antes-de-comecarmos"><a href="#Antes-de-comecarmos" class="headerlink" title="Antes de começarmos"></a>Antes de começarmos</h2><p>Um ponto que venho percebendo durante meus estudos em Go, é que é muito fácil perceber o porque quase sempre se usa o termo Golang e não somente Go como inicialmente concebido. É inviável achar qualquer coisa em um buscador usando apenas Go, assim provavelmente irei me referir algumas vezes ao Go usando este termo e acabei por alterar os títulos dos artigos para facilitar a indexação nos mecanismos de busca.</p>
-<p>Outro adendo importante que gostaria colocar é um utilitário web disponibilizado pela própria Google para testarmos a linguagem, sendo possível testar a Golang mesmo sem ter nada instalado localmente. Esse utilitário denominado The Go Playground pode ser encontrado em <a href="https://play.golang.org" target="_blank" rel="noopener">https://play.golang.org</a> e realmente ajuda muito nos testes iniciais da linguagem.</p>
+<p>Outro adendo importante que gostaria colocar é um utilitário web disponibilizado pela própria Google para testarmos a linguagem, sendo possível testar a Golang mesmo sem ter nada instalado localmente. Esse utilitário denominado The Go Playground pode ser encontrado em <a target="_blank" rel="noopener" href="https://play.golang.org/">https://play.golang.org</a> e realmente ajuda muito nos testes iniciais da linguagem.</p>
 <img src="/2017/10/08/golang-desbravando-uma-linguagem-de-programacao-parte-2/002.png" class>
 <div class="image-source">https://play.golang.org</div>
 
 <h2 id="Mas-afinal-quem-usa-Go"><a href="#Mas-afinal-quem-usa-Go" class="headerlink" title="Mas afinal quem usa Go?"></a>Mas afinal quem usa Go?</h2><p>Bom, além do próprio Google, outras grandes empresas estão investindo no Go, com a Sendgrid, Globo.com, Mercado Livre, Magazine Luiza, Walmart além de várias outras gigantes no mercado.</p>
 <img src="/2017/10/08/golang-desbravando-uma-linguagem-de-programacao-parte-2/003.png" class>
 
-<p>Um caso de uso bem interessante é o da sendgrid que pode ser lindo <a href="https://sendgrid.com/blog/convince-company-go-golang/" target="_blank" rel="noopener">aqui</a> onde seu Co-founder Tim Jenkins descreve os motivos da escolha da linguagem e o mais importante, os problemas encontrados nessa adoção e como eles superaram eles.</p>
-<p>Outro caso de uso interessante é o do Globo.com que pode ser visto <a href="https://www.infoq.com/br/presentations/go-em-producao-para-apis-e-microservices" target="_blank" rel="noopener">aqui</a>, onde o analista Vinicius Pacheco descreve como saíram de 200 para 19 mil cadastros por segundo usando microservices e Go.</p>
+<p>Um caso de uso bem interessante é o da sendgrid que pode ser lindo <a target="_blank" rel="noopener" href="https://sendgrid.com/blog/convince-company-go-golang/">aqui</a> onde seu Co-founder Tim Jenkins descreve os motivos da escolha da linguagem e o mais importante, os problemas encontrados nessa adoção e como eles superaram eles.</p>
+<p>Outro caso de uso interessante é o do Globo.com que pode ser visto <a target="_blank" rel="noopener" href="https://www.infoq.com/br/presentations/go-em-producao-para-apis-e-microservices">aqui</a>, onde o analista Vinicius Pacheco descreve como saíram de 200 para 19 mil cadastros por segundo usando microservices e Go.</p>
 <h2 id="Quando-usar-o-Go"><a href="#Quando-usar-o-Go" class="headerlink" title="Quando usar o Go ?"></a>Quando usar o Go ?</h2><p>Sinto muito, mas Golang não é a bala de prata que estava esperando 😞, pode parecer uma brincadeira, mas ainda hoje, mesmo com tantos artigos publicados sobre o assunto, não falta desenvolvedores em busca de uma linguagem/ecossistema que atenda todas as demandas possíveis da melhor forma. Para esses, eu tenho uma triste notícia, isso provavelmente nunca vai acontecer. Entender o que cada ecossistema de linguagem tem de melhor, e onde é interessante ou não usá-la é fundamental para que possamos prover sempre a melhor solução para cada problema.</p>
 <p>Go tem objetivos muito claros, se precisa de um sistema multiplataforma, altamente escalável, com desempenho similar outras linguagens compiladas como C, que trabalhem com programação concorrente de forma nativa e de maneira altamente otimizada, então meu amigo, Go é pra você 😉. Se esses objetivos não se alinham com seu projeto, então esqueça, provavelmente Go não é a melhor opção.</p>
 <p>Para se manter fiel a seus objetivos, Golang tende a ser simplista ao extremo, e não implementa, ou implementa de forma alternativa vários mecanismos hoje comum em quase todas as linguagens de alto nível. Para citar alguns desses pontos:</p>
@@ -237,20 +237,17 @@
 <p>Isso mesmo, pode parecer estranho, eu mesmo ainda não me acostumei com isso, mas Go tem um suporte a orientação a objetos extremamente peculiar. Mas não desista ainda, por exemplo, para suprir a necessidade criada pela falta de classes, Go disponibiliza as Structs, que irão permitir trabalhar de forma similar a que estamos acostumados com as classes. Iremos ver isso com mais calma em um próximo artigo.</p>
 <p>O tratamento de erros em Go vem se destacando em meus estudos como um grande ponto fraco do ecossistema, e é comum ver que a maioria dos desenvolvedores usam a capacidade de Golang de retornar vários valores em uma mesma função para fazer um tratamento que pra mim ainda parece um pouco primitivo. Abaixo um exemplo de tratamento de erro:</p>
 <figure class="highlight go hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f, err := os.Open(<span class="hljs-string">"filename.ext"</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {</span><br><span class="line">    log.Fatal(err)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>Para Go os erros não podem ser delegados, são considerados com parte fundamental do código. Um texto interessante que fala sobre isso, escrito por Elton Minetto pode ser lido <a href="https://eltonminetto.net/2016-07-14-tratamento-erros-go/" target="_blank" rel="noopener">aqui</a>.</p>
+<p>Para Go os erros não podem ser delegados, são considerados com parte fundamental do código. Um texto interessante que fala sobre isso, escrito por Elton Minetto pode ser lido <a target="_blank" rel="noopener" href="https://eltonminetto.net/2016-07-14-tratamento-erros-go/">aqui</a>.</p>
 <h2 id="Gerenciamento-de-dependencias"><a href="#Gerenciamento-de-dependencias" class="headerlink" title="Gerenciamento de dependências"></a>Gerenciamento de dependências</h2><p>Nos dias de hoje dificilmente conseguiremos trabalhar em um sistema completamente sem dependências externas, até por que não faria sentido reinventar a roda a cada novo projeto.</p>
 <p>Go vem inserido em um ecossistema muito rico de funcionalidades, traz já em sua base, funcionalidades como testes por exemplo, que na maioria das linguagens ficam a cargo de pacotes de terceiros. Porém isso não acontece com o sistema de gerência de dependências, o que é uma pena, considerando o grau de importância de um sistema realmente confiável para esse fim.</p>
-<p>Não tendo uma ferramenta padrão para isso, acabou por ficar por conta da comunidade o desenvolvimento de uma ferramenta para esse fim, e assim fizeram, várias opções foram surgindo, cada uma com sua abordagem e incompatíveis entre-se, dessas aparentemente a mais relevante é a <a href="https://glide.sh/" target="_blank" rel="noopener">Glide</a>, que parece ser entre todas a mais madura e concisa. Porém esse problema parece estar chegando ao fim, enquanto escrevo esse artigo existe uma iniciativa da própria comunidade em criar uma ferramenta de nome <a href="https://github.com/golang/dep" target="_blank" rel="noopener">dep</a> que ainda é um experimento oficial, mas tende a se tornar a ferramenta oficial para esse fim. Nessa série já vamos iniciar com ele, visto que já é considerado “safe for production use” apesar de estar em processo acelerado de desenvolvimento.</p>
+<p>Não tendo uma ferramenta padrão para isso, acabou por ficar por conta da comunidade o desenvolvimento de uma ferramenta para esse fim, e assim fizeram, várias opções foram surgindo, cada uma com sua abordagem e incompatíveis entre-se, dessas aparentemente a mais relevante é a <a target="_blank" rel="noopener" href="https://glide.sh/">Glide</a>, que parece ser entre todas a mais madura e concisa. Porém esse problema parece estar chegando ao fim, enquanto escrevo esse artigo existe uma iniciativa da própria comunidade em criar uma ferramenta de nome <a target="_blank" rel="noopener" href="https://github.com/golang/dep">dep</a> que ainda é um experimento oficial, mas tende a se tornar a ferramenta oficial para esse fim. Nessa série já vamos iniciar com ele, visto que já é considerado “safe for production use” apesar de estar em processo acelerado de desenvolvimento.</p>
 <p>O processo de instalação do dep é extremamente simples, mas varia de acordo com seu ambiente. Para essa série, irei continuar usando o docker, mas a imagem padrão não mais vai nos atender, assim vamos fazer uma build customizada já com o dep disponível. Para isso, vamos criar um novo arquivo config/docker/go/Dockerfile, que conterá a receita para criar a imagem do docker.</p>
 <figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Arquivo config/docker/go/Dockerfile</span></span><br><span class="line">FROM golang:1.9-stretch</span><br><span class="line">ENV TZ America/Sao_Paulo</span><br><span class="line">RUN go get -u github.com/golang/dep/cmd/dep</span><br></pre></td></tr></tbody></table></figure>
-
 <p>E posteriormente vamos precisar alterar nosso arquivo “docker-compose.yml” para que ele use essa imagem, ficando assim:</p>
 <figure class="highlight yml hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">version:</span> <span class="hljs-string">"2"</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-attr">services:</span></span><br><span class="line">  <span class="hljs-attr">app:</span></span><br><span class="line">    <span class="hljs-attr">build:</span> <span class="hljs-string">./config/docker/go</span></span><br><span class="line">    <span class="hljs-attr">volumes:</span></span><br><span class="line">      <span class="hljs-bullet">-</span> <span class="hljs-string">./:/go/src/learning-go-lang</span></span><br><span class="line">    <span class="hljs-attr">working_dir:</span> <span class="hljs-string">/go/src/learning-go-lang</span></span><br></pre></td></tr></tbody></table></figure>
-
 <p>Para executar o build executamos o comando “docker-compose build” e tudo correndo bem podemos voltar a executar o comando “docker-compose run app go run main.go” e teremos novamente impresso nosso querido Hello World.</p>
 <h2 id="Proximos-Capitulos"><a href="#Proximos-Capitulos" class="headerlink" title="Próximos Capítulos"></a>Próximos Capítulos</h2><p>O passo seguinte será identificar se existem e quanto maduro são os frameworks disponíveis para a linguagem, por fim minha ideia é criar uma API simples usando os principais conceitos da linguagem e posteriormente a levar para produção para que seja possível perceber as dificuldades envolvidas no processo.</p>
-<p>Obs.: Os códigos produzidos durante o projeto podem ser acompanhados usando o repositório hospedado no github -> <a href="https://github.com/meneguite/golang-learning" target="_blank" rel="noopener">https://github.com/meneguite/golang-learning</a></p>
+<p>Obs.: Os códigos produzidos durante o projeto podem ser acompanhados usando o repositório hospedado no github -> <a target="_blank" rel="noopener" href="https://github.com/meneguite/golang-learning">https://github.com/meneguite/golang-learning</a></p>
 <p>Bom por hoje é isso, em breve seguimos..</p>
 <p><a href="/2017/11/15/golang-desbravando-uma-linguagem-de-programacao-parte-3/">Click aqui para acessar a terceira e ultima parte do artigo!!</a></p>
 </body></html>
@@ -260,7 +257,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/Backend/" rel="tag">Backend</a>, <a class="has-link-grey -link" href="/tags/Golang/" rel="tag">Golang</a>, <a class="has-link-grey -link" href="/tags/Programacao/" rel="tag">Programação</a>
+                    <a class="has-link-grey -link-link" href="/tags/Backend/" rel="tag">Backend</a>, <a class="has-link-grey -link-link" href="/tags/Golang/" rel="tag">Golang</a>, <a class="has-link-grey -link-link" href="/tags/Programacao/" rel="tag">Programação</a>
                 </div>
             </div>
         </div>
@@ -382,7 +379,7 @@
                         Artigos
                     </p>
                     <p class="title has-text-weight-normal">
-                        11
+                        12
                     </p>
                 </div>
             </div>
@@ -402,7 +399,7 @@
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        23
+                        26
                     </p>
                 </div>
             </div>
@@ -451,7 +448,7 @@
                 <span class="level-item">Infraestrutura</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li>
             </ul>
@@ -496,6 +493,17 @@
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Banco-de-Dados/">
+                        <span class="level-start">
+                            <span class="level-item">Banco de Dados</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
                         </span>
                     </a>
                 </li>
@@ -581,6 +589,28 @@
                     <a class="level is-marginless" href="/tags/Ldap/">
                         <span class="level-start">
                             <span class="level-item">Ldap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MongoDb/">
+                        <span class="level-start">
+                            <span class="level-item">MongoDb</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/NoSql/">
+                        <span class="level-start">
+                            <span class="level-item">NoSql</span>
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">1</span>
@@ -815,7 +845,7 @@
     
     <div id="outdated">
         <h6>Your browser is out-of-date!</h6>
-        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
         <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
     </div>
     

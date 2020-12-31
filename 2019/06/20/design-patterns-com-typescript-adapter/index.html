@@ -130,7 +130,7 @@
     
 
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 <body class="is-2-column ">
     <nav class="navbar navbar-main">
     <div class="container is-fluid">
@@ -220,30 +220,23 @@
 <p>Bom, o Adapter Pattern tem exatamente a mesma função, conectar dois pontos incompatíveis entre si.</p>
 <p>Com o conceito entendido, hora de colocar isso no código em um exemplo mais real encontrado no dia a dia de muitos desenvolvedores, de forma muito simplificada é claro, mas que já vai nos dar uma boa ideia de como expandirmos e aplicarmos isso no nosso dia a dia.</p>
 <p>Considere que tem hoje um sistema de log que salva em um arquivo local todas as informações geradas pela aplicação, e que esse possui a seguinte interface e implementação:</p>
-<figure class="highlight typescript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> Logger {</span><br><span class="line">  info(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">class</span> FileLogger <span class="hljs-keyword">implements</span> Logger {</span><br><span class="line">  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> info(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>> {</span><br><span class="line">    <span class="hljs-built_in">console</span>.info(message);</span><br><span class="line">    <span class="hljs-built_in">console</span>.info(<span class="hljs-string">'This Message was saved with FileLogger'</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
+<figure class="highlight typescript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> Logger {</span><br><span class="line">  info(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileLogger</span> <span class="hljs-title">implements</span> <span class="hljs-title">Logger</span> </span>{</span><br><span class="line">  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> info(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>> {</span><br><span class="line">    <span class="hljs-built_in">console</span>.info(message);</span><br><span class="line">    <span class="hljs-built_in">console</span>.info(<span class="hljs-string">'This Message was saved with FileLogger'</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>Essa mesma implementação é usada por todo o sistema e sempre gerado um log o mesmo é tratado por essa classe FileLogger como no exemplo abaixo:</p>
-<figure class="highlight typescript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">class</span> NotificationService {</span><br><span class="line">  <span class="hljs-keyword">protected</span> logger: Logger;</span><br><span class="line">  </span><br><span class="line">  <span class="hljs-keyword">constructor</span> (<span class="hljs-params">logger: Logger</span>) {    </span><br><span class="line">    <span class="hljs-keyword">this</span>.logger = logger;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> send(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>> {</span><br><span class="line">    <span class="hljs-comment">//... Implementation</span></span><br><span class="line">    <span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.logger.info(<span class="hljs-string">`Notification sended: <span class="hljs-subst">${message}</span>`</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// Inicialização com o FileLogger</span></span><br><span class="line">(<span class="hljs-keyword">async</span> () => {</span><br><span class="line">  <span class="hljs-keyword">const</span> fileLogger = <span class="hljs-keyword">new</span> FileLogger();</span><br><span class="line">  <span class="hljs-keyword">const</span> notificationService = <span class="hljs-keyword">new</span> NotificationService(fileLogger);</span><br><span class="line">  <span class="hljs-keyword">await</span> notificationService.send(<span class="hljs-string">'My notification'</span>);</span><br><span class="line">})();</span><br></pre></td></tr></tbody></table></figure>
-
+<figure class="highlight typescript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NotificationService</span> </span>{</span><br><span class="line">  <span class="hljs-keyword">protected</span> logger: Logger;</span><br><span class="line">  </span><br><span class="line">  <span class="hljs-title">constructor</span> (<span class="hljs-params">logger: Logger</span>) {    </span><br><span class="line">    <span class="hljs-built_in">this</span>.logger = logger;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> send(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>> {</span><br><span class="line">    <span class="hljs-comment">//... Implementation</span></span><br><span class="line">    <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.logger.info(<span class="hljs-string">`Notification sended: <span class="hljs-subst">${message}</span>`</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// Inicialização com o FileLogger</span></span><br><span class="line">(<span class="hljs-keyword">async</span> () => {</span><br><span class="line">  <span class="hljs-keyword">const</span> fileLogger = <span class="hljs-keyword">new</span> FileLogger();</span><br><span class="line">  <span class="hljs-keyword">const</span> notificationService = <span class="hljs-keyword">new</span> NotificationService(fileLogger);</span><br><span class="line">  <span class="hljs-keyword">await</span> notificationService.send(<span class="hljs-string">'My notification'</span>);</span><br><span class="line">})();</span><br></pre></td></tr></tbody></table></figure>
 <p>Ao rodar esse código é esperado algo como:</p>
 <figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># tsc && node adapter/index.js</span></span><br><span class="line">Notification sended: Foii</span><br><span class="line">This Message was saved with FileLogger</span><br></pre></td></tr></tbody></table></figure>
 
-
 <p>Porém agora precisamos usar uma nova forma de salvar os logs, pois com o crescimento de nossa aplicação, salvar em disco não é mais uma alternativa, assim precisamos usar uma implementação que responde pela seguinte interface e implementação:</p>
-<figure class="highlight typescript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> CloudLogger {</span><br><span class="line">  sendToServer(message: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">class</span> AwsLogger <span class="hljs-keyword">implements</span> CloudLogger {</span><br><span class="line">  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> sendToServer(message: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>> {</span><br><span class="line">    <span class="hljs-built_in">console</span>.info(message);</span><br><span class="line">    <span class="hljs-built_in">console</span>.info(<span class="hljs-string">'This Message was saved with AwsLogger'</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
+<figure class="highlight typescript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">interface</span> CloudLogger {</span><br><span class="line">  sendToServer(message: <span class="hljs-built_in">string</span>, <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AwsLogger</span> <span class="hljs-title">implements</span> <span class="hljs-title">CloudLogger</span> </span>{</span><br><span class="line">  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> sendToServer(message: <span class="hljs-built_in">string</span>, <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>> {</span><br><span class="line">    <span class="hljs-built_in">console</span>.info(message);</span><br><span class="line">    <span class="hljs-built_in">console</span>.info(<span class="hljs-string">'This Message was saved with AwsLogger'</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>Ou seja, para que possamos usar essa nova classe precisaríamos refatorar todo nosso código para usar o novo formato de envio de log, ou usar um adapter, o que convenhamos, parece uma opção bem melhor 🙂.<br>Esse adapter poderia ser algo como:</p>
-<figure class="highlight typescript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">class</span> CloudLoggerAdapter <span class="hljs-keyword">implements</span> Logger {</span><br><span class="line">  <span class="hljs-keyword">protected</span> cloudLogger: CloudLogger;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">constructor</span> (<span class="hljs-params">cloudLogger: CloudLogger</span>) {</span><br><span class="line">    <span class="hljs-keyword">this</span>.cloudLogger = cloudLogger;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> info(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>> {</span><br><span class="line">    <span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.cloudLogger.sendToServer(message, <span class="hljs-string">'info'</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
+<figure class="highlight typescript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CloudLoggerAdapter</span> <span class="hljs-title">implements</span> <span class="hljs-title">Logger</span> </span>{</span><br><span class="line">  <span class="hljs-keyword">protected</span> cloudLogger: CloudLogger;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-title">constructor</span> (<span class="hljs-params">cloudLogger: CloudLogger</span>) {</span><br><span class="line">    <span class="hljs-built_in">this</span>.cloudLogger = cloudLogger;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> info(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span><<span class="hljs-built_in">void</span>> {</span><br><span class="line">    <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.cloudLogger.sendToServer(message, <span class="hljs-string">'info'</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>Com esse adapter poderíamos enviar uma instância do mesmo e manter todo o código de nossas implementações intacto, apenas alterando a inicialização como pode ser visto no exemplo abaixo:</p>
 <figure class="highlight typescript hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// Inicialização com o AwsLogger</span></span><br><span class="line">(<span class="hljs-keyword">async</span> () => {</span><br><span class="line">  <span class="hljs-keyword">const</span> awsLogger = <span class="hljs-keyword">new</span> AwsLogger();</span><br><span class="line">  <span class="hljs-keyword">const</span> cloudLoggerAdapter = <span class="hljs-keyword">new</span> CloudLoggerAdapter(awsLogger);</span><br><span class="line">  <span class="hljs-keyword">const</span> notificationService = <span class="hljs-keyword">new</span> NotificationService(cloudLoggerAdapter);</span><br><span class="line">  <span class="hljs-keyword">await</span> notificationService.send(<span class="hljs-string">'My notification'</span>);</span><br><span class="line">})();</span><br></pre></td></tr></tbody></table></figure>
-
 <p>Assim teríamos uma saída esperada:</p>
 <figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># tsc && node adapter/index.js</span></span><br><span class="line">Notification sended: Foii</span><br><span class="line">This Message was saved with AwsLogger</span><br></pre></td></tr></tbody></table></figure>
-
 <p>Como podem perceber esse é um padrão extremamente útil e é fundamental para qualquer desenvolvedor o entendimento desse padrão.</p>
 <p>Bom por hoje é isso, mais em breve pretendo escrever outros artigos como esse, com intuito de simplificar e trazer para o nosso dia a dia os padrões de projetos ou design patterns mais comuns aplicados usando o typescript.</p>
-<p>O Código completo para esse implementação pode ser encontrado em: <a href="https://github.com/meneguite/typescript-design-patterns/blob/master/adapter/index.ts" target="_blank" rel="noopener">https://github.com/meneguite/typescript-design-patterns/blob/master/adapter/index.ts</a></p>
+<p>O Código completo para esse implementação pode ser encontrado em: <a target="_blank" rel="noopener" href="https://github.com/meneguite/typescript-design-patterns/blob/master/adapter/index.ts">https://github.com/meneguite/typescript-design-patterns/blob/master/adapter/index.ts</a></p>
 <h2 id="Outros-padroes-de-Projetos"><a href="#Outros-padroes-de-Projetos" class="headerlink" title="Outros padrões de Projetos:"></a>Outros padrões de Projetos:</h2><ul>
 <li><a href="/2019/06/20/design-patterns-com-typescript-adapter">Adapter Pattern</a></li>
 <li><a href="/2019/06/23/design-patterns-com-typescript-observer">Observer Pattern</a></li>
@@ -255,7 +248,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/Adapter-Pattern/" rel="tag">Adapter Pattern</a>, <a class="has-link-grey -link" href="/tags/Design-Patterns/" rel="tag">Design Patterns</a>, <a class="has-link-grey -link" href="/tags/Padroes-de-Projeto/" rel="tag">Padrões de Projeto</a>, <a class="has-link-grey -link" href="/tags/Typescript/" rel="tag">Typescript</a>
+                    <a class="has-link-grey -link-link" href="/tags/Adapter-Pattern/" rel="tag">Adapter Pattern</a>, <a class="has-link-grey -link-link" href="/tags/Design-Patterns/" rel="tag">Design Patterns</a>, <a class="has-link-grey -link-link" href="/tags/Padroes-de-Projeto/" rel="tag">Padrões de Projeto</a>, <a class="has-link-grey -link-link" href="/tags/Typescript/" rel="tag">Typescript</a>
                 </div>
             </div>
         </div>
@@ -377,7 +370,7 @@
                         Artigos
                     </p>
                     <p class="title has-text-weight-normal">
-                        11
+                        12
                     </p>
                 </div>
             </div>
@@ -397,7 +390,7 @@
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        23
+                        26
                     </p>
                 </div>
             </div>
@@ -446,7 +439,7 @@
                 <span class="level-item">Infraestrutura</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li>
             </ul>
@@ -491,6 +484,17 @@
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Banco-de-Dados/">
+                        <span class="level-start">
+                            <span class="level-item">Banco de Dados</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
                         </span>
                     </a>
                 </li>
@@ -576,6 +580,28 @@
                     <a class="level is-marginless" href="/tags/Ldap/">
                         <span class="level-start">
                             <span class="level-item">Ldap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MongoDb/">
+                        <span class="level-start">
+                            <span class="level-item">MongoDb</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/NoSql/">
+                        <span class="level-start">
+                            <span class="level-item">NoSql</span>
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">1</span>
@@ -810,7 +836,7 @@
     
     <div id="outdated">
         <h6>Your browser is out-of-date!</h6>
-        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
         <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
     </div>
     

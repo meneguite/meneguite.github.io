@@ -129,7 +129,7 @@
     
 
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 <body class="is-2-column ">
     <nav class="navbar navbar-main">
     <div class="container is-fluid">
@@ -215,24 +215,22 @@
 <a id="more"></a>
 
 <p>O processo de remoção manual do slack é irritante, e como desenvolvedor que sou, detestaria fazer um processo manual como esse, ainda mais se tenho outra saída melhor para isso, assim resolvi escrever um utilitário, e posteriormente esse artigo, para demonstrar como podemos fazer esse processo em poucos passos, o que poderá te poupar várias horas limpando arquivos de seu workspace no slack.</p>
-<p>Para iniciarmos vamos precisar criar um token legacy no endereço <a href="https://api.slack.com/custom-integrations/legacy-tokens" target="_blank" rel="noopener">https://api.slack.com/custom-integrations/legacy-tokens</a>, bastando para isso gerar um novo token, caso já não o tenha gerado um até então. É esse token que irá lhe permitir executar essas ações em seu workspace.</p>
+<p>Para iniciarmos vamos precisar criar um token legacy no endereço <a target="_blank" rel="noopener" href="https://api.slack.com/custom-integrations/legacy-tokens">https://api.slack.com/custom-integrations/legacy-tokens</a>, bastando para isso gerar um novo token, caso já não o tenha gerado um até então. É esse token que irá lhe permitir executar essas ações em seu workspace.</p>
 <img src="/2019/08/02/como-remover-arquivos-antigos-do-slack/002.jpg" class>
 
-<p>Para executar o utilitário vai precisar ter instalado em sua maquina uma versão recente do node, se já não possui ele por ai, a instalação é bem simples e encontrara todos os passos necessários em <a href="https://nodejs.org/" target="_blank" rel="noopener">https://nodejs.org/</a>, por aqui estou usando a versão 10, a LTS no momento que escrevo o artigo, mas provavelmente não vai ter problemas para rodar esse utilitário em versões mais recentes.</p>
+<p>Para executar o utilitário vai precisar ter instalado em sua maquina uma versão recente do node, se já não possui ele por ai, a instalação é bem simples e encontrara todos os passos necessários em <a target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org/</a>, por aqui estou usando a versão 10, a LTS no momento que escrevo o artigo, mas provavelmente não vai ter problemas para rodar esse utilitário em versões mais recentes.</p>
 <p>Com o node instalado vamos instalar nosso utilitário:</p>
 <figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install slack-remove-files -g</span><br></pre></td></tr></tbody></table></figure>
 <p>Após o processo é só executar o comando:</p>
 <figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slack-remove-files 12 months {SEU_TOKEN_AQUI}</span><br></pre></td></tr></tbody></table></figure>
-
 <p>Nesse exemplo, irá remover todos os arquivos anteriores a 12 meses, mas não se limite ao exemplo, variando o valor e unidade pode personalizar como quiser e lhe atender melhor, alguns outros exemplos de combinação:</p>
 <figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slack-remove-files 60 days {SEU_TOKEN_AQUI}</span><br><span class="line">slack-remove-files 2 years {SEU_TOKEN_AQUI}</span><br></pre></td></tr></tbody></table></figure>
 <p>Fique a vontade para criar sua combinação, antes de executar ele irá lhe solicitar uma confirmação mostrando a data apurada como pode ser visto abaixo:</p>
 <figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">All files dated less than will 2017-08-03T16:57:04.626Z be removed. </span><br><span class="line">Do you wish to <span class="hljs-built_in">continue</span> ?  (y ou n)</span><br></pre></td></tr></tbody></table></figure>
-
 <p>Apenas se confirmar é esperado que ele busque junto ao slack todos os arquivos e remova um a um, apresentando um relatório dos arquivos removidos como mostrado na imagem abaixo:</p>
 <img src="/2019/08/02/como-remover-arquivos-antigos-do-slack/003.jpg" class>
 
-<p>O Código completo para desse utilitário pode ser encontrado em: <a href="https://github.com/meneguite/slack-remove-files" target="_blank" rel="noopener">https://github.com/meneguite/slack-remove-files</a></p>
+<p>O Código completo para desse utilitário pode ser encontrado em: <a target="_blank" rel="noopener" href="https://github.com/meneguite/slack-remove-files">https://github.com/meneguite/slack-remove-files</a></p>
 <p>Espero que lhe seja útil! Caso tenha alguma dúvida sobre o uso, pode deixar por aqui, ou o que seria ainda melhor, usando as issues do github.</p>
 </body></html>
         </div>
@@ -241,7 +239,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/Slack/" rel="tag">Slack</a>, <a class="has-link-grey -link" href="/tags/Tutoriais/" rel="tag">Tutoriais</a>, <a class="has-link-grey -link" href="/tags/Utilitario/" rel="tag">Utilitario</a>
+                    <a class="has-link-grey -link-link" href="/tags/Slack/" rel="tag">Slack</a>, <a class="has-link-grey -link-link" href="/tags/Tutoriais/" rel="tag">Tutoriais</a>, <a class="has-link-grey -link-link" href="/tags/Utilitario/" rel="tag">Utilitario</a>
                 </div>
             </div>
         </div>
@@ -363,7 +361,7 @@
                         Artigos
                     </p>
                     <p class="title has-text-weight-normal">
-                        11
+                        12
                     </p>
                 </div>
             </div>
@@ -383,7 +381,7 @@
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        23
+                        26
                     </p>
                 </div>
             </div>
@@ -432,7 +430,7 @@
                 <span class="level-item">Infraestrutura</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li>
             </ul>
@@ -477,6 +475,17 @@
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Banco-de-Dados/">
+                        <span class="level-start">
+                            <span class="level-item">Banco de Dados</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
                         </span>
                     </a>
                 </li>
@@ -562,6 +571,28 @@
                     <a class="level is-marginless" href="/tags/Ldap/">
                         <span class="level-start">
                             <span class="level-item">Ldap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MongoDb/">
+                        <span class="level-start">
+                            <span class="level-item">MongoDb</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/NoSql/">
+                        <span class="level-start">
+                            <span class="level-item">NoSql</span>
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">1</span>
@@ -796,7 +827,7 @@
     
     <div id="outdated">
         <h6>Your browser is out-of-date!</h6>
-        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
         <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
     </div>
     

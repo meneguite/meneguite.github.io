@@ -129,7 +129,7 @@
     
 
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 <body class="is-2-column ">
     <nav class="navbar navbar-main">
     <div class="container is-fluid">
@@ -214,28 +214,25 @@
 Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que queria voltar a escreve-los. Hoje resolvi aprender uma nova linguagem de programação e também documentar esse processo na esperança de talvez poder ajudar alguém, não só aprender a própria linguagem Go, como qualquer outra linguagem de programação. Esta série de artigos não tem a pretensão de ser um guia definitivo, ou um super manual da linguagem, mas sim descrever como eu aprendo uma nova linguagem, pontos importantes e minhas impressões da mesma. Bom então vamos lá…
 <a id="more"></a>
 
-<h2 id="O-que-e-Go"><a href="#O-que-e-Go" class="headerlink" title="O que é Go"></a>O que é Go</h2><p>Go é um projeto de código aberto, multiplataforma, desenvolvido e mantido pelo time do Google além de outros <a href="https://golang.org/CONTRIBUTORS" target="_blank" rel="noopener">contribuidores</a> e distribuído com a licença <a href="https://golang.org/LICENSE" target="_blank" rel="noopener">BSD</a>. O projeto nasce com o objetivo de tornar seus programadores mais produtivos e ser uma linguagem expressiva, concisa, limpa e eficiente. Bom, isso é o que está descrito em sua documentação, por hora vamos apenas acreditar :) . Podemos encontrar mais informações sobre o projeto <a href="https://golang.org/project/" target="_blank" rel="noopener">aqui</a>.</p>
-<p>Leia a <a href="https://golang.org/doc/" target="_blank" rel="noopener">documentação da linguagem</a>, esse é o primeiro passo para entender o que é e o que esperar ao aprendê-la.</p>
+<h2 id="O-que-e-Go"><a href="#O-que-e-Go" class="headerlink" title="O que é Go"></a>O que é Go</h2><p>Go é um projeto de código aberto, multiplataforma, desenvolvido e mantido pelo time do Google além de outros <a target="_blank" rel="noopener" href="https://golang.org/CONTRIBUTORS">contribuidores</a> e distribuído com a licença <a target="_blank" rel="noopener" href="https://golang.org/LICENSE">BSD</a>. O projeto nasce com o objetivo de tornar seus programadores mais produtivos e ser uma linguagem expressiva, concisa, limpa e eficiente. Bom, isso é o que está descrito em sua documentação, por hora vamos apenas acreditar :) . Podemos encontrar mais informações sobre o projeto <a target="_blank" rel="noopener" href="https://golang.org/project/">aqui</a>.</p>
+<p>Leia a <a target="_blank" rel="noopener" href="https://golang.org/doc/">documentação da linguagem</a>, esse é o primeiro passo para entender o que é e o que esperar ao aprendê-la.</p>
 <p>Saber os objetivos do ecossistema é fundamental para entender onde é possível e viável usar a linguagem. Perceba que entender isso é como conhecer qualquer ferramenta que se proponha a usar, tentar apertar um parafuso com um martelo tende a não dar muito certo 😁.</p>
 <p>E porque os objetivos do ecossistema e não da linguagem?</p>
-<p>Bom, esse é um erro muito comum para iniciantes. É fundamental perceber que o que limita o uso de uma linguagem, não é sua sintaxe. No geral a linguagem e seu ecossistema nascem e evoluem em um mesmo objetivo, porém é possível que isso mude com o tempo. O JavaScript é um exemplo muito claro disso, foi por muito tempo uma linguagem limitada ao browser, com aplicabilidade apenas em sistemas web, porém esse cenário mudou completamente após a chegada do <a href="https://nodejs.org/en/" target="_blank" rel="noopener">NodeJs</a>, hoje vemos JavaScript para todos os lados, seja em servidores ou até em pequenos dispositivos embarcados.</p>
-<p>Uma impressão inicial, e que me agrada bastante, é que logo no inicio de sua documentação, Go deixa claro ter seu foco em aproveitar o máximo de maquinas multicore e em rede, esse objetivo é super importante, porque iniciar em um ecossistema que não trabalha bem com <a href="https://www.ibm.com/blogs/cloud-computing/2014/04/explain-vertical-horizontal-scaling-cloud/" target="_blank" rel="noopener">escalabilidade seja ela vertical ou horizontal</a> é hoje na minha visão uma perda de tempo na grande maiorias dos casos.</p>
+<p>Bom, esse é um erro muito comum para iniciantes. É fundamental perceber que o que limita o uso de uma linguagem, não é sua sintaxe. No geral a linguagem e seu ecossistema nascem e evoluem em um mesmo objetivo, porém é possível que isso mude com o tempo. O JavaScript é um exemplo muito claro disso, foi por muito tempo uma linguagem limitada ao browser, com aplicabilidade apenas em sistemas web, porém esse cenário mudou completamente após a chegada do <a target="_blank" rel="noopener" href="https://nodejs.org/en/">NodeJs</a>, hoje vemos JavaScript para todos os lados, seja em servidores ou até em pequenos dispositivos embarcados.</p>
+<p>Uma impressão inicial, e que me agrada bastante, é que logo no inicio de sua documentação, Go deixa claro ter seu foco em aproveitar o máximo de maquinas multicore e em rede, esse objetivo é super importante, porque iniciar em um ecossistema que não trabalha bem com <a target="_blank" rel="noopener" href="https://www.ibm.com/blogs/cloud-computing/2014/04/explain-vertical-horizontal-scaling-cloud/">escalabilidade seja ela vertical ou horizontal</a> é hoje na minha visão uma perda de tempo na grande maiorias dos casos.</p>
 <p>Outro ponto que me interessou bastante é o fato de Go ser é uma linguagem com tipagem estática e compilada, o que destoa bastante das linguagens que venho trabalhando nos últimos tempos, e pode ser um trufo interessante em novos projetos.</p>
 <h2 id="Entendendo-a-sintaxe-basica-da-linguagem"><a href="#Entendendo-a-sintaxe-basica-da-linguagem" class="headerlink" title="Entendendo a sintaxe básica da linguagem"></a>Entendendo a sintaxe básica da linguagem</h2><p>Ao iniciar em uma linguagem é importante entender sua sintaxe básica e sempre que possível suas origens. Quase todas as linguagens modernas não começaram do zero, foram inspiradas em linguagens já existentes. Traçar sua ancestralidade ajuda a criar familiaridade mais rapidamente caso já possua domínio de outra com ancestral comum. Por exemplo, linguagens baseadas em C tendem a ter características em comum e quanto antes perceber isso, mais rápido vai se sentir a vontade na nova linguagem.</p>
 <p>Go é um exemplo disso, muito de sua sintaxe é semelhante ao C, com pequenas mudanças como a falta de parênteses em volta de estruturas como <strong>for</strong> e <strong>if</strong> por exemplo. É super tranquilo se adaptar as mudanças.. abaixo um exemplo de código Go.</p>
 <figure class="highlight go hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {</span><br><span class="line">    fmt.Println(<span class="hljs-string">"Hello World"</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>Todos os detalhes da Especificação da linguagem podem ser encontrados <a href="https://golang.org/ref/spec" target="_blank" rel="noopener">aqui</a>, é sempre bom dar uma olhada, mas essa documentação pode e deve ser consultada sempre que alguma dúvida aparecer.</p>
+<p>Todos os detalhes da Especificação da linguagem podem ser encontrados <a target="_blank" rel="noopener" href="https://golang.org/ref/spec">aqui</a>, é sempre bom dar uma olhada, mas essa documentação pode e deve ser consultada sempre que alguma dúvida aparecer.</p>
 <p>A documentação da especificação do Go é muito detalhada e bem escrita, eu realmente me senti confortável ao fazer uma leitura rápida da mesma.</p>
-<h2 id="Configurando-o-ambiente-de-desenvolvimento"><a href="#Configurando-o-ambiente-de-desenvolvimento" class="headerlink" title="Configurando o ambiente de desenvolvimento"></a>Configurando o ambiente de desenvolvimento</h2><p>Para iniciarmos em uma nova linguagem, quase sempre, precisamos de um ambiente bem configurado de forma possibilitar a fluides no aprendizado. Hoje dificilmente instalo qualquer ambiente diretamente em minha maquina, por algum tempo usei o <a href="https://www.vagrantup.com/" target="_blank" rel="noopener">Vagrant</a> para isso, porém hoje tenho trabalho quase exclusivamente com o <a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>, ele possibilita testar e descartar sempre que não uso mais qualquer ambiente, deixando minha máquina sempre livre. Outro ponto importante é que consigo reproduzir o exato ambiente ao qual o sistema vai rodar quando em produção, evitando problemas de compatibilidade no momento em que coloco o sistema no ar.</p>
+<h2 id="Configurando-o-ambiente-de-desenvolvimento"><a href="#Configurando-o-ambiente-de-desenvolvimento" class="headerlink" title="Configurando o ambiente de desenvolvimento"></a>Configurando o ambiente de desenvolvimento</h2><p>Para iniciarmos em uma nova linguagem, quase sempre, precisamos de um ambiente bem configurado de forma possibilitar a fluides no aprendizado. Hoje dificilmente instalo qualquer ambiente diretamente em minha maquina, por algum tempo usei o <a target="_blank" rel="noopener" href="https://www.vagrantup.com/">Vagrant</a> para isso, porém hoje tenho trabalho quase exclusivamente com o <a target="_blank" rel="noopener" href="https://www.docker.com/">Docker</a>, ele possibilita testar e descartar sempre que não uso mais qualquer ambiente, deixando minha máquina sempre livre. Outro ponto importante é que consigo reproduzir o exato ambiente ao qual o sistema vai rodar quando em produção, evitando problemas de compatibilidade no momento em que coloco o sistema no ar.</p>
 <p>O intuito desse artigo não está em usar o Docker, assim apenas me limitarei a mostrar os passos feitos e não a explica-los a fundo, mas sugiro fortemente que tire um tempinho para dominar ele, provavelmente vai ser um divisor de água no seu dia a dia como desenvolvedor.</p>
 <p>Para iniciarmos o projeto criei um arquivo chamado “docker-compose.yml” na raiz do projeto com o seguinte conteúdo:</p>
 <figure class="highlight yml hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attr">version:</span> <span class="hljs-string">"2"</span></span><br><span class="line"><span class="hljs-attr">services:</span></span><br><span class="line">  <span class="hljs-attr">app:</span></span><br><span class="line">    <span class="hljs-attr">image:</span> <span class="hljs-string">golang:1.9-stretch</span></span><br><span class="line">    <span class="hljs-attr">volumes:</span></span><br><span class="line">      <span class="hljs-bullet">-</span> <span class="hljs-string">./:/go/src/learning-go-lang</span></span><br><span class="line">    <span class="hljs-attr">working_dir:</span> <span class="hljs-string">/go/src/learning-go-lang</span></span><br></pre></td></tr></tbody></table></figure>
-
 <p>Esse arquivo é responsável por inicializar com as configurações adequadas o contêiner docker para a aplicação.</p>
 <p>Posteriormente criei um arquivo de nome de “main.go” ainda na raiz do projeto com o seguinte conteúdo:</p>
 <figure class="highlight go hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {</span><br><span class="line">     fmt.Println(<span class="hljs-string">"Hello World"</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
 <p>Tudo finalizado e configurado, basta executar o comando <strong>“docker-compose run app go run main.go”</strong>, esse comando ao ser rodado a primeira vez baixa o container configurado no arquivo “docker-compose.yml” e posteriormente executa o arquivo main.go. (Esse processo pode demorar um pouco a primeira vez, dependendo de sua conexão com a internet, porém nas demais o processo é super rápido).</p>
 <p>Assim, após finalizado o processo, todo o ambiente configurado e pronto para começarmos os trabalhos devera gerar o tão esperado Hello World em sua última linha.</p>
 <h2 id="Proximos-Capitulos"><a href="#Proximos-Capitulos" class="headerlink" title="Próximos Capítulos"></a>Próximos Capítulos</h2><p>Para continuação dessa série alguns dos próximos passos serão, entender melhor como funciona o sistema de Gerenciamento de Dependências do Go, todos os projetos, quase sem exceção dependem de ferramentas externas, Go parece ser bem completo, mas ter e entender como funciona seu gestor de dependência é fundamental.</p>
@@ -251,7 +248,7 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/Backend/" rel="tag">Backend</a>, <a class="has-link-grey -link" href="/tags/Golang/" rel="tag">Golang</a>, <a class="has-link-grey -link" href="/tags/Programacao/" rel="tag">Programação</a>
+                    <a class="has-link-grey -link-link" href="/tags/Backend/" rel="tag">Backend</a>, <a class="has-link-grey -link-link" href="/tags/Golang/" rel="tag">Golang</a>, <a class="has-link-grey -link-link" href="/tags/Programacao/" rel="tag">Programação</a>
                 </div>
             </div>
         </div>
@@ -373,7 +370,7 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
                         Artigos
                     </p>
                     <p class="title has-text-weight-normal">
-                        11
+                        12
                     </p>
                 </div>
             </div>
@@ -393,7 +390,7 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        23
+                        26
                     </p>
                 </div>
             </div>
@@ -442,7 +439,7 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
                 <span class="level-item">Infraestrutura</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li>
             </ul>
@@ -487,6 +484,17 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Banco-de-Dados/">
+                        <span class="level-start">
+                            <span class="level-item">Banco de Dados</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
                         </span>
                     </a>
                 </li>
@@ -572,6 +580,28 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
                     <a class="level is-marginless" href="/tags/Ldap/">
                         <span class="level-start">
                             <span class="level-item">Ldap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MongoDb/">
+                        <span class="level-start">
+                            <span class="level-item">MongoDb</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/NoSql/">
+                        <span class="level-start">
+                            <span class="level-item">NoSql</span>
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">1</span>
@@ -806,7 +836,7 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
     
     <div id="outdated">
         <h6>Your browser is out-of-date!</h6>
-        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
         <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
     </div>
     

@@ -15,10 +15,7 @@
 <meta property="og:description" content="Site sobre tecnologia, com foco em desenvolvimento de sistemas e segurança da informação">
 <meta property="og:locale" content="pt_BR">
 <meta property="article:author" content="Ronaldo Meneguite">
-<meta property="article:tag" content="tech">
-<meta property="article:tag" content=" programação">
-<meta property="article:tag" content=" desenvolvimento">
-<meta property="article:tag" content=" tecnologia">
+<meta property="article:tag" content="tech, programação, desenvolvimento, tecnologia">
 <meta name="twitter:card" content="summary">
 <meta property="fb:admins" content="ronaldomeneguite">
 <meta property="fb:app_id" content="284008812234350">
@@ -126,7 +123,7 @@
     
 
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 <body class="is-2-column ">
     <nav class="navbar navbar-main">
     <div class="container is-fluid">
@@ -351,26 +348,53 @@
           </div>
         
         <div class="content">
-            <html><head></head><body><p>Este artigo é a terceira e ultima parte de uma sequência de artigos sobre meu processo de aprendizado de uma nova linguagem de programação, nessa série tenho o objetivo de documentar esse processo na esperança de talvez poder ajudar alguém, não só aprender a própria linguagem Go, como qualquer outra linguagem de programação. A <a href="/2017/10/01/golang-desbravando-uma-linguagem-de-programacao-parte-1/">parte 1</a> dessa série pode ser lida aqui e a <a href="/2017/10/08/golang-desbravando-uma-linguagem-de-programacao-parte-2/">parte 2 aqui</a>.</p></body></html>
+            <html><head></head><body><p>Este artigo é a terceira e ultima parte de uma sequência de artigos sobre meu processo de aprendizado de uma nova linguagem de programação, nessa série tenho o objetivo de documentar esse processo na esperança de talvez poder ajudar alguém, não só aprender a própria linguagem Go, como qualquer outra linguagem de programação. A <a href="/2017/10/01/golang-desbravando-uma-linguagem-de-programacao-parte-1/">parte 1</a> dessa série pode ser lida aqui e a <a href="/2017/10/08/golang-desbravando-uma-linguagem-de-programacao-parte-2/">parte 2 aqui</a>.</p>
+<!-- more  -->
+
+<h2 id="Antes-de-comecarmos"><a href="#Antes-de-comecarmos" class="headerlink" title="Antes de começarmos"></a>Antes de começarmos</h2><p>Após algum tempo aprendendo Golang, confesso que configurar uma ambiente funcional com go e docker não foi das tarefas mais simples. Após muita leitura e varias tentativas e erros acabei por adotar um modelo hibrido, onde uso o docker apenas para testar no ambiente mais próximo ao ambiente de produção, mas para o desenvolvimento acabei por configurar o ambiente local 😒. Assim simplifiquei bem dockercompose.yml e removi o Dockerfile que havia criado no artigo anterior.</p>
+<h2 id="Frameworks-no-mundo-Go"><a href="#Frameworks-no-mundo-Go" class="headerlink" title="Frameworks no mundo Go"></a>Frameworks no mundo Go</h2><p>O uso de frameworks em Go é viável, mas nem sempre necessário. Ao adentrar no ecossistema de Go é possível perceber o quão rico ele é, hoje mesmo sendo uma linguagem relativamente nova, é possível perceber um número enorme de opções de bibliotecas que abrangem a grande maioria das necessidades que um desenvolvedor pode ter em seu dia a dia, podendo assim tecer sua própria solução sem maiores dificuldades.</p>
+<p>Dias atrás tive acesso a um repositório que tem o intuito de catalogar e classificar os principais pacotes disponíveis para uso, pode ver ele aqui. Ele é realmente completo, tem dezenas de categorias e diversas opções para cada uma delas, certamente vale uma conferida.</p>
+<p>Ao acessar <a target="_blank" rel="noopener" href="https://github.com/avelino/awesome-go#web-frameworks">https://github.com/avelino/awesome-go#web-frameworks</a> perceberá uma lista considerável com diversos frameworks disponíveis para o desenvolvimento de aplicações web, que será o objetivo do projeto final dessa dessa série. Desses, por indicação da própria comunidade no slack<a href="#note-number-1">¹</a> ( que por sinal recomendo muito que todos que tenham interesse na linguagem participe), e baseado também em minhas pesquisas, <a target="_blank" rel="noopener" href="https://echo.labstack.com/">echo</a> e <a target="_blank" rel="noopener" href="https://gin-gonic.github.io/gin/">gin</a> são os dois mais expressivos hoje.</p>
+<img src="/2017/11/15/golang-desbravando-uma-linguagem-de-programacao-parte-3/002.png" class>
+
+<p>O uso de frameworks é controverso para iniciantes em uma linguagem. É fácil perceber como eles podem dar aquele gás para quem ainda está iniciando, mostrando bons caminhos, boas escolhas de design para a aplicação e muito mais. Porém é comum ver eles sendo usados como muleta para desenvolvedores que realmente não aprenderam sobre a linguagem e seu ecossistema. Assim cabe a quem esta iniciando a escolha, ou usa ele como escada ou como muleta, eu prefiro usar como escada, e esse processo me ajuda muito a aprender e me ambientar.</p>
+<p>Entre os frameworks destacados muitas similaridades são perceptíveis, tanto o <strong>echo</strong> como o <strong>gin</strong> tem um foco muito claro em performance, chegando a prometer performance ainda maior que teríamos se usarmos o módulo nativo. E isso faz muito sentido, se um dos maiores diferenciais da linguagem é a alta performance, é natural que os frameworks que compõem seu ecossistema também sigam a mesma linha.</p>
+<p>Nesse ponto é fundamental que leiam a documentação dos frameworks que parecem mais promissores, com a documentação poderá alinhar se os objetivos e funcionalidades do mesmo alinham com as do projeto.</p>
+<h2 id="Implementando-uma-API-em-Golang"><a href="#Implementando-uma-API-em-Golang" class="headerlink" title="Implementando uma API em Golang"></a>Implementando uma API em Golang</h2><p>Bom agora é hora da parte legal, bora colocar a mão na massa e criar uma API restfull para entender melhor os desafios e as possibilidades que o ecossistema de Go disponibiliza. O objetivo da api é simular um microservice de autenticação extremamente simplista e sem nenhuma pretensão de levá-lo para produção.</p>
+<p>As principais features esperadas para essa implementação são:</p>
+<ul>
+<li>Cadastro de um novo usuário</li>
+<li>Atualização de usuário já cadastrado</li>
+<li>Remoção de usuário existente</li>
+<li>Listagem com todos os usuários cadastrados</li>
+<li>Validar um usuário por seu nome de usuário e senha</li>
+</ul>
+<p>Para essa implementação resolvi usar o <strong>echo</strong> como suporte para me prover as funcionalidades básicas para desenvolver essa API.</p>
+<h2 id="Iniciando-um-novo-projeto"><a href="#Iniciando-um-novo-projeto" class="headerlink" title="Iniciando um novo projeto"></a>Iniciando um novo projeto</h2><p>Para iniciar um novo projeto go, já dentro da nova pasta crie um arquivo de nome main.go e inclua o seguinte conteúdo:</p>
+<figure class="highlight go hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> (</span><br><span class="line">  <span class="hljs-string">"net/http"</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-string">"golang.org/x/crypto/bcrypt"</span></span><br><span class="line">  <span class="hljs-string">"github.com/labstack/echo"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> {</span><br><span class="line">  Email	    <span class="hljs-keyword">string</span> <span class="hljs-string">`json:"email,omitempty" form:"email"`</span></span><br><span class="line">  Password  <span class="hljs-keyword">string</span> <span class="hljs-string">`json:"-" form:"password"`</span></span><br><span class="line">  Name	    <span class="hljs-keyword">string</span> <span class="hljs-string">`json:"name,omitempty" form:"name"`</span></span><br><span class="line">  Role	    <span class="hljs-keyword">string</span> <span class="hljs-string">`json:"role,omitempty" form:"role"`</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">var</span> users []User</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// Retorna a listagem de todos os usuários cadastrados</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getAllUsers</span> <span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {</span><br><span class="line">  <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, users)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// Retorna os dados de um usuário</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getUser</span> <span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {</span><br><span class="line">  email := c.Param(<span class="hljs-string">"user"</span>)</span><br><span class="line">  user := getUserByEmail(email)</span><br><span class="line">  <span class="hljs-keyword">return</span> c.JSON(http.StatusOK, user)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// Cadastra um novo usuário</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createUser</span> <span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {</span><br><span class="line">  password := c.FormValue(<span class="hljs-string">"password"</span>)</span><br><span class="line">  hashPassword, _ := bcrypt.GenerateFromPassword([]<span class="hljs-keyword">byte</span>(password), <span class="hljs-number">10</span>)</span><br><span class="line">  user := User{Email: c.FormValue(<span class="hljs-string">"email"</span>), Password: <span class="hljs-keyword">string</span>(hashPassword), Name: c.FormValue(<span class="hljs-string">"name"</span>), Role: c.FormValue(<span class="hljs-string">"role"</span>)}</span><br><span class="line">  users = <span class="hljs-built_in">append</span>(users, user)</span><br><span class="line">  <span class="hljs-keyword">return</span> c.JSON(http.StatusCreated, user)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// Atualiza um usuário existente</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">updateUser</span> <span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {</span><br><span class="line">  email := c.Param(<span class="hljs-string">"user"</span>)</span><br><span class="line">  <span class="hljs-keyword">for</span> index, user := <span class="hljs-keyword">range</span> users {</span><br><span class="line">    <span class="hljs-keyword">if</span> (user.Email == email) {</span><br><span class="line">	name := c.FormValue(<span class="hljs-string">"name"</span>);</span><br><span class="line">	<span class="hljs-keyword">if</span> ( name != <span class="hljs-string">""</span>) {</span><br><span class="line">	  users[index].Name = name</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	role := c.FormValue(<span class="hljs-string">"role"</span>);</span><br><span class="line">	<span class="hljs-keyword">if</span> ( role != <span class="hljs-string">""</span>) {</span><br><span class="line">	  users[index].Role = role</span><br><span class="line">	}</span><br><span class="line">	password := c.FormValue(<span class="hljs-string">"password"</span>);</span><br><span class="line">	<span class="hljs-keyword">if</span> ( password != <span class="hljs-string">""</span>) {</span><br><span class="line">	  hashPassword, _ := bcrypt.GenerateFromPassword([]<span class="hljs-keyword">byte</span>(password), <span class="hljs-number">10</span>)</span><br><span class="line">	  users[index].Password = <span class="hljs-keyword">string</span>(hashPassword)</span><br><span class="line">	}</span><br><span class="line">	<span class="hljs-keyword">return</span> c.JSON(http.StatusOK, users[index])</span><br><span class="line">      }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> c.JSONBlob(http.StatusBadRequest, []<span class="hljs-keyword">byte</span>(<span class="hljs-string">"{\"status\": \"error\"}"</span>))</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// Exclui um usuário existente</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">deleteUser</span> <span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {</span><br><span class="line">  email := c.Param(<span class="hljs-string">"user"</span>)</span><br><span class="line">  <span class="hljs-keyword">for</span> index, user := <span class="hljs-keyword">range</span> users {</span><br><span class="line">    <span class="hljs-keyword">if</span> (user.Email == email) {</span><br><span class="line">      users = <span class="hljs-built_in">append</span>(users[:index], users[index+<span class="hljs-number">1</span>:]...)</span><br><span class="line">	<span class="hljs-keyword">return</span> c.JSONBlob(http.StatusOK, []<span class="hljs-keyword">byte</span>(<span class="hljs-string">"{\"status\": \"success\"}"</span>))</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">return</span> c.JSONBlob(http.StatusBadRequest, []<span class="hljs-keyword">byte</span>(<span class="hljs-string">"{\"status\": \"error\"}"</span>))</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// Faz a autenticação de um usuário</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">authUser</span> <span class="hljs-params">(c echo.Context)</span> <span class="hljs-title">error</span></span> {</span><br><span class="line">  email := c.FormValue(<span class="hljs-string">"email"</span>)</span><br><span class="line">  password := c.FormValue(<span class="hljs-string">"password"</span>)</span><br><span class="line"></span><br><span class="line">  user := getUserByEmail(email)</span><br><span class="line">  err := bcrypt.CompareHashAndPassword([]<span class="hljs-keyword">byte</span>(user.Password), []<span class="hljs-keyword">byte</span>(password))</span><br><span class="line">  <span class="hljs-keyword">if</span> (err == <span class="hljs-literal">nil</span>) {</span><br><span class="line">    <span class="hljs-keyword">return</span> c.JSONBlob(http.StatusOK, []<span class="hljs-keyword">byte</span>(<span class="hljs-string">"{\"status\": \"success\"}"</span>))</span><br><span class="line">  }</span><br><span class="line">	</span><br><span class="line">  <span class="hljs-keyword">return</span> c.JSONBlob(http.StatusUnauthorized, []<span class="hljs-keyword">byte</span>(<span class="hljs-string">"{\"status\": \"error\"}"</span>))</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// Retonar instancia do usuário apartir de um e-mail</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getUserByEmail</span><span class="hljs-params">(email <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">User</span></span> {</span><br><span class="line">  <span class="hljs-keyword">var</span> user User;</span><br><span class="line">  <span class="hljs-keyword">for</span> _, user = <span class="hljs-keyword">range</span> users {</span><br><span class="line">    <span class="hljs-keyword">if</span> (user.Email == email) {</span><br><span class="line">      <span class="hljs-keyword">return</span> user</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">	</span><br><span class="line">  <span class="hljs-keyword">return</span> user;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {</span><br><span class="line">  <span class="hljs-comment">// Inicia usuário</span></span><br><span class="line">  password, _ := bcrypt.GenerateFromPassword([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">"123456"</span>), <span class="hljs-number">10</span>)</span><br><span class="line">  users = <span class="hljs-built_in">append</span>(users, User{Email:<span class="hljs-string">"ronaldo@test.com"</span>, Password: <span class="hljs-keyword">string</span>(password), Name:<span class="hljs-string">"Ronaldo Meneguite"</span>, Role:<span class="hljs-string">"Admin"</span>})</span><br><span class="line">	</span><br><span class="line">  router := echo.New()</span><br><span class="line">  v1 := router.Group(<span class="hljs-string">"/v1"</span>)</span><br><span class="line">	</span><br><span class="line">  <span class="hljs-comment">// User API</span></span><br><span class="line">  v1.GET(<span class="hljs-string">"/users"</span>, getAllUsers)</span><br><span class="line">  v1.GET(<span class="hljs-string">"/users/:user"</span>, getUser)</span><br><span class="line">  v1.POST(<span class="hljs-string">"/users"</span>, createUser)</span><br><span class="line">  v1.PUT(<span class="hljs-string">"/users/:user"</span>, updateUser)</span><br><span class="line">  v1.DELETE(<span class="hljs-string">"/users/:user"</span>, deleteUser)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment">// Auth API</span></span><br><span class="line">  v1.POST(<span class="hljs-string">"/auth"</span>, authUser)</span><br><span class="line"></span><br><span class="line">  router.Logger.Fatal(router.Start(<span class="hljs-string">":8080"</span>))</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>E execute o seguinte comando:</p>
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dep init</span><br></pre></td></tr></tbody></table></figure>
+<p>Após o processo é esperado que seja criado na pasta corrente uma nova de nome vendor que contém as dependências do projeto, e dois novos arquivos Gopkg.toml e Gopkg.lock, onde o Gopkg.toml será responsável por manter o registros das dependências diretas do projeto e o Gopkg.lock de armazenar as versões de todos os packages instalados atualmente.</p>
+<p>Feito o processo, já temos nossa primeira API pronta para ser executada.</p>
+<p>Para isso execute o comando:</p>
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></tbody></table></figure>
+<p>Assim feito já teremos nossa API rodando no endereço <a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080</a>.</p>
+<p>Como puderam perceber, trabalhar com Golang não tem muitos mistérios, é certamente uma linguagem muito promissora e possui tempos de resposta realmente impressionantes, como pode ser visto abaixo:</p>
+<img src="/2017/11/15/golang-desbravando-uma-linguagem-de-programacao-parte-3/003.png" class>
+
+<h2 id="Levando-nossa-API-a-Producao"><a href="#Levando-nossa-API-a-Producao" class="headerlink" title="Levando nossa API a Produção"></a>Levando nossa API a Produção</h2><p>Bom com tudo pronto e rodando localmente é hora de ver como seria colocar uma aplicação desenvolvida em Go em produção. Para isso decidi usar a Google Cloud Platform usando o serviço de App Engine.</p>
+<p>Esse artigo não tem o intuito de mostrar como fazer todo o processo de deploy usando o Google Cloud Platform, assim me limitarei a demostrar os processos feitos dentro do projeto para coloca-lo em produção e descrever minha experiência com o processo.</p>
+<p>Depois de criar o projeto no console é necessário criar um arquivo de nome app.yaml que deve possuir o seguinte conteúdo:</p>
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">runtime: go</span><br><span class="line">env: flex</span><br></pre></td></tr></tbody></table></figure>
+<p>E executar o seguinte comando:</p>
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcloud app deploy</span><br></pre></td></tr></tbody></table></figure>
+<p>Após alguns minutos já terá uma sua API completamente funcional e em produção, e o que parece magica por tanta simplicidade, na verdade é um casamento perfeito entre o sistema de deploy do Google e sua linguagem.</p>
+<h2 id="Conclusao"><a href="#Conclusao" class="headerlink" title="Conclusão"></a>Conclusão</h2><p>Hoje ainda não me vejo conseguindo uma produtividade próxima da que tenho em PHP ou Javascript em Golang, principalmente em projetos monolíticos maiores, mas acho que esse jogo pode mudar muito a medida que os microservices entram em cena. Go parece nascer perfeito para esse fim, é confiável, rápido, simples e altamente escalável, certamente foi uma excelente aquisição para minha “caixa de ferramentas” e espero ter oportunidade de trabalhar diretamente com ela em breve.</p>
+<div class="footer-note">
+<span class="note-number" id="note-number-1">¹</span> Para entrar no slack da comunidade acesse o link https://invite.slack.golangbridge.org. No canal **brazil** vai encontrar muitos brasileiros e pode seguir com seu idioma, porém caso se sinta-se a vontade com o inglês, o canal **general** é ainda mais ativo :)
+</div></body></html>
         </div>
         
-        
-        <div class="columns">
-            <div class="column"></div>
-            <div class="column is-one-third">
-                <a class="button is-rounded is-fullwidth" href="/2017/11/15/golang-desbravando-uma-linguagem-de-programacao-parte-3/#more">
-                    <span class="icon">
-                      <i class="fab fa-readme"></i>
-                    </span>
-                    <span>Ler Mais</span>
-                </a>
-                <!--<a class="button is-small is-rounded" style="border-width: 1px; padding: 0 20px" ">-->
-                    <!--<i class="fab fa-readme"></i>-->
-                    <!---->
-                <!--</a>-->
-            </div>
-            <div class="column"></div>
-        </div>
         
         
     </div>
@@ -579,7 +603,7 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
                         Artigos
                     </p>
                     <p class="title has-text-weight-normal">
-                        11
+                        12
                     </p>
                 </div>
             </div>
@@ -599,7 +623,7 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        23
+                        26
                     </p>
                 </div>
             </div>
@@ -648,7 +672,7 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
                 <span class="level-item">Infraestrutura</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li>
             </ul>
@@ -693,6 +717,17 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Banco-de-Dados/">
+                        <span class="level-start">
+                            <span class="level-item">Banco de Dados</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
                         </span>
                     </a>
                 </li>
@@ -778,6 +813,28 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
                     <a class="level is-marginless" href="/tags/Ldap/">
                         <span class="level-start">
                             <span class="level-item">Ldap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MongoDb/">
+                        <span class="level-start">
+                            <span class="level-item">MongoDb</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/NoSql/">
+                        <span class="level-start">
+                            <span class="level-item">NoSql</span>
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">1</span>
@@ -1012,7 +1069,7 @@ Já faz muito tempo que não escrevo um artigo, mas já fazia algum tempo que qu
     
     <div id="outdated">
         <h6>Your browser is out-of-date!</h6>
-        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
         <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
     </div>
     

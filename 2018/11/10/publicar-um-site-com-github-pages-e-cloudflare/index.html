@@ -129,7 +129,7 @@
     
 
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 <body class="is-2-column ">
     <nav class="navbar navbar-main">
     <div class="container is-fluid">
@@ -210,11 +210,11 @@
           </div>
         
         <div class="content">
-            <html><head></head><body><p>Nesse artigo pretendo apresentar como publicar um site estático com domínio próprio, HTTPS, Cache, proteção DDOS e o melhor, de forma totalmente gratuita usando <a href="https://pages.github.com/" target="_blank" rel="noopener">Github Pages</a> e <a href="https://www.cloudflare.com/" target="_blank" rel="noopener">CloudFlare</a>. Essas instruções são também válidas para aplicações mais complexas como uma SPA (Single Page Application) por exemplo.</p>
+            <html><head></head><body><p>Nesse artigo pretendo apresentar como publicar um site estático com domínio próprio, HTTPS, Cache, proteção DDOS e o melhor, de forma totalmente gratuita usando <a target="_blank" rel="noopener" href="https://pages.github.com/">Github Pages</a> e <a target="_blank" rel="noopener" href="https://www.cloudflare.com/">CloudFlare</a>. Essas instruções são também válidas para aplicações mais complexas como uma SPA (Single Page Application) por exemplo.</p>
 <a id="more"></a>
 
 <p>Já a algum tempo percebo que muitas pessoas usam linguagens dinâmicas para produção de sites estáticos, pela simples motivação de buscar um reaproveitamento do código, já vi e até mesmo já fiz isso. Hoje com o frontend cada vez mais inteligente podemos gerar interfaces extremamente ricas sem ao menos a necessidade de um servidor dinâmico próprio, apenas servindo HTML de forma estática e deixando toda interatividade do lado do cliente.</p>
-<p>Hoje, até mesmo plataformas como o <a href="https://wordpress.org/" target="_blank" rel="noopener">Wordpress</a>, <a href="hhttps://www.joomla.org/">Joomla</a> e <a href="https://www.drupal.org/" target="_blank" rel="noopener">Drupal</a> podem ser substituídas, em alguns casos, por geradores de sites estáticos como <a href="https://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a>, <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>, ou <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> por exemplo, que a partir de dados dinâmicos podem gerar sites “estáticos” e reduzir consideravelmente o custo com servidores dinâmicos, escalando aplicações de uma forma muito mais simples, com uma performance incrível e um custo de hospedagem mínimo, ou como no exemplo desse artigo, a custo zero.</p>
+<p>Hoje, até mesmo plataformas como o <a target="_blank" rel="noopener" href="https://wordpress.org/">Wordpress</a>, <a href="hhttps://www.joomla.org/">Joomla</a> e <a target="_blank" rel="noopener" href="https://www.drupal.org/">Drupal</a> podem ser substituídas, em alguns casos, por geradores de sites estáticos como <a target="_blank" rel="noopener" href="https://jekyllrb.com/">Jekyll</a>, <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>, ou <a target="_blank" rel="noopener" href="https://gohugo.io/">Hugo</a> por exemplo, que a partir de dados dinâmicos podem gerar sites “estáticos” e reduzir consideravelmente o custo com servidores dinâmicos, escalando aplicações de uma forma muito mais simples, com uma performance incrível e um custo de hospedagem mínimo, ou como no exemplo desse artigo, a custo zero.</p>
 <p>Entenda que não estou de forma alguma dizendo que sites estáticos são a bala de prata para resolver todos os seus problemas, mas sem dúvida ter uma visão sobre eles e perceber o valor dessa abordagem em alguns momentos pode ser um diferencial em sua carreira.</p>
 <p>Pensando nisso e para atender alguns questionamentos que vinham me fazendo há algum tempo, resolvi escrever este artigo, que pretende demonstrar uma forma muito simples de publicar um site de forma profissional e totalmente gratuita, com domínio próprio, deploy automatizado, cache habilitado, proteção DDOS, certificado HTTPS válido e muitas outras demandas de um site realmente profissional.</p>
 <p>Para atender essa demanda, vamos nos utilizar de uma composição de ferramentas muito conhecidas no mercado, como o Github Pages e Cloudflare para prover toda a estrutura necessária para disponibilizar nosso site na internet.</p>
@@ -230,19 +230,17 @@
 <img src="/2018/11/10/publicar-um-site-com-github-pages-e-cloudflare/004.png" class>
 
 <p>Agora precisamos iniciar nosso repositório para habilitá-lo no github pages, para isso vamos seguir os comandos para inicializar nosso repositório.</p>
-<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span> <span class="hljs-string">"# My personal site"</span> >> README.md</span><br><span class="line">git init</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m <span class="hljs-string">"First Commit"</span></span><br><span class="line">git remote add origin git@github.com:meneguite/meneguite.github.io.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></tbody></table></figure>
-
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span> <span class="hljs-string">"# My personal site"</span> >> README.md</span><br><span class="line">git init</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m <span class="hljs-string">"First Commit"</span></span><br><span class="line">git remote add origin git@github.com:meneguite/meneguite.github.io.git</span><br><span class="line">git push -u origin master</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 <p>Após esse processo, é esperado que ao acessar seu repositório novamente visualize algo como:</p>
 <img src="/2018/11/10/publicar-um-site-com-github-pages-e-cloudflare/005.png" class>
 
-<p>Agora já estamos prontos, se acessar seu endereço, no meu caso <a href="https://meneguite.github.io" target="_blank" rel="noopener">https://meneguite.github.io</a>, já deve encontrar seu site já com https rodando normalmente. Assim é hora de avançar :).</p>
-<h2 id="Preparando-o-site-ao-qual-iremos-publicar"><a href="#Preparando-o-site-ao-qual-iremos-publicar" class="headerlink" title="Preparando o site ao qual iremos publicar"></a>Preparando o site ao qual iremos publicar</h2><p>O segundo passo em nossa jornada será obter um site estático para usarmos de exemplo, durante esse artigo usarei o Hielo (<a href="https://templated.co/hielo" target="_blank" rel="noopener">https://templated.co/hielo</a>), um template gratuito que utilizarei apenas para demonstrar a publicação durante esse artigo. Pelo link <a href="https://templated.co/hielo/download" target="_blank" rel="noopener">https://templated.co/hielo/download</a> baixei um arquivo zip que descompactei na pasta do projeto e removi o arquivo inicial README.md que criamos no passo anterior para testes.</p>
+<p>Agora já estamos prontos, se acessar seu endereço, no meu caso <a target="_blank" rel="noopener" href="https://meneguite.github.io/">https://meneguite.github.io</a>, já deve encontrar seu site já com https rodando normalmente. Assim é hora de avançar :).</p>
+<h2 id="Preparando-o-site-ao-qual-iremos-publicar"><a href="#Preparando-o-site-ao-qual-iremos-publicar" class="headerlink" title="Preparando o site ao qual iremos publicar"></a>Preparando o site ao qual iremos publicar</h2><p>O segundo passo em nossa jornada será obter um site estático para usarmos de exemplo, durante esse artigo usarei o Hielo (<a target="_blank" rel="noopener" href="https://templated.co/hielo">https://templated.co/hielo</a>), um template gratuito que utilizarei apenas para demonstrar a publicação durante esse artigo. Pelo link <a target="_blank" rel="noopener" href="https://templated.co/hielo/download">https://templated.co/hielo/download</a> baixei um arquivo zip que descompactei na pasta do projeto e removi o arquivo inicial README.md que criamos no passo anterior para testes.</p>
 <p>A estrutura dos arquivos ficou assim:</p>
 <img src="/2018/11/10/publicar-um-site-com-github-pages-e-cloudflare/006.png" class>
 
 <p>Agora vamos atualizar nosso repositório e publicar nosso novo site, para isso executaremos os seguintes comandos:</p>
 <figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="hljs-string">"Include new site implementation"</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></tbody></table></figure>
-
 <p>Com esses comandos acima você já tem um deploy automatizado, bastando atualizar seu repositório e seu site já estará atualizado.</p>
 <img src="/2018/11/10/publicar-um-site-com-github-pages-e-cloudflare/007.png" class>
 
@@ -265,7 +263,7 @@
 <p>Agora precisamos adicionar dois registros, seu domínio principal e um para o subdomínio www, assim independente da forma que vier o acesso o mesmo será redirecionado corretamente. Eles devem ficar assim:</p>
 <img src="/2018/11/10/publicar-um-site-com-github-pages-e-cloudflare/013.png" class>
 
-<p>A CloudFlare tem uma feature bem bacana no seu DNS chamada de CNAME Flattening que possibilita criar um CNAME para o root de um domínio. (Pode ler mais informações sobre isso em <a href="https://support.cloudflare.com/hc/en-us/articles/200169056-CNAME-Flattening-RFC-compliant-support-for-CNAME-at-the-root" target="_blank" rel="noopener">https://support.cloudflare.com/hc/en-us/articles/200169056-CNAME-Flattening-RFC-compliant-support-for-CNAME-at-the-root</a>)</p>
+<p>A CloudFlare tem uma feature bem bacana no seu DNS chamada de CNAME Flattening que possibilita criar um CNAME para o root de um domínio. (Pode ler mais informações sobre isso em <a target="_blank" rel="noopener" href="https://support.cloudflare.com/hc/en-us/articles/200169056-CNAME-Flattening-RFC-compliant-support-for-CNAME-at-the-root">https://support.cloudflare.com/hc/en-us/articles/200169056-CNAME-Flattening-RFC-compliant-support-for-CNAME-at-the-root</a>)</p>
 <p>Após configurado será lhe apresentado a seguinte tela:</p>
 <img src="/2018/11/10/publicar-um-site-com-github-pages-e-cloudflare/014.png" class>
 
@@ -307,7 +305,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/Cloudflare/" rel="tag">Cloudflare</a>, <a class="has-link-grey -link" href="/tags/Frontend/" rel="tag">Frontend</a>, <a class="has-link-grey -link" href="/tags/Github-Pages/" rel="tag">Github Pages</a>
+                    <a class="has-link-grey -link-link" href="/tags/Cloudflare/" rel="tag">Cloudflare</a>, <a class="has-link-grey -link-link" href="/tags/Frontend/" rel="tag">Frontend</a>, <a class="has-link-grey -link-link" href="/tags/Github-Pages/" rel="tag">Github Pages</a>
                 </div>
             </div>
         </div>
@@ -429,7 +427,7 @@
                         Artigos
                     </p>
                     <p class="title has-text-weight-normal">
-                        11
+                        12
                     </p>
                 </div>
             </div>
@@ -449,7 +447,7 @@
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        23
+                        26
                     </p>
                 </div>
             </div>
@@ -498,7 +496,7 @@
                 <span class="level-item">Infraestrutura</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li>
             </ul>
@@ -543,6 +541,17 @@
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Banco-de-Dados/">
+                        <span class="level-start">
+                            <span class="level-item">Banco de Dados</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
                         </span>
                     </a>
                 </li>
@@ -628,6 +637,28 @@
                     <a class="level is-marginless" href="/tags/Ldap/">
                         <span class="level-start">
                             <span class="level-item">Ldap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MongoDb/">
+                        <span class="level-start">
+                            <span class="level-item">MongoDb</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/NoSql/">
+                        <span class="level-start">
+                            <span class="level-item">NoSql</span>
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">1</span>
@@ -862,7 +893,7 @@
     
     <div id="outdated">
         <h6>Your browser is out-of-date!</h6>
-        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update my browser now </a></p>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
         <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
     </div>
     
