@@ -9,8 +9,15 @@
 
 
     <url>
+        <loc>https://meneguite.com/categories/Desenvolvimento/Backend/</loc>
+        <lastmod>2021-01-16T17:50:55.761Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://meneguite.com/categories/Desenvolvimento/</loc>
-        <lastmod>2021-01-16T17:41:45.453Z</lastmod>
+        <lastmod>2021-01-16T17:50:55.761Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -25,13 +32,6 @@
     <url>
         <loc>https://meneguite.com/categories/Desenvolvimento/Frontend/</loc>
         <lastmod>2020-02-09T16:35:47.696Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://meneguite.com/categories/Desenvolvimento/Backend/</loc>
-        <lastmod>2020-02-09T16:35:47.693Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
