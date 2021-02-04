@@ -2,27 +2,27 @@
 <html  lang="pt">
 <head>
     <meta charset="utf-8">
-<title>Como remover arquivos antigos do slack - Ronaldo Meneguite</title>
+<title>Compilando Typescript/Javascript para executáveis nativos com Deno - Ronaldo Meneguite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
 
 
-    <meta name="description" content="O Slack é uma ferramenta fantástica, se fazendo cada vez mais presente no dia a dia de empresas de todos os portes, seu plano gratuito é muito bom, já atentendo atender a demanda da grande maioria de">
+    <meta name="description" content="O Deno tem evoluído muito rápido, e cada dia vem trazendo novas features que o deixam cada vez mais interessante, na versão 1.6 que saiu dia 8&#x2F;12&#x2F;2020 foi introduzida, entre outras features (como o su">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Como remover arquivos antigos do slack">
-<meta property="og:url" content="https://meneguite.com/2019/08/02/como-remover-arquivos-antigos-do-slack/index.html">
+<meta property="og:title" content="Compilando Typescript&#x2F;Javascript para executáveis nativos com Deno">
+<meta property="og:url" content="https://meneguite.com/2021/02/04/compilando-typescript-javascript-para-executaveis-nativos-com-deno/index.html">
 <meta property="og:site_name" content="Ronaldo Meneguite">
-<meta property="og:description" content="O Slack é uma ferramenta fantástica, se fazendo cada vez mais presente no dia a dia de empresas de todos os portes, seu plano gratuito é muito bom, já atentendo atender a demanda da grande maioria de">
+<meta property="og:description" content="O Deno tem evoluído muito rápido, e cada dia vem trazendo novas features que o deixam cada vez mais interessante, na versão 1.6 que saiu dia 8&#x2F;12&#x2F;2020 foi introduzida, entre outras features (como o su">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:image" content="https://meneguite.com/2019/08/02/como-remover-arquivos-antigos-do-slack/001.png">
-<meta property="article:published_time" content="2019-08-03T00:40:12.000Z">
-<meta property="article:modified_time" content="2020-02-09T16:35:47.694Z">
+<meta property="og:image" content="https://meneguite.com/2021/02/04/compilando-typescript-javascript-para-executaveis-nativos-com-deno/001.jpg">
+<meta property="article:published_time" content="2021-02-04T13:00:00.000Z">
+<meta property="article:modified_time" content="2021-02-04T15:29:17.753Z">
 <meta property="article:author" content="Ronaldo Meneguite">
-<meta property="article:tag" content="Slack">
-<meta property="article:tag" content="Tutoriais">
-<meta property="article:tag" content="Utilitario">
+<meta property="article:tag" content="Programação">
+<meta property="article:tag" content="Backend">
+<meta property="article:tag" content="Deno">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://meneguite.com/2019/08/02/como-remover-arquivos-antigos-do-slack/001.png">
+<meta name="twitter:image" content="https://meneguite.com/2021/02/04/compilando-typescript-javascript-para-executaveis-nativos-com-deno/001.jpg">
 <meta property="fb:admins" content="ronaldomeneguite">
 <meta property="fb:app_id" content="284008812234350">
 
@@ -179,16 +179,16 @@
 
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Como remover arquivos antigos do slack
+                Compilando Typescript/Javascript para executáveis nativos com Deno
             
         </h1>
         
             <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
                 <div class="level-left">
-                    <time class="level-item has-text-grey" datetime="2019-08-03T00:40:12.000Z">02/08/2019</time>
+                    <time class="level-item has-text-grey" datetime="2021-02-04T13:00:00.000Z">04/02/2021</time>
                     
                         <div class="level-item">
-                            <a class="has-link-grey -link" href="/categories/Infraestrutura/">Infraestrutura</a>
+                            <a class="has-link-grey -link" href="/categories/Desenvolvimento/">Desenvolvimento</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Desenvolvimento/Backend/">Backend</a>
                         </div>
                     
                     
@@ -196,7 +196,7 @@
                     
                     
                     [ Ronaldo Meneguite ]
-                    <!--3 minutos read (About 510 words)-->
+                    <!--5 minutos read (About 796 words)-->
                     </span>
                     
                 </div>
@@ -205,33 +205,60 @@
         
           <div class="card-image">
              <span  class="image">
-             <img class="thumbnail" src="/2019/08/02/como-remover-arquivos-antigos-do-slack/001.png" alt="Como remover arquivos antigos do slack" />
+             <img class="thumbnail" src="/2021/02/04/compilando-typescript-javascript-para-executaveis-nativos-com-deno/001.jpg" alt="Compilando Typescript/Javascript para executáveis nativos com Deno" />
              </span>
           </div>
         
         <div class="content">
-            <html><head></head><body><p>O Slack é uma ferramenta fantástica, se fazendo cada vez mais presente no dia a dia de empresas de todos os portes, seu plano gratuito é muito bom, já atentendo atender a demanda da grande maioria de empresas de pequeno porte, porém ele tem uma limitação bem chata, ao atingir o limite de armazenamento, hoje quando escrevo esse artigo 5GB, você precisa remover arquivo a arquivo em um processo extremamente manual e desestimulante. </p>
-<p>Nesse artigo pretendo mostrar um utilitário open source que desenvolvi e que irá lhe permitir executar esse processo de forma automática apenas passando o período que deseja remover os arquivos.</p>
+            <html><head></head><body><p>O Deno tem evoluído muito rápido, e cada dia vem trazendo novas features que o deixam cada vez mais interessante, na <a target="_blank" rel="noopener" href="https://deno.land/posts/v1.6">versão 1.6</a> que saiu dia 8/12/2020 foi introduzida, entre outras features (como o suporte experimental aos novos macs com chips M1), essa nova funcionalidade que permite gerar um executável nativo standalone and self contained. Algo semelhante ao que libs como <a target="_blank" rel="noopener" href="https://github.com/nexe/nexe">nexe</a> e <a target="_blank" rel="noopener" href="https://github.com/vercel/pkg">pkg</a> fazem com o node, porém de forma integrada. </p>
+<p>Na versão seguinte, a <a target="_blank" rel="noopener" href="https://deno.land/posts/v1.7">1.7</a> lançada em 19/01/2021, tivemos ainda algumas melhorias que incluem a possibilidade de fazer compilação cruzada de qualquer arquitetura estável suportada (Windows x64, MacOS x64 e Linux x64) para qualquer outra arquitetura, o que possibilita criar binários para Windows ou Mac a partir de uma máquina linux por exemplo. Outra feature muito interessante incluída na nova versão foi a flag <code>“—lite”</code> que pode gerar um executável entre 40/60% menor.</p>
 <a id="more"></a>
 
-<p>O processo de remoção manual do slack é irritante, e como desenvolvedor que sou, detestaria fazer um processo manual como esse, ainda mais se tenho outra saída melhor para isso, assim resolvi escrever um utilitário, e posteriormente esse artigo, para demonstrar como podemos fazer esse processo em poucos passos, o que poderá te poupar várias horas limpando arquivos de seu workspace no slack.</p>
-<p>Para iniciarmos vamos precisar criar um token legacy no endereço <a target="_blank" rel="noopener" href="https://api.slack.com/custom-integrations/legacy-tokens">https://api.slack.com/custom-integrations/legacy-tokens</a>, bastando para isso gerar um novo token, caso já não o tenha gerado um até então. É esse token que irá lhe permitir executar essas ações em seu workspace.</p>
-<img src="/2019/08/02/como-remover-arquivos-antigos-do-slack/002.jpg" class>
+<p>Caso já tenha instalado versões anteriores do Deno pode fazer a atualização usando o comando <code>"deno upgrade"</code>, porém caso esteja fazendo a instalação pela primeira vez, pode usar os seguintes comandos a depender do seu sistema operacional:</p>
+<figure class="highlight sh hljs"><figcaption><span>Using Shell (macOS and Linux)</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deno.land/x/install/install.sh | sh</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight sh hljs"><figcaption><span>Using PowerShell (Windows)</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwr https://deno.land/x/install/install.ps1 -useb | iex </span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight sh hljs"><figcaption><span>Using homebrew (MacOS)</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install deno</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight sh hljs"><figcaption><span>Using Scoop (Windows)</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop install deno</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight sh hljs"><figcaption><span>Using Chocolatey (Windows)</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choco install deno</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight sh hljs"><figcaption><span>Build from source using cargo</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo install deno</span><br></pre></td></tr></tbody></table></figure>
+<p>Um dos pontos que me agradam bastante no ecossistema do Deno é que ele busca, provavelmente inspirado em outros ecosistemas como o de Go ou Rust, prover todo um pacote nativo completo com ferramentas para formatação (deno fmt) e Lint (deno lint) por exemplo, com a versão 1.6 foi incluído  o compile, que é o responsável por prover essa nova feature, tema deste artigo.</p>
+<h2 id="Como-usar-o-compile"><a href="#Como-usar-o-compile" class="headerlink" title="Como usar o compile"></a>Como usar o compile</h2><p>Para testar a ferramentas nada melhor que um hello world, assim:</p>
+<figure class="highlight sh hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span> <span class="hljs-string">"console.log('Hello World')"</span> > index.ts</span><br></pre></td></tr></tbody></table></figure>
+<p>Para compilar esse arquivo é bem simples, basta executar o seguinte comando:</p>
+<figure class="highlight sh hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno compile --unstable index.ts</span><br></pre></td></tr></tbody></table></figure>
+<img src="/2021/02/04/compilando-typescript-javascript-para-executaveis-nativos-com-deno/002.jpg" class>
 
-<p>Para executar o utilitário vai precisar ter instalado em sua maquina uma versão recente do node, se já não possui ele por ai, a instalação é bem simples e encontrara todos os passos necessários em <a target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org/</a>, por aqui estou usando a versão 10, a LTS no momento que escrevo o artigo, mas provavelmente não vai ter problemas para rodar esse utilitário em versões mais recentes.</p>
-<p>Com o node instalado vamos instalar nosso utilitário:</p>
-<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install slack-remove-files -g</span><br></pre></td></tr></tbody></table></figure>
-<p>Após o processo é só executar o comando:</p>
-<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slack-remove-files 12 months {SEU_TOKEN_AQUI}</span><br></pre></td></tr></tbody></table></figure>
-<p>Nesse exemplo, irá remover todos os arquivos anteriores a 12 meses, mas não se limite ao exemplo, variando o valor e unidade pode personalizar como quiser e lhe atender melhor, alguns outros exemplos de combinação:</p>
-<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slack-remove-files 60 days {SEU_TOKEN_AQUI}</span><br><span class="line">slack-remove-files 2 years {SEU_TOKEN_AQUI}</span><br></pre></td></tr></tbody></table></figure>
-<p>Fique a vontade para criar sua combinação, antes de executar ele irá lhe solicitar uma confirmação mostrando a data apurada como pode ser visto abaixo:</p>
-<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">All files dated less than will 2017-08-03T16:57:04.626Z be removed. </span><br><span class="line">Do you wish to <span class="hljs-built_in">continue</span> ?  (y ou n)</span><br></pre></td></tr></tbody></table></figure>
-<p>Apenas se confirmar é esperado que ele busque junto ao slack todos os arquivos e remova um a um, apresentando um relatório dos arquivos removidos como mostrado na imagem abaixo:</p>
-<img src="/2019/08/02/como-remover-arquivos-antigos-do-slack/003.jpg" class>
+<p>O executável gerado por essa compilação:</p>
+<p><code>-rwxrwxrwx  1 ronaldo  staff    44M Feb  4 10:26 compile</code></p>
+<p>Porém usando a nova flag “—lite” da versão 1.7 o executável é reduzido consideravelmente como pode ser visto abaixo:</p>
+<figure class="highlight sh hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno compile --unstable --lite index.ts</span><br></pre></td></tr></tbody></table></figure>
+<img src="/2021/02/04/compilando-typescript-javascript-para-executaveis-nativos-com-deno/003.jpg" class>
 
-<p>O Código completo para desse utilitário pode ser encontrado em: <a target="_blank" rel="noopener" href="https://github.com/meneguite/slack-remove-files">https://github.com/meneguite/slack-remove-files</a></p>
-<p>Espero que lhe seja útil! Caso tenha alguma dúvida sobre o uso, pode deixar por aqui, ou o que seria ainda melhor, usando as issues do github.</p>
+<p>Gerando o seguinte executável:</p>
+<p><code>-rwxrwxrwx  1 ronaldo  staff    30M Feb  4 10:24 compile</code></p>
+<h2 id="Comparando-com-solucoes-similares-do-ecosistema-node"><a href="#Comparando-com-solucoes-similares-do-ecosistema-node" class="headerlink" title="Comparando com soluções similares do ecosistema node"></a>Comparando com soluções similares do ecosistema node</h2><p>Como referência vamos fazer o mesmo teste usando uma solução similar no node o pkg.</p>
+<figure class="highlight sh hljs"><figcaption><span>Para instalar o pkg basta executar:</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g pkg</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight sh hljs"><figcaption><span>Gerando o mesmo arquivo .js para compilação</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">echo</span> <span class="hljs-string">"console.log('Hello World')"</span> > index.js</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight sh hljs"><figcaption><span>Para compilar</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkg --targets node14-macos-x64 index.js --output compile</span><br></pre></td></tr></tbody></table></figure>
+<p>O resulta em um executável consideravelmente maior, mesmo se comparado com a versão completa do Deno, como pode ser visto abaixo:</p>
+<p><code>-rwxr-xr-x  1 ronaldo  staff    69M Feb  4 10:40 compile</code></p>
+<h2 id="Nem-so-de-Hello-World-vive-uma-solucao"><a href="#Nem-so-de-Hello-World-vive-uma-solucao" class="headerlink" title="Nem só de Hello World vive uma solução :)"></a>Nem só de Hello World vive uma solução :)</h2><p>A própria equipe do Deno disponibiliza um exemplo de aplicação que sobe um servidor http e pode ser uma boa referência, para compilar e gerar o executavel basta executar os comandos:</p>
+<figure class="highlight sh hljs"><figcaption><span>Compilando</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno compile --unstable --allow-net=0.0.0.0:8080 --allow-read=. https://deno.land/std@0.83.0/http/file_server.ts --cors --port 8080</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight sh hljs"><figcaption><span>Executando</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./file_server</span><br></pre></td></tr></tbody></table></figure>
+<p><code>HTTP server listening on http://0.0.0.0:8080/</code></p>
+<img src="/2021/02/04/compilando-typescript-javascript-para-executaveis-nativos-com-deno/004.jpg" class="square" title="Compile Http Server">
+
+
+<h2 id="Limitacoes-atuais-do-compile-do-Deno"><a href="#Limitacoes-atuais-do-compile-do-Deno" class="headerlink" title="Limitações atuais do compile do Deno"></a>Limitações atuais do compile do Deno</h2><p>O compile do deno ainda não é uma ferramenta perfeita, e tem limitações claras que precisam ser levadas em consideração ao usá-la, algumas delas já estão mapeadas e tendem a ser resolvidas em breve, segue abaixo algumas das limitações:</p>
+<ul>
+<li>Os Web Workers não são suportados atualmente. <a target="_blank" rel="noopener" href="https://github.com/denoland/deno/issues/8654">#8654</a> .</li>
+<li>Você não pode incluir código dinamicamente com importação dinâmica. <a target="_blank" rel="noopener" href="https://github.com/denoland/deno/issues/8655">#8655</a> .</li>
+<li>A personalização de sinalizadores V8 e permissões de sandbox não é possível atualmente. <a target="_blank" rel="noopener" href="https://github.com/denoland/deno/issues/8656">#8656</a> .</li>
+</ul>
+<h2 id="Conclusao"><a href="#Conclusao" class="headerlink" title="Conclusão"></a>Conclusão</h2><p>O Deno tem trilhado um caminho muito interessante. o <strong><em>compile</em></strong> é só mais uma pimenta que com certeza agrega muito ao ecosistema que vem sendo criado ao entorno do Deno. É evidente que ele ainda tem um chão para amadurecer e ganhar “músculos”, mas me agrada os caminhos e as possibilidades que essa visão do time core do Deno possui. </p>
+<p>E ai o que acharam dessa nova feature?</p>
 </body></html>
         </div>
         
@@ -239,7 +266,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link-link" href="/tags/Slack/" rel="tag">Slack</a>, <a class="has-link-grey -link-link" href="/tags/Tutoriais/" rel="tag">Tutoriais</a>, <a class="has-link-grey -link-link" href="/tags/Utilitario/" rel="tag">Utilitario</a>
+                    <a class="has-link-grey -link-link" href="/tags/Backend/" rel="tag">Backend</a>, <a class="has-link-grey -link-link" href="/tags/Deno/" rel="tag">Deno</a>, <a class="has-link-grey -link-link" href="/tags/Programacao/" rel="tag">Programação</a>
                 </div>
             </div>
         </div>
@@ -258,17 +285,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/09/09/pwa-processive-web-apps/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">PWA - More than Web Apps, Progressive Web Apps!</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/06/23/design-patterns-com-typescript-observer/">
-                <span class="level-item">Observer Pattern - Design Patterns com Typescript</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/01/16/comentarios-destrutivos-em-aplicativos/">
+                <span class="level-item">Comentários destrutivos em aplicativos</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -288,7 +308,7 @@
     js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-comments" data-width="100%" data-href="https://meneguite.com/2019/08/02/como-remover-arquivos-antigos-do-slack/" data-num-posts="5"></div>
+<div class="fb-comments" data-width="100%" data-href="https://meneguite.com/2021/02/04/compilando-typescript-javascript-para-executaveis-nativos-com-deno/" data-num-posts="5"></div>
 
 
     </div>
