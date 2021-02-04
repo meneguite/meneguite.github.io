@@ -18,6 +18,10 @@ textarea {
   .section {
     padding: 1.5rem 0;
   }
+  .container.is-fluid {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
 }
 .column-main,
 .column-left,
