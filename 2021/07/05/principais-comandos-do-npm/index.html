@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html  lang="pt">
+<head>
+    <meta charset="utf-8">
+<title>Principais comandos do NPM - Ronaldo Meneguite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+
+
+    <meta name="description" content="É inegável a popularidade do NodeJs em quase todas as áreas do desenvolvimento, usa-se node para quase tudo, desde soluções mobile com Reat Native e IONIC, backend de aplicações, ferramentas de linha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Principais comandos do NPM">
+<meta property="og:url" content="https://meneguite.com/2021/07/05/principais-comandos-do-npm/index.html">
+<meta property="og:site_name" content="Ronaldo Meneguite">
+<meta property="og:description" content="É inegável a popularidade do NodeJs em quase todas as áreas do desenvolvimento, usa-se node para quase tudo, desde soluções mobile com Reat Native e IONIC, backend de aplicações, ferramentas de linha">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://meneguite.com/2021/07/05/principais-comandos-do-npm/001.png">
+<meta property="article:published_time" content="2021-07-05T13:00:00.000Z">
+<meta property="article:modified_time" content="2021-07-05T22:39:17.774Z">
+<meta property="article:author" content="Ronaldo Meneguite">
+<meta property="article:tag" content="Backend">
+<meta property="article:tag" content="Frontend">
+<meta property="article:tag" content="Npm">
+<meta property="article:tag" content="Node">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://meneguite.com/2021/07/05/principais-comandos-do-npm/001.png">
+<meta property="fb:admins" content="ronaldomeneguite">
+<meta property="fb:app_id" content="284008812234350">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<!--
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+-->
+
+<link rel="stylesheet" href="/css/bulma.css">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro.css">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129084799-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129084799-1');
+</script>
+
+
+    
+    
+
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="is-2-column ">
+    <nav class="navbar navbar-main">
+    <div class="container is-fluid">
+        <!--<div class="navbar-brand is-flex-center">-->
+            <!--<a class="navbar-item navbar-logo" href="/">-->
+            <!---->
+                <!--<img src="/images/logo.svg" alt="" height="28">-->
+            <!---->
+            <!--</a>-->
+        <!--</div>-->
+        <div class="navbar-menu alignright">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categorias</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/archives">Histórico</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Pesquisar" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section ">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main is-fullwidth"><div class="card">
+    <div class="card-content article ">
+
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Principais comandos do NPM
+            
+        </h1>
+        
+            <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+                <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2021-07-05T13:00:00.000Z">05/07/2021</time>
+                    
+                        <div class="level-item">
+                            <a class="has-link-grey -link" href="/categories/Desenvolvimento/">Desenvolvimento</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Desenvolvimento/Frontend/">Frontend</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Desenvolvimento/Frontend/Backend/">Backend</a>
+                        </div>
+                    
+                    
+                    <span class="level-item has-text-grey">
+                    
+                    
+                    [ Ronaldo Meneguite ]
+                    <!--4 minutos read (About 525 words)-->
+                    </span>
+                    
+                </div>
+            </div>
+        
+        
+          <div class="card-image">
+             <span  class="image">
+             <img class="thumbnail" src="/2021/07/05/principais-comandos-do-npm/001.png" alt="Principais comandos do NPM" />
+             </span>
+          </div>
+        
+        <div class="content">
+            <html><head></head><body><p>É inegável a popularidade do NodeJs em quase todas as áreas do desenvolvimento, usa-se node para quase tudo, desde soluções mobile com Reat Native e IONIC, backend de aplicações, ferramentas de linha de comando, até a profunda dependências nos fluxos de desenvolvimento de frontends ricos com VueJs, React e Angular, assim conhecer o entorno de seu ecosistema é essencial. Com isso em mente, resolvi escrever este artigo e deixar um pouco mais mastigado e acessível os principais comandos de seu gerenciador de pacote oficial, o NPM (Node Package Manager), usado extensivamente no dia a dia para gerenciar as dependências do projeto.</p>
+<span id="more"></span>
+
+
+<h2 id="Atalhos-mais-comumns"><a href="#Atalhos-mais-comumns" class="headerlink" title="Atalhos mais comumns"></a>Atalhos mais comumns</h2><table>
+<thead>
+<tr>
+<th>Comando</th>
+<th align="center">Atalho</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>install</td>
+<td align="center">i</td>
+</tr>
+<tr>
+<td>list</td>
+<td align="center">ls</td>
+</tr>
+<tr>
+<td>test</td>
+<td align="center">t</td>
+</tr>
+<tr>
+<td>–global</td>
+<td align="center">-g</td>
+</tr>
+<tr>
+<td>–save</td>
+<td align="center">-S</td>
+</tr>
+<tr>
+<td>–save-dev</td>
+<td align="center">-D</td>
+</tr>
+</tbody></table>
+<h2 id="Principais-Comandos"><a href="#Principais-Comandos" class="headerlink" title="Principais Comandos"></a>Principais Comandos</h2><h3 id="npm-help-COMMAND"><a href="#npm-help-COMMAND" class="headerlink" title="npm help {COMMAND}"></a>npm help {COMMAND}</h3><p>Para se obter o manual do comando</p>
+<h3 id="npm-install-MODULE"><a href="#npm-install-MODULE" class="headerlink" title="npm install {MODULE}"></a>npm install {MODULE}</h3><p>Ou apenas “<code>npm i {MODULE}</code>“, é usado para instalar dependências</p>
+<ul>
+<li>Executar apenas “<code>npm install</code>“ instala todas as dependências configuradas no arquivos package.json;</li>
+<li>Ao usar a flag “<code>--production</code>“ serão instaladas apenas depedências de produção;</li>
+</ul>
+<h3 id="npm-remove-MODULE"><a href="#npm-remove-MODULE" class="headerlink" title="npm remove {MODULE}"></a>npm remove {MODULE}</h3><p>Remove um módulo previamente instalado</p>
+<h3 id="npm-init"><a href="#npm-init" class="headerlink" title="npm init"></a>npm init</h3><p>Comando usado para iniciar um projeto novo na pasta atual, se utilizado a flag “<code>-y</code>“ assim “<code>npm init -y</code>“ será gerado uma inicialização com os parâmetros default sem questionamentos.</p>
+<h3 id="npm-ci"><a href="#npm-ci" class="headerlink" title="npm ci"></a>npm ci</h3><p>Usado para o deploy de aplicações instalando todas as dependência definidas <strong><em>package.json</em></strong> e versões do <strong><em>package-lock.json</em></strong></p>
+<p>Caracteristicas importantes:</p>
+<ul>
+<li>Caso a pasta node_modules exista a mesma será removida e recriada na sequência</li>
+<li>Esse comando não altera os arquivos <strong><em>package.json</em></strong> e <strong><em>package-lock.json</em></strong></li>
+<li>É requerido que na pasta se tenha o arquivo package-lock.json ou npm-shrinkwrap.json</li>
+</ul>
+<h3 id="npm-outdated"><a href="#npm-outdated" class="headerlink" title="npm outdated"></a>npm outdated</h3><p>Retorna a lista de dependências desatualizadas mostrando a versão mais recente suportada pela configuração no package.json e a ultima versão</p>
+<h3 id="npm-update"><a href="#npm-update" class="headerlink" title="npm update"></a>npm update</h3><p>Atualiza projetos para a ultima versão respeitando o package.json<br>Pode-se atualizar um único módulo executando “npm update {MODULE}”</p>
+<h3 id="npm-version-COMMAND"><a href="#npm-version-COMMAND" class="headerlink" title="npm version {COMMAND}"></a>npm version {COMMAND}</h3><p>Manipula a versão atual do projeto e adiciona tags no projeto git<br>Comandos disponíveis: <code>{VERSION}</code> | <code>major</code> | <code>minor</code> | <code>patch</code> | <code>premajor</code> | <code>preminor</code> | <code>prepatch</code> | <code>prerelease</code><br>Ex: <code>npm version patch</code> ou <code>npm version 1.0.20</code></p>
+<h3 id="npm-audit"><a href="#npm-audit" class="headerlink" title="npm audit"></a>npm audit</h3><p>Executa uma auditoria no projeto para identificar se existe alguma dependência com vulnerabilidade conhecida<br>Ao utilizar a flag <code>--fix</code> é feita uma tentativa de corrigir o problema de forma automática.</p>
+<h3 id="npm-list"><a href="#npm-list" class="headerlink" title="npm list"></a>npm list</h3><p>Ou apenas “npm ls”, lista todas as dependências do projeto<br>Com a flag “–depth X” podemos ver uma arvore de dependências onde X é a profundidade que se deseja</p>
+<h3 id="npm-shrinkwrap"><a href="#npm-shrinkwrap" class="headerlink" title="npm shrinkwrap"></a>npm shrinkwrap</h3><p>Comando usado para travar a versão das dependências do seu projeto<br>Ao executar esse comando será criado o arquivo npm-shrinkwrap.json que servirá de base para instalação das dependências</p>
+<h3 id="npm-adduser-USERNAME"><a href="#npm-adduser-USERNAME" class="headerlink" title="npm adduser {USERNAME}"></a>npm adduser {USERNAME}</h3><p>Adiciona um novo usuário no <em>registre</em> para permitir o envio de pacotes para o mesmo</p>
+<h3 id="npm-publish"><a href="#npm-publish" class="headerlink" title="npm publish"></a>npm publish</h3><p>Publica o módulo atual no <em>registre</em> configurado</p>
+<h3 id="npm-home-MODULE"><a href="#npm-home-MODULE" class="headerlink" title="npm home {MODULE}"></a>npm home {MODULE}</h3><p>Abre a página do projeto</p>
+<h3 id="npm-repo-MODULE"><a href="#npm-repo-MODULE" class="headerlink" title="npm repo {MODULE}"></a>npm repo {MODULE}</h3><p>Abre o repositório de código do projeto`</p>
+</body></html>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link-link" href="/tags/Backend/" rel="tag">Backend</a>, <a class="has-link-grey -link-link" href="/tags/Frontend/" rel="tag">Frontend</a>, <a class="has-link-grey -link-link" href="/tags/Node/" rel="tag">Node</a>, <a class="has-link-grey -link-link" href="/tags/Npm/" rel="tag">Npm</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5be9af6fb1e18cc9"></script>
+
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/02/04/compilando-typescript-javascript-para-executaveis-nativos-com-deno/">
+                <span class="level-item">Compilando Typescript/Javascript para executáveis nativos com Deno</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comentários</h3>
+        <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-comments" data-width="100%" data-href="https://meneguite.com/2021/07/05/principais-comandos-do-npm/" data-num-posts="5"></div>
+
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6 is-rounded" src="https://avatars0.githubusercontent.com/u/8209481" alt="avatar">
+                    
+                    <p class="is-size-4 is-block">
+                        Ronaldo Meneguite
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Just another tech enthusiast
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Brasil</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        
+        
+            <div class="level is-mobile">
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Github" href="http://github.com/meneguite">
+                    
+                        <i class="fab fa-github fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Linkedin" href="https://www.linkedin.com/in/ronaldomeneguite">
+                    
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Facebook" href="https://www.facebook.com/ronaldomeneguite">
+                    
+                        <i class="fab fa-facebook fa-2x"></i>
+                    
+                </a>
+                
+            </div>
+        
+        <hr />
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Artigos
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        15
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categorias
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        30
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+    
+        
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categorias
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/">
+            <span class="level-start">
+                <span class="level-item">Desenvolvimento</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/Backend/">
+            <span class="level-start">
+                <span class="level-item">Backend</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/Frontend/">
+            <span class="level-start">
+                <span class="level-item">Frontend</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/">
+            <span class="level-start">
+                <span class="level-item">Infraestrutura</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Adapter-Pattern/">
+                        <span class="level-start">
+                            <span class="level-item">Adapter Pattern</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Aplicativos/">
+                        <span class="level-start">
+                            <span class="level-item">Aplicativos</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Autenticacao-Centralizada/">
+                        <span class="level-start">
+                            <span class="level-item">Autenticação Centralizada</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Backend/">
+                        <span class="level-start">
+                            <span class="level-item">Backend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">5</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Banco-de-Dados/">
+                        <span class="level-start">
+                            <span class="level-item">Banco de Dados</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Cloudflare/">
+                        <span class="level-start">
+                            <span class="level-item">Cloudflare</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Deno/">
+                        <span class="level-start">
+                            <span class="level-item">Deno</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Design-Patterns/">
+                        <span class="level-start">
+                            <span class="level-item">Design Patterns</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Frontend/">
+                        <span class="level-start">
+                            <span class="level-item">Frontend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Github-Pages/">
+                        <span class="level-start">
+                            <span class="level-item">Github Pages</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Golang/">
+                        <span class="level-start">
+                            <span class="level-item">Golang</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Infraestrutura/">
+                        <span class="level-start">
+                            <span class="level-item">Infraestrutura</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/LDAP/">
+                        <span class="level-start">
+                            <span class="level-item">LDAP</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Ldap/">
+                        <span class="level-start">
+                            <span class="level-item">Ldap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MongoDb/">
+                        <span class="level-start">
+                            <span class="level-item">MongoDb</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/NoSql/">
+                        <span class="level-start">
+                            <span class="level-item">NoSql</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Npm/">
+                        <span class="level-start">
+                            <span class="level-item">Npm</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OAuth/">
+                        <span class="level-start">
+                            <span class="level-item">OAuth</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OAuth-2/">
+                        <span class="level-start">
+                            <span class="level-item">OAuth 2</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Observer-Pattern/">
+                        <span class="level-start">
+                            <span class="level-item">Observer Pattern</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OpenLdap/">
+                        <span class="level-start">
+                            <span class="level-item">OpenLdap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/PWA/">
+                        <span class="level-start">
+                            <span class="level-item">PWA</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Padroes-de-Projeto/">
+                        <span class="level-start">
+                            <span class="level-item">Padrões de Projeto</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Programacao/">
+                        <span class="level-start">
+                            <span class="level-item">Programação</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Progressive-Web-Apps/">
+                        <span class="level-start">
+                            <span class="level-item">Progressive Web Apps</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Slack/">
+                        <span class="level-start">
+                            <span class="level-item">Slack</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Tutoriais/">
+                        <span class="level-start">
+                            <span class="level-item">Tutoriais</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Typescript/">
+                        <span class="level-start">
+                            <span class="level-item">Typescript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Utilitario/">
+                        <span class="level-start">
+                            <span class="level-item">Utilitario</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="card card-transparent is-hidden-desktop is-hidden-widescreen">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+	<div class="container">
+		<div class="level">
+			<div class="level-start has-text-centered-mobile">
+				<!-- <a class="footer-logo is-block has-mb-6" href="/">
+					
+					<img src="/images/logo.svg" alt="" height="28">
+					
+				</a> -->
+				<p class="is-size-7">
+					&copy; 2021 Ronaldo Meneguite&nbsp;
+				</p>
+			</div>
+			<div class="level-end">
+				
+				<div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+					
+					
+					<span class="control">
+						<a class="button is-white is-large" target="_blank"
+							title="Creative Commons" href="https://creativecommons.org/">
+							
+							<i class="fab fa-creative-commons fa-2x"></i>
+							
+						</a>
+					</span>
+					
+					<span class="control">
+						<a class="button is-white is-large" target="_blank"
+							title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+							
+							<i class="fab fa-creative-commons-by fa-2x"></i>
+							
+						</a>
+					</span>
+					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</footer>
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+
+<script>moment.locale("pt-BR");</script>
+
+
+    
+    
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+
+    
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+
+<script src="/js/back-to-top.js"></script>
+
+
+
+    
+    
+
+    
+    
+    
+
+
+
+<script src="/js/main.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Digite alguma coisa..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Artigos',
+                PAGES: 'Páginas',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+<link rel="stylesheet" href="/css/search.css">
+
+
+<link rel="stylesheet" href="/css/insight.css">
+
+    
+</body>
+</html>
