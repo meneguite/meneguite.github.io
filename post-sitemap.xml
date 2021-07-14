@@ -9,6 +9,46 @@
 
 
     <url>
+        <loc>https://meneguite.com/2010/03/04/replicacao-com-openldap/</loc>
+        <lastmod>2021-07-14T20:27:15.842Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://meneguite.com/2008/10/23/seguranca-informacao/</loc>
+        <lastmod>2021-07-14T20:25:54.996Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://meneguite.com/2014/04/14/oauth/</loc>
+        <lastmod>2021-07-14T19:19:40.840Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://meneguite.com/2010/01/15/introducao-ao-firewall-ipcop/</loc>
+        <lastmod>2021-07-14T17:12:16.954Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://meneguite.com/2010/01/15/pipes-comunicacao-entre-processos/</loc>
+        <lastmod>2021-07-14T15:11:02.537Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://meneguite.com/2021/07/13/publicando-uma-aplicacao-nodejs-na-digital-ocean/</loc>
         <lastmod>2021-07-14T14:42:27.915Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -51,14 +91,6 @@
     <url>
         <loc>https://meneguite.com/2021/01/01/quando-nao-usar-o-mongodb/</loc>
         <lastmod>2020-12-31T20:46:21.148Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://meneguite.com/2014/04/14/oauth/</loc>
-        <lastmod>2020-02-09T21:15:55.509Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -123,14 +155,6 @@
     <url>
         <loc>https://meneguite.com/2017/10/01/golang-desbravando-uma-linguagem-de-programacao-parte-1/</loc>
         <lastmod>2020-02-09T16:35:47.645Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://meneguite.com/2010/03/04/replicacao-com-openldap/</loc>
-        <lastmod>2019-11-09T01:51:19.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

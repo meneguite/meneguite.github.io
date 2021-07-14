@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html  lang="pt">
+<head>
+    <meta charset="utf-8">
+<title>Pipes - Comunicação entre processos - Ronaldo Meneguite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+
+
+    <meta name="description" content="Abstract: This article discusses about pipe mechanism. Pipe was created by Doug McIlroy, for Unix shell, and was named by analogy to fluid transports pipes. The central idea of pipe is to link a set o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pipes - Comunicação entre processos">
+<meta property="og:url" content="https://meneguite.com/2010/01/15/pipes-comunicacao-entre-processos/index.html">
+<meta property="og:site_name" content="Ronaldo Meneguite">
+<meta property="og:description" content="Abstract: This article discusses about pipe mechanism. Pipe was created by Doug McIlroy, for Unix shell, and was named by analogy to fluid transports pipes. The central idea of pipe is to link a set o">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://meneguite.com/2010/01/15/pipes-comunicacao-entre-processos/001.jpg">
+<meta property="article:published_time" content="2010-01-16T01:00:00.000Z">
+<meta property="article:modified_time" content="2021-07-14T15:11:02.537Z">
+<meta property="article:author" content="Ronaldo Meneguite">
+<meta property="article:tag" content="Infraestrutura">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://meneguite.com/2010/01/15/pipes-comunicacao-entre-processos/001.jpg">
+<meta property="fb:admins" content="ronaldomeneguite">
+<meta property="fb:app_id" content="284008812234350">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<!--
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+-->
+
+<link rel="stylesheet" href="/css/bulma.css">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro.css">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129084799-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129084799-1');
+</script>
+
+
+    
+    
+
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="is-2-column ">
+    <nav class="navbar navbar-main">
+    <div class="container is-fluid">
+        <!--<div class="navbar-brand is-flex-center">-->
+            <!--<a class="navbar-item navbar-logo" href="/">-->
+            <!---->
+                <!--<img src="/images/logo.svg" alt="" height="28">-->
+            <!---->
+            <!--</a>-->
+        <!--</div>-->
+        <div class="navbar-menu alignright">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categorias</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/archives">Histórico</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Pesquisar" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section ">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main is-fullwidth"><div class="card">
+    <div class="card-content article ">
+
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Pipes - Comunicação entre processos
+            
+        </h1>
+        
+            <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+                <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2010-01-16T01:00:00.000Z">15/01/2010</time>
+                    
+                        <div class="level-item">
+                            <a class="has-link-grey -link" href="/categories/Infraestrutura/">Infraestrutura</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Infraestrutura/Desenvolvimento/">Desenvolvimento</a>
+                        </div>
+                    
+                    
+                    <span class="level-item has-text-grey">
+                    
+                    
+                    [ Ronaldo Meneguite ]
+                    <!--6 minutos read (About 933 words)-->
+                    </span>
+                    
+                </div>
+            </div>
+        
+        
+        <div class="content">
+            <html><head></head><body><p>Abstract: This article discusses about pipe mechanism. Pipe was created by Doug McIlroy, for Unix shell, and was named by analogy to fluid transports pipes. The central idea of pipe is to link a set of processes, in a way that each process’ output is the next process’s input.</p>
+<p>Resumo: Este artigo discorre brevemente sobre o mecanismo de PIPE. Criado pelo professor Doug McIlroy, para o shell do Unix, o mecanismo tem seu nome inspirado nos tubos(pipes), de transporte de fluídos. A idéia do PIPE é encadear um conjunto de processos, de modo que a saída de cada um seja a entrada do seguinte.</p>
+<span id="more"></span>
+
+<h2 id="Comunicacao-entre-processos"><a href="#Comunicacao-entre-processos" class="headerlink" title="Comunicação entre processos"></a>Comunicação entre processos</h2><p>A comunicação entre processos, do inglês Inter-Process Communication (IPC), é o grupo de mecanismos ao qual permite que processos possam transferir informações entre si.</p>
+<p>Para a execução de um processo é pressuposto por parte do sistema operacional, entre outras coisas, a criação de um contexto de execução própria ao qual abstrai os processos dos componentes reais do sistema. Devido a esta “virtualização” dos recursos, o processo não tem conhecimento acerca dos outros processos e, como tal, não consegue trocar informação com os outros processos.</p>
+<h3 id="Pipes"><a href="#Pipes" class="headerlink" title="Pipes"></a>Pipes</h3><h4 id="Pipes-unidirecionais"><a href="#Pipes-unidirecionais" class="headerlink" title="Pipes unidirecionais"></a>Pipes unidirecionais</h4><p>Esta é a forma mais divulgada de IPC. O Pipe unidirecional, ou “canalização”, é o redirecionamento da saída padrão de um programa para a entrada padrão de outro.  É um recurso muito utilizado em sistemas Unix/Linux para tratar entradas e saídas de dados, um recurso muito versátil ao qual permite que seja redirecionado a entrada ou saída padrão de um determinado processo, para um segundo processo.</p>
+<p>Um exemplo de uso do pipe no linux seria:</p>
+<img src="/2010/01/15/pipes-comunicacao-entre-processos/001.jpg" class="" title="Representação gráfica de uso do PIPE">
+<p align="center">Figura 1 – Representação gráfica de uso do PIPE</p>
+
+<h4 id="Pipes-nomeados-FIFO"><a href="#Pipes-nomeados-FIFO" class="headerlink" title="Pipes nomeados (FIFO)"></a>Pipes nomeados (FIFO)</h4><p>No contexto da computação, um pipe nomeado (também chamado de named pipe ou FIFO) é uma extensão do conceito de pipe do sistema Unix/Linux e dos seus métodos de comunicação entre processos. O mesmo conceito é encontrado no Microsoft Windows, apesar da sua semântica ser razoavelmente diferente. Um pipe tradicional (anônimo) dura somente o tempo de execução do processo e, por outro lado, o pipe nomeado persiste além da vida do processo e precisa ser “desligado” ou apagado quando não é mais usado. Os processos geralmente se conectam a um pipe nomeado (normalmente um arquivo) quando necessitam realizar alguma comunicação com outro processo (IPC).</p>
+<h5 id="Pipe-nomeado-no-Unix-Linux"><a href="#Pipe-nomeado-no-Unix-Linux" class="headerlink" title="Pipe nomeado no Unix/Linux"></a>Pipe nomeado no Unix/Linux</h5><p>Ao contrário do pipe convencional, não nomeado e de console, um pipe nomeado é criado explicitamente utilizando-se os comandos mknod ou mkfifo. Dois processos podem utilizar este pipe através do seu nome.</p>
+<p>Por exemplo, pode-se criar um pipe e instruir o programa gzip para comprimir aquilo que é enviado (piped) para ele.</p>
+<figure class="highlight sh hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkfifo pipe</span><br><span class="line">gzip -9 -c &lt; pipe &gt; destino</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Independentemente, em um processo separado, pode-se executar o comando</p>
+<figure class="highlight sh hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat origem &gt; pipe</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Esse comando comprimirá os dados do arquivo “origem” em um arquivo de nome “destino”.</p>
+<h5 id="Pipe-nomeado-no-Windows"><a href="#Pipe-nomeado-no-Windows" class="headerlink" title="Pipe nomeado no Windows"></a>Pipe nomeado no Windows</h5><p>No Windows, o projeto do pipe nomeado foi influenciado pela comunicação cliente-servidor e, por isso, eles se parecem muito mais com sockets do que com operações convencionais de escrita e leitura. O Windows suporta um “modo passivo” para aplicações servidoras (comparável com os domain sockets do Unix). O Windows 95 suporta pipes nomeados em modo cliente que, no Windows NT, também podem atuar como servidores.</p>
+<p>O pipe nomeado pode ser acessado como um arquivo. As funções CreateFile, ReadFile, WriteFile e CloseHandler, da SDK Win32, podem ser utilizadas para abrir, ler, escrever e fechar um pipe. As funções da biblioteca C, como fopen, também podem ser utilizadas para operações em pipes nomeados, ao contrário do caso dos Windows Sockets, onde a comunicação em rede não foi implementada como operações padrão de I/O em arquivos. Não existe interface de linha de comando como nos sistemas Unix.</p>
+<p>O pipe nomeado não é permanente e não pode ser criado como um arquivo especial em sistemas de arquivo que permitam escrita, como no Unix. O pipe é volátil (é liberado após a última referência para ele ser fechada), é alocado na raiz do named pipe filesystem (NPFS) e é montado através do caminho especial \. \pipe\ (isto é, um pipe nomeado como “foo” deve ter um nome de caminho de \.\pipe\foo). O pipe anônimo dos comandos de pipeline é na realidade um pipe nomeado com um nome aleatório.</p>
+<h5 id="Pipe-nomeado-numa-rede-Windows"><a href="#Pipe-nomeado-numa-rede-Windows" class="headerlink" title="Pipe nomeado numa rede Windows"></a>Pipe nomeado numa rede Windows</h5><p>O pipe nomeado também é utilizado como protocolo de rede da suíte Server Message Block (SMB). O IPC do SMB pode passar o contexto de autenticação do usuário de maneira transparente através de pipes nomeados. Toda a suíte de serviços de um domínio do Windows NT é implementada através de pipes nomeados.</p>
+<h2 id="Conclusao"><a href="#Conclusao" class="headerlink" title="Conclusão"></a>Conclusão</h2><p>O Pipe é um mecanismo de extrema importância na comunicação entre processos, possibilitando que o processamento se dê de forma simples, flexível e eficiente, com baixo acoplamento e alta coesão.</p>
+<h2 id="Referencias-Bibliograficas"><a href="#Referencias-Bibliograficas" class="headerlink" title="Referências Bibliográficas"></a>Referências Bibliográficas</h2><p>FEITOSA, Samuel. “Pipes e Pipes Nomeados ou Fifos.” Blog de Samuel Feitosa, Jul 2009. <a target="_blank" rel="noopener" href="http://samuca.wordpress.com/2007/05/02/pipes-e-pipes-nomeados-ou-fifos/">http://samuca.wordpress.com/2007/05/02/pipes-e-pipes-nomeados-ou-fifos/</a>. Acesso em: 5 nov 2009</p>
+<p>PIPE nomeado. In: Wikipédia: a enciclopédia livre. Disponível em: <a target="_blank" rel="noopener" href="http://pt.wikipedia.org/wiki/Pipe_nomeado">http://pt.wikipedia.org/wiki/Pipe_nomeado</a> Acesso em: 5 nov 2009</p>
+<p>RIBEIRO, Uirá. Certificação Linux. 1° ed. Axcel Books, 2004.</p>
+</body></html>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link-link" href="/tags/Infraestrutura/" rel="tag">Infraestrutura</a>, <a class="has-link-grey -link-link" href="/tags/Linux/" rel="tag">Linux</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5be9af6fb1e18cc9"></script>
+
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2010/03/04/replicacao-com-openldap/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Replicação com OpenLdap</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2010/01/15/introducao-ao-firewall-ipcop/">
+                <span class="level-item">Introdução ao Firewall IPCop</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comentários</h3>
+        <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-comments" data-width="100%" data-href="https://meneguite.com/2010/01/15/pipes-comunicacao-entre-processos/" data-num-posts="5"></div>
+
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6 is-rounded" src="https://avatars0.githubusercontent.com/u/8209481" alt="avatar">
+                    
+                    <p class="is-size-4 is-block">
+                        Ronaldo Meneguite
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Just another tech enthusiast
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Brasil</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        
+        
+            <div class="level is-mobile">
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Github" href="http://github.com/meneguite">
+                    
+                        <i class="fab fa-github fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Linkedin" href="https://www.linkedin.com/in/ronaldomeneguite">
+                    
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Facebook" href="https://www.facebook.com/ronaldomeneguite">
+                    
+                        <i class="fab fa-facebook fa-2x"></i>
+                    
+                </a>
+                
+            </div>
+        
+        <hr />
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Artigos
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categorias
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        7
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        32
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+    
+        
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categorias
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/">
+            <span class="level-start">
+                <span class="level-item">Desenvolvimento</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/Backend/">
+            <span class="level-start">
+                <span class="level-item">Backend</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/Frontend/">
+            <span class="level-start">
+                <span class="level-item">Frontend</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/">
+            <span class="level-start">
+                <span class="level-item">Infraestrutura</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">10</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/Desenvolvimento/">
+            <span class="level-start">
+                <span class="level-item">Desenvolvimento</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/Seguranca/">
+            <span class="level-start">
+                <span class="level-item">Segurança</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li></ul></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Adapter-Pattern/">
+                        <span class="level-start">
+                            <span class="level-item">Adapter Pattern</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Aplicativos/">
+                        <span class="level-start">
+                            <span class="level-item">Aplicativos</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Autenticacao-Centralizada/">
+                        <span class="level-start">
+                            <span class="level-item">Autenticação Centralizada</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Backend/">
+                        <span class="level-start">
+                            <span class="level-item">Backend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Banco-de-Dados/">
+                        <span class="level-start">
+                            <span class="level-item">Banco de Dados</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Cloudflare/">
+                        <span class="level-start">
+                            <span class="level-item">Cloudflare</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Deno/">
+                        <span class="level-start">
+                            <span class="level-item">Deno</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Design-Patterns/">
+                        <span class="level-start">
+                            <span class="level-item">Design Patterns</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Digital-Ocean/">
+                        <span class="level-start">
+                            <span class="level-item">Digital Ocean</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Frontend/">
+                        <span class="level-start">
+                            <span class="level-item">Frontend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Github-Pages/">
+                        <span class="level-start">
+                            <span class="level-item">Github Pages</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Golang/">
+                        <span class="level-start">
+                            <span class="level-item">Golang</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Infraestrutura/">
+                        <span class="level-start">
+                            <span class="level-item">Infraestrutura</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/LDAP/">
+                        <span class="level-start">
+                            <span class="level-item">LDAP</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Ldap/">
+                        <span class="level-start">
+                            <span class="level-item">Ldap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Linux/">
+                        <span class="level-start">
+                            <span class="level-item">Linux</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MongoDb/">
+                        <span class="level-start">
+                            <span class="level-item">MongoDb</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/NoSql/">
+                        <span class="level-start">
+                            <span class="level-item">NoSql</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Npm/">
+                        <span class="level-start">
+                            <span class="level-item">Npm</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OAuth/">
+                        <span class="level-start">
+                            <span class="level-item">OAuth</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OAuth-2/">
+                        <span class="level-start">
+                            <span class="level-item">OAuth 2</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Observer-Pattern/">
+                        <span class="level-start">
+                            <span class="level-item">Observer Pattern</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OpenLdap/">
+                        <span class="level-start">
+                            <span class="level-item">OpenLdap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/PWA/">
+                        <span class="level-start">
+                            <span class="level-item">PWA</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Padroes-de-Projeto/">
+                        <span class="level-start">
+                            <span class="level-item">Padrões de Projeto</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Programacao/">
+                        <span class="level-start">
+                            <span class="level-item">Programação</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Progressive-Web-Apps/">
+                        <span class="level-start">
+                            <span class="level-item">Progressive Web Apps</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Slack/">
+                        <span class="level-start">
+                            <span class="level-item">Slack</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Tutoriais/">
+                        <span class="level-start">
+                            <span class="level-item">Tutoriais</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Typescript/">
+                        <span class="level-start">
+                            <span class="level-item">Typescript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Utilitario/">
+                        <span class="level-start">
+                            <span class="level-item">Utilitario</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="card card-transparent is-hidden-desktop is-hidden-widescreen">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+	<div class="container">
+		<div class="level">
+			<div class="level-start has-text-centered-mobile">
+				<!-- <a class="footer-logo is-block has-mb-6" href="/">
+					
+					<img src="/images/logo.svg" alt="" height="28">
+					
+				</a> -->
+				<p class="is-size-7">
+					&copy; 2021 Ronaldo Meneguite&nbsp;
+				</p>
+			</div>
+			<div class="level-end">
+				
+				<div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+					
+					
+					<span class="control">
+						<a class="button is-white is-large" target="_blank"
+							title="Creative Commons" href="https://creativecommons.org/">
+							
+							<i class="fab fa-creative-commons fa-2x"></i>
+							
+						</a>
+					</span>
+					
+					<span class="control">
+						<a class="button is-white is-large" target="_blank"
+							title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+							
+							<i class="fab fa-creative-commons-by fa-2x"></i>
+							
+						</a>
+					</span>
+					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</footer>
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+
+<script>moment.locale("pt-BR");</script>
+
+
+    
+    
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+
+    
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+
+<script src="/js/back-to-top.js"></script>
+
+
+
+    
+    
+
+    
+    
+    
+
+
+
+<script src="/js/main.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Digite alguma coisa..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Artigos',
+                PAGES: 'Páginas',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+<link rel="stylesheet" href="/css/search.css">
+
+
+<link rel="stylesheet" href="/css/insight.css">
+
+    
+</body>
+</html>

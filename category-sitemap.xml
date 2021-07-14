@@ -10,7 +10,21 @@
 
     <url>
         <loc>https://meneguite.com/categories/Infraestrutura/</loc>
-        <lastmod>2021-07-14T14:42:27.915Z</lastmod>
+        <lastmod>2021-07-14T20:27:15.842Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://meneguite.com/categories/Infraestrutura/Seguranca/</loc>
+        <lastmod>2021-07-14T20:25:54.996Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://meneguite.com/categories/Infraestrutura/Desenvolvimento/</loc>
+        <lastmod>2021-07-14T15:11:02.537Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

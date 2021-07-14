@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html  lang="pt">
+<head>
+    <meta charset="utf-8">
+<title>Segurança da Informação - Ronaldo Meneguite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+
+
+    <meta name="description" content="O mercado de segurança em TI vem crescendo a cada ano e se tornando um dos pilares de sustentação de empresas que investiram montantes consideráveis em toda a infra- estrutura de TI. Toda essa infra-e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Segurança da Informação">
+<meta property="og:url" content="https://meneguite.com/2008/10/23/seguranca-informacao/index.html">
+<meta property="og:site_name" content="Ronaldo Meneguite">
+<meta property="og:description" content="O mercado de segurança em TI vem crescendo a cada ano e se tornando um dos pilares de sustentação de empresas que investiram montantes consideráveis em toda a infra- estrutura de TI. Toda essa infra-e">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/001.jpg">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/002.jpg">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/003.jpg">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/004.jpg">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/005.jpg">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/006.jpg">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/007.jpg">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/008.jpg">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/009.jpg">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/010.jpg">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/011.jpg">
+<meta property="og:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/012.jpg">
+<meta property="article:published_time" content="2008-10-23T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-07-14T20:25:54.996Z">
+<meta property="article:author" content="Ronaldo Meneguite">
+<meta property="article:tag" content="Infraestrutura">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://meneguite.com/2008/10/23/seguranca-informacao/001.jpg">
+<meta property="fb:admins" content="ronaldomeneguite">
+<meta property="fb:app_id" content="284008812234350">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<!--
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+-->
+
+<link rel="stylesheet" href="/css/bulma.css">
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro.css">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+
+    
+    
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129084799-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129084799-1');
+</script>
+
+
+    
+    
+
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body class="is-2-column ">
+    <nav class="navbar navbar-main">
+    <div class="container is-fluid">
+        <!--<div class="navbar-brand is-flex-center">-->
+            <!--<a class="navbar-item navbar-logo" href="/">-->
+            <!---->
+                <!--<img src="/images/logo.svg" alt="" height="28">-->
+            <!---->
+            <!--</a>-->
+        <!--</div>-->
+        <div class="navbar-menu alignright">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categorias</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/archives">Histórico</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                
+                <a class="navbar-item search" title="Pesquisar" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section ">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main is-fullwidth"><div class="card">
+    <div class="card-content article ">
+
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Segurança da Informação
+            
+        </h1>
+        
+            <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+                <div class="level-left">
+                    <time class="level-item has-text-grey" datetime="2008-10-23T15:00:00.000Z">23/10/2008</time>
+                    
+                        <div class="level-item">
+                            <a class="has-link-grey -link" href="/categories/Infraestrutura/">Infraestrutura</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Infraestrutura/Seguranca/">Segurança</a>
+                        </div>
+                    
+                    
+                    <span class="level-item has-text-grey">
+                    
+                    
+                    [ Ronaldo Meneguite ]
+                    <!--uma hora read (About 8193 words)-->
+                    </span>
+                    
+                </div>
+            </div>
+        
+        
+        <div class="content">
+            <html><head></head><body><p>O mercado de segurança em TI vem crescendo a cada ano e se tornando um dos pilares de sustentação de empresas que investiram montantes consideráveis em toda a infra- estrutura de TI. Toda essa infra-estrutura, cada vez mais complexa e interligada, com múltiplos pontos de acesso, demanda a adoção de soluções de segurança capazes de monitorar as tentativas de violação dos dados gerados por inúmeras transações. Assim surgiu à necessidade de se utilizar melhores mecanismos para prover a segurança das transações de informações confidenciais. A questão segurança é bastante enfatizada, principalmente, quando se imagina, a possibilidade de se ter suas informações, expostas à atacantes ou intrusos da Internet, que surgem com meios cada vez mais sofisticados para violar a privacidade e a segurança das comunicações. Devido a estas preocupações, a proteção da informação tem se tornado um dos interesses primários dos administradores de sistemas.</p>
+<span id="more"></span>
+
+<p>A Segurança da Informação consiste na certeza de que as informações de uso restrito não devem ser acessadas, copiadas ou si quer lidas por pessoas não autorizadas.</p>
+<p>A informação pode existir de diversas formas. Pode ser, impressa, escrita, armazenada de forma eletrônica ou transmitida via e-mail. Independente da forma que é apresentada ou meio pelo qual a informação é compartilhada ou armazenada, é recomendado que ela seja sempre protegida de forma adequada.</p>
+<p>Durante este trabalho estarei dando maior ênfase a parte da segurança ligada a área de computação, já que a segurança é um tema muito amplo e falar nela como um todo poderia deixar meu trabalho muito superficial.</p>
+<h2 id="GLOSARIO"><a href="#GLOSARIO" class="headerlink" title="GLOSÁRIO"></a>GLOSÁRIO</h2><p><strong>Ataque</strong>: Evento que pode comprometer a segurança de um sistema ou uma rede. Um ataque pode ter ou não sucesso. Um ataque com sucesso caracteriza uma invasão.</p>
+<p><strong>Autenticação</strong>: É o processo de se confirmar a identidade de um usuário ou um host, esta pode ser feita na camada de aplicação (através de uma senha), ou mais complexa, utilizando algoritmos específicos.</p>
+<p><strong>Bug</strong>: Uma falha, ou fraqueza em um sistema de computador.</p>
+<p><strong>Cavalo de Tróia</strong>: Uma aplicação ou código que, sem o conhecimento do usuário realiza alguma tarefa que compromete a segurança de um sistema, em geral, esta aplicação se apresentação usuário de forma rotineira e legítima.</p>
+<p><strong>Denial of Service</strong>: Interrupção de serviço.</p>
+<p><strong>Engenharia Social</strong>: Técnica utilizada por hackers para obter informações interagindo diretamente com as pessoas.</p>
+<p><strong>Exploits</strong>: Programa ou parte de um programa malicioso projetado para explorar um vulnerabilidade existente em um software de computador.</p>
+<p><strong>Firewall</strong>: Equipamento e/ou software utilizado para controlar as conexões que entram ou saem de uma rede. Eles podem simplesmente filtrar os pacotes baseados em regras simples, como também fornecer outras funções tais como: NAT, proxy, etc.</p>
+<p><strong>HTTP</strong>: Do inglês HyperText Transfer Protocol. Protocolo usado para transferir páginas Web entre um servidor e um cliente.</p>
+<p><strong>Invasão</strong>: Caracteriza um ataque bem sucedido.</p>
+<p><strong>NAT</strong>: Network Address Translation - Mecanismo que permite a conexão de redes privadas à rede Internet sem alteração dos endereços reservados. Através de um NAT server os endereços de rede reservados são convertidos para endereços públicos quando se torna necessário o acesso à rede Internet. Com este mecanismo, diversos computadores com endereços internos podem compartilhar um único endereço IP.</p>
+<p><strong>Scanner</strong>: Ferramenta utilizada por hackers ou especialistas em segurança que serve para “varrer” uma máquina ou uma rede, em busca de portas abertas, informações ou serviços vulneráveis.</p>
+<p><strong>SMTP</strong>: Do inglês Simple Mail Transfer Protocol. Protocolo padrão para envio de e-mail através da Internet.</p>
+<p><strong>Stealth</strong>: São os programas que tem habilidade de agir sem ser detectado.</p>
+<p><strong>Trojan (Cavalo de Tróia)</strong>: Uma aplicação ou código que, sem o conhecimento do usuário realiza alguma tarefa que compromete a segurança de um sistema, em geral, esta aplicação se apresenta ao usuário de forma rotineira e legítima.</p>
+<p><strong>Vírus</strong>: São códigos ou programas que infectam outros programas e se multiplicam, na maioria das vezes podem causar danos aos sistemas infectados.</p>
+<p><strong>Vulnerabilidade</strong>: Estado de um componente de um sistema que compromete a segurança de todo o sistema, uma vulnerabilidade existe sempre, até que seja corrigida, existem vulnerabilidades que são intrínsecas ao sistema. Um ataque explora uma vulnerabilidade.</p>
+<p><strong>Worm</strong>: Um worm é semelhante a um vírus, mas difere pelo fato de não necessitar de um programa específico para se infectar e reproduzir. Muitos vírus hoje, possuem a característica de worms e vice e versa.</p>
+<h2 id="CONCEITOS-BASICOS-DA-SEGURANCA-DA-INFORMACAO"><a href="#CONCEITOS-BASICOS-DA-SEGURANCA-DA-INFORMACAO" class="headerlink" title="CONCEITOS BÁSICOS DA SEGURANÇA DA INFORMAÇÃO"></a>CONCEITOS BÁSICOS DA SEGURANÇA DA INFORMAÇÃO</h2><p>A segurança da informação é essencial para qual quer empresa seja ela de grande ou pequeno porte, pois as vulnerabilidades existem, os ataques também existem e crescem a cada dia, tanto em quantidade quanto em qualidade.</p>
+<p>Uma infra-estrutura de segurança não é só necessária como obrigatória, devendo existir, além de um investimento específico, um planejamento, uma gerência e uma metodologia bem definida.</p>
+<h3 id="PILARES-DE-UM-SISTEMA-SEGURO"><a href="#PILARES-DE-UM-SISTEMA-SEGURO" class="headerlink" title="PILARES DE UM SISTEMA SEGURO"></a>PILARES DE UM SISTEMA SEGURO</h3><p>Os pilares de um sistema seguro são: Integridade, Autenticação, Não-repúdio ou irrevogabilidade e Disponibilidade.</p>
+<img src="/2008/10/23/seguranca-informacao/001.jpg" class="square" title="Diagrama da Segurança da informação">
+<p align="center">Figura 1: Diagrama da Segurança da informação</p>
+
+<h4 id="INTEGRIDADE"><a href="#INTEGRIDADE" class="headerlink" title="INTEGRIDADE"></a>INTEGRIDADE</h4><p>Deve ser possível ao receptor de uma mensagem verificar se esta foi alterada durante o trânsito.</p>
+<h4 id="AUTENTICACAO"><a href="#AUTENTICACAO" class="headerlink" title="AUTENTICAÇÃO"></a>AUTENTICAÇÃO</h4><p>Deve ser possível ao receptor de uma mensagem, verificar corretamente sua origem, um intruso não pode se fazer passar (personificar) o remetente desta mensagem.</p>
+<h4 id="NAO-REPUDIO-OU-IRREVOGABILIDADE"><a href="#NAO-REPUDIO-OU-IRREVOGABILIDADE" class="headerlink" title="NÃO-REPÚDIO OU IRREVOGABILIDADE"></a>NÃO-REPÚDIO OU IRREVOGABILIDADE</h4><p>O remetente de uma mensagem não deve ser capaz de negar que enviou a mensagem.</p>
+<h4 id="DISPONIBILIDADE"><a href="#DISPONIBILIDADE" class="headerlink" title="DISPONIBILIDADE"></a>DISPONIBILIDADE</h4><p>Se refere ao sistema estar sempre pronto a responder requisições de usuários legítimos. Para conseguirmos isto existem diversos artifícios como por exemplo:</p>
+<h5 id="NO-BREAKS"><a href="#NO-BREAKS" class="headerlink" title="NO-BREAKS"></a>NO-BREAKS</h5><img src="/2008/10/23/seguranca-informacao/002.jpg" class="" title="Exemplo de um No-break gerenciável">
+<p align="center">Figura 2: Exemplo de um No-break gerenciável</p>
+
+<p>Os problemas de energia elétrica são as maiores causas de defeitos nos sistemas de computadores e na perda de dados. O uso de sistemas de controle de energia tipo No-Break proporcionará a proteção necessária e evitará problemas nos sistemas de computadores, equipamentos eletrônicos e de telecomunicações, centrais telefônicas, etc.</p>
+<p>A grande vantagem de usar um no-break é ter garantia de um fornecimento contínuo de eletricidade. Mesmo que ocorra um pique de energia ou o fornecimento seja cortado, você poderá continuar trabalhando até que as baterias do no-break se esgotem, tendo tempo para salvar seus documentos e desligar tranqüilamente o todo o sistema.</p>
+<p>Existem dois tipos de no-breaks, os on-line e os off-line. Os primeiros, os on-line, são melhores, pois neles a bateria é alimentada continuamente e o micro é alimentado diretamente pela bateria, tendo um fornecimento 100% estável.</p>
+<p>Nos no-breaks off-line a energia da toma é repassada diretamente para o micro, sendo a bateria usada apenas quando a corrente é cortada, não oferecendo uma proteção tão completa quanto o primeiro.</p>
+<p>Em geral o no-break sinaliza de forma visual e sonora logo quando a energia é cortada. Conforme a bateria for ficando fraca a sinalização vai se tornando cada vez mais frequente.</p>
+<p>A autonomia das baterias varia de acordo com a capacidade das baterias (medida em VAs) e o consumo elétrico do sistema ligado ao mesmo.</p>
+<p>A autonomia ideal para um sistema é de ao menos 15 minutos, o que em geral será suficiente para terminar algo mais urgente e salvar tudo antes de desligá-lo.</p>
+<p>Muitos no-breaks vêm com a possibilidade de gerenciamento, através de interfaces inteligentes. Nestes casos, ligando o no-break a uma das saídas do micro (normalmente serial) e instalando o software que o acompanha, você poderá programar o no-break para que salve os documentos e desligue o micro automaticamente no caso de corte de energia.</p>
+<h5 id="SISTEMAS-REDUNDANTES"><a href="#SISTEMAS-REDUNDANTES" class="headerlink" title="SISTEMAS REDUNDANTES"></a>SISTEMAS REDUNDANTES</h5><h6 id="HOT-SWAP"><a href="#HOT-SWAP" class="headerlink" title="HOT-SWAP"></a>HOT-SWAP</h6><img src="/2008/10/23/seguranca-informacao/003.jpg" class="" title="Modulo com tecnologia Hot-swap">
+<p align="center">Figura 3: Modulo com tecnologia Hot-swap</p>
+
+<p>Hot-swap é uma tecnologia muito usada em servidores de rede. Ela permite a troca de dispositivos SCSI com o micro ligado, como, por exemplo, discos rígidos. Se o disco rígido do servidor queima, o técnico pode substituir o disco sem a necessidade de desligar e abrir o micro.</p>
+<h6 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h6><p>RAID (Redundant Arrays of Independent Disks - Matrizes Redundantes de Discos Independentes) é uma tecnologia consagrada que oferece capacidade, confiabilidade, alto desempenho e economia no armazenamento de dados on-line. Muito superior a discos magnéticos, o sistema RAID é de ampla utilização em todo o espectro da indústria de computação, desde o PC até o mainframe. O sistema RAID gerencia um conjunto de discos, mas aparece ao usuário como um único disco grande. A vantagem dos discos múltiplos é que, em caso de falha, os dados são transferidos para um disco próximo e o sistema continua trabalhando, sem perda de dados. A disponibilidade dos dados também é mais rápida. Os múltiplos discos de um sistema RAID podem ser varridos simultaneamente. A procura em um único disco grande demoraria muito mais. A transferência de dados de RAID para RAID também é mais rápida, porque os discos podem ser acessados simultaneamente. A manutenção também é mais fácil com o RAID, e a tolerância de falhas, mais alta. Cada disco pode ser substituído enquanto o sistema trabalha. Com essa capacidade de “hot-swap”, os administradores de rede podem economizar tempo e evitar possíveis problemas antes que eles coloquem a operação do sistema em perigo. Há vários níveis ou tipos de RAID para acomodar necessidades diferentes de armazenamento:</p>
+<p><strong>RAID 1</strong> - Este nível tem discos duplicados trabalhando lado a lado, em “espelhamento de discos” paralelo. A confiabilidade do sistema é muito mais alta. Se um disco falhar, o outro pode fornecer quaisquer dados necessários. Entretanto, apenas 50% da capacidade do drive está disponível para armazenamento.</p>
+<p><strong>RAID 2</strong> - Não é usado por não ser compatível com os drives atuais.</p>
+<p><strong>RAID 3</strong> - Este nível usa o striping de dados e um drive de paridade dedicado. Quando os dados são escritos na matriz, um byte vai para cada disco. Cada drive é acessado ao mesmo tempo. A vantagem é uma transferência de dados muito mais alta. A desvantagem é que, como cada drive é usado, apenas uma transação de I/O pode ser processada de cada vez. O RAID 3 é o melhor para grandes requisições de dados.</p>
+<p><strong>RAID 4</strong> (RAID 0) - Neste nível, os blocos de dados são divididos ao longo da matriz de discos e, portanto, os discos podem ser acessados em paralelo. O RAID 4 tem uma taxa de I/O maior que o RAID 3, mas a transferência de dados é mais lenta. Os drivers de paridade podem ser utilizados para dar tolerência a falhas do drive de dados. O RAID 4 sem paridade é conhecido como RAID 0.</p>
+<p><strong>RAID 5</strong> - De modo diferente do RAID 3, que acessa todos os drivers ao mesmo tempo para a mesma leitura ou escrita, o RAID 5 pode acessar tantos drives quanto possível para leituras e escritas diferentes. Como resultado, oferece a maior taxa de I/O de todos os níveis de RAID.</p>
+<h6 id="FONTE-COM-REDUNDANCIA"><a href="#FONTE-COM-REDUNDANCIA" class="headerlink" title="FONTE COM REDUNDÂNCIA"></a>FONTE COM REDUNDÂNCIA</h6><img src="/2008/10/23/seguranca-informacao/004.jpg" class="" title="Exemplo de fonte redundante">
+<p align="center">Figura 4: Exemplo de fonte redundante</p>
+
+<p>Este equipamento consiste em 2 módulos de potência projetados para trabalhar de modo a que se um dos módulos falhar o outro continue, garantindo que o computador mantenha o funcionamento mesmo em caso de falha de um dos módulos da fonte.</p>
+<h2 id="POLITICA-DE-SEGURANCA-DA-INFORMACAO"><a href="#POLITICA-DE-SEGURANCA-DA-INFORMACAO" class="headerlink" title="POLÍTICA DE SEGURANÇA DA INFORMAÇÃO"></a>POLÍTICA DE SEGURANÇA DA INFORMAÇÃO</h2><p>A Política de Segurança é a formalização de todos os aspectos considerados relevantes por uma organização para proteção, controle e monitoramento de seus recursos computacionais. Também deve ser vista como um canal de comunicação entre usuários e o comitê Corporativo de Segurança da Informação. A documentação gerada precisa explicar a importância da segurança para motivar as pessoas envolvidas a praticá-la.</p>
+<p>A divulgação da política de segurança é uma das ferramentas responsáveis pelo sucesso da sua implantação. Seu objetivo é disseminar a política de segurança da informação na empresa, conscientizando os colaboradores e prestadores de serviço para a política de segurança que está sendo implantada.</p>
+<p>Deverão ser desenvolvidas palestras de conscientização, cartas, e-mails, cartilhas e eventos objetivando o sucesso da implantação.</p>
+<p>A política de segurança não define procedimentos específicos de manipulação e proteção da informação, mas atribui direitos e responsabilidades às pessoas (usuários, administradores de redes e sistemas, funcionários, gerentes, etc.) que lidam com essa informação. Desta forma, elas sabem quais as expectativas que podem ter e quais são as suas atribuições em relação à segurança dos recursos computacionais com os quais trabalham.</p>
+<p>Além disso, a política de segurança também estipula as penalidades às quais estão sujeitos àqueles que a descumprem.</p>
+<p>Antes que a política de segurança seja escrita, é necessário definir a informação a ser protegida. Usualmente, isso é feito através de uma análise de riscos, que identifica:</p>
+<ul>
+<li>Recursos protegidos pela política;</li>
+<li>Ameaças às quais estes recursos estão sujeitos;</li>
+<li>Vulnerabilidades que podem viabilizar a concretização destas ameaças, analisando-as individualmente.</li>
+</ul>
+<p>Uma política de segurança deve cobrir os seguintes aspectos:</p>
+<ul>
+<li>Política de senhas;</li>
+<li>Direitos e responsabilidades dos usuários;</li>
+<li>Direitos e responsabilidades do provedor dos recursos;</li>
+<li>Ações previstas em caso de violação da política.</li>
+</ul>
+<h2 id="INSTALACAO-DE-UM-SISTEMA-SEGURO"><a href="#INSTALACAO-DE-UM-SISTEMA-SEGURO" class="headerlink" title="INSTALAÇÃO DE UM SISTEMA SEGURO"></a>INSTALAÇÃO DE UM SISTEMA SEGURO</h2><h3 id="INSTALACAO"><a href="#INSTALACAO" class="headerlink" title="INSTALAÇÃO"></a>INSTALAÇÃO</h3><p>Um sistema mais seguro começa pela instalação do mínimo possível de pacotes e componentes, especialmente os que implementam serviços de rede. Este mínimo depende fundamentalmente do propósito do sistema em questão e do ambiente de rede no qual ele está inserido. Por exemplo, em princípio um sistema dedicado a servir páginas Web não precisa de um software servidor SMTP, assim como uma estação de trabalho não precisa de um servidor HTTP .</p>
+<p>A justificativa para esta recomendação é bastante simples. É comum que serviços não utilizados não sejam monitorados por falhas de segurança, o que aumenta a possibilidade de não ser aplicada uma correção necessária. A redução no número de pacotes instalados diminui a chance de que o sistema possua uma vulnerabilidade que possa vir a ser explorada por um atacante.</p>
+<h3 id="DESATIVACAO-DE-SERVICOS-NAO-UTILIZADOS"><a href="#DESATIVACAO-DE-SERVICOS-NAO-UTILIZADOS" class="headerlink" title="DESATIVAÇÃO DE SERVIÇOS NÃO UTILIZADOS"></a>DESATIVAÇÃO DE SERVIÇOS NÃO UTILIZADOS</h3><p>Após a instalação a primeira precaução a ser tomada deve ser a verificação se tudo o que está instalado na maquina é realmente necessário, existem programas aos quais por padrão já ativam alguns serviços aos quais não fazemos uso, e cabe ao administrador a localização destes serviços e a desativação e se possível a até remoção dos mesmos.</p>
+<img src="/2008/10/23/seguranca-informacao/005.jpg" class="square" title="Exemplo da tela de serviços carregados no Windows 2000 Server">
+<p align="center">Figura 5: Exemplo da tela de serviços carregados no Windows 2000 Server</p>
+
+<h3 id="INSTALACAO-DE-CORRECOES"><a href="#INSTALACAO-DE-CORRECOES" class="headerlink" title="INSTALAÇÃO DE CORREÇÕES"></a>INSTALAÇÃO DE CORREÇÕES</h3><p>Depois de um sistema ter sido corretamente instalado e configurado, é necessário verificar se não existem correções (patches, fixes, service packs) para vulnerabilidades conhecidas nos componentes instalados. A maioria dos fornecedores de software libera correções para problemas de segurança que sejam descobertos em um sistema, sem que se tenha de esperar pela sua próxima versão. Na maioria das vezes, estas correções estão disponíveis através da Internet.</p>
+<p>A instalação de correções deve ser realizada não só como parte da instalação inicial do sistema, mas também durante o seu tempo de vida, a intervalos periódicos ou sempre que surgirem vulnerabilidades que o afetem.</p>
+<p>No Windows temos a opção chama Windows Update, ferramenta a qual busca automaticamente todas as atualizações as quais ainda não foram instaladas.</p>
+<img src="/2008/10/23/seguranca-informacao/006.jpg" class="square" title="Windows Update em funcionamento">
+<p align="center">Figura 6: Windows Update em funcionamento</p>
+
+<p>No Linux temos uma ferramenta chamada APT (Advanced Package Tool) com esta ferramenta você pode instalar, remover, reconfigurar e também atualizar pacotes. Num entanto o APT ao contrario do windows update que é praticamente todo automático, deve ser configurado para saber de onde pegar os pacotes. Para executar esta configuração devemos executar o comando apt-setup ou podemos editar manualmente o arquivo /etc/apt/sources.list.</p>
+<img src="/2008/10/23/seguranca-informacao/007.jpg" class="square" title="APT em funcionamento">
+<p align="center">Figura 7: APT em funcionamento</p>
+
+<h3 id="GERACAO-DE-LOGS"><a href="#GERACAO-DE-LOGS" class="headerlink" title="GERAÇÃO DE LOGS"></a>GERAÇÃO DE LOGS</h3><p>Logs são muito importantes para a administração segura de sistemas, pois registram informações sobre o seu funcionamento e sobre eventos por eles detectados. Muitas vezes, o log é o único recurso que um administrador possui para descobrir as causas de um problema ou comportamento fora do esperado pelo sistema.</p>
+<img src="/2008/10/23/seguranca-informacao/008.jpg" class="square" title="Exemplo de Log obtido em servidor de internet">
+<p align="center">Figura 8: Exemplo de Log obtido em servidor de internet</p>
+
+<h2 id="AMEACAS-A-QUE-ESTAMOS-EXPOSTOS"><a href="#AMEACAS-A-QUE-ESTAMOS-EXPOSTOS" class="headerlink" title="AMEAÇAS A QUE ESTAMOS EXPOSTOS"></a>AMEAÇAS A QUE ESTAMOS EXPOSTOS</h2><p>Para conseguirmos nos defender das ameaças às quais estamos expostos, primeiramente devemos conhecê-las, assim teremos mais chances de conseguirmos obter melhores resultados nesta luta por maior segurança.</p>
+<p>As principais ameaças a que estamos expostos seriam os vírus, trojans, worms, hackers.</p>
+<h3 id="VIRUS"><a href="#VIRUS" class="headerlink" title="VÍRUS"></a>VÍRUS</h3><h4 id="CARACTERISTICAS"><a href="#CARACTERISTICAS" class="headerlink" title="CARACTERÍSTICAS"></a>CARACTERÍSTICAS</h4><p>O que comumente chamamos de “vírus de computador” são programas que possuem algumas características em comum com os vírus biológicos:</p>
+<ul>
+<li><p>São pequenos;</p>
+</li>
+<li><p>Um vírus, por definição, não funciona por si só. Deve infectar um arquivo executável ou arquivos que utilizam macros, ou seja, em geral o vírus fica escondido dentro da série de comandos de um programa maior;</p>
+</li>
+<li><p>Contém instruções para parasitar e criar cópias de si mesmo de forma autônoma e sem autorização específica (e, em geral, sem o conhecimento) do usuário para isso - eles são, portanto, auto replicantes.</p>
+</li>
+</ul>
+<h4 id="A-INFECCAO"><a href="#A-INFECCAO" class="headerlink" title="A INFECÇÃO"></a>A INFECÇÃO</h4><p>Há várias manifestações visíveis da atividade dos vírus: mostrar mensagens, alterar ou deletar determinados tipos de arquivos, corromper a tabela de alocação, diminuir a performance do sistema ou até formatar o disco rígido.</p>
+<p>Muitas vezes a ação de um vírus só se inicia a partir de eventos ou condições que seu criador pré-estipulou: atingir certa data, um número de vezes que um programa é rodado, um comando específico ser executado, etc.</p>
+<p>Um vírus pode atingir um computador a partir de diferentes “vetores” todos previamente infectados: documentos, programas, disquetes, arquivos de sistema, etc.</p>
+<p>Arquivos executáveis ( _.exe. _.bat, _.com) são particularmente perigosos e deve-se evitar enviá-los ou recebê-los. Após infectar o computador, eles podem passar a atacar outros arquivos. Se um destes arquivos infectados for transferido para outro computador, o vírus vai junto e, quando for executado irá contaminar a segundo máquina.</p>
+<p>Arquivos de dados, som ( _.wav, <em>.mid), imagem (</em>.bmp, <em>.pcx, _.gif, _.jpg), vídeo (</em>.avi, _.mov) e os de texto que não contenham macros ( _.txt, _.wri) podem ser abertos sem problemas.</p>
+<p>Mas, tanto o download (cópia de programas, via http ou ftp) como o serviço de correio eletrônico (e-mail), possibilitam a entrada de arquivos no computador. Assim, a internet tornou-se um grande foco de disseminação de vírus, worms, trojans e outros programas maliciosos, por facilitar em muito o envio e recepção de arquivos (o que antes era feito basicamente por meio de disquetes).</p>
+<p>Como um dos mais populares serviços da Internet é o correio eletrônico, o envio de programas invasores por e-mail é preocupante.</p>
+<p>Como regra geral pode-se assumir que não devemos executar arquivos recebidos, especialmente os arquivos executáveis, mesmo que se conheça o remetente e que se tenha certeza que ele é cuidadoso e usa antivírus atualizado.</p>
+<p>Mas, na quase totalidade dos casos pode-se admitir que a simples recepção e a visualização de uma mensagem não contaminam o computador receptor.</p>
+<img src="/2008/10/23/seguranca-informacao/009.jpg" class="square" title="Exemplo de e-mail com link para um vírus">
+<p align="center">Figura 9: Exemplo de e-mail com link para um vírus</p>
+
+<h4 id="TIPOS-DE-VIRUS"><a href="#TIPOS-DE-VIRUS" class="headerlink" title="TIPOS DE VÍRUS"></a>TIPOS DE VÍRUS</h4><h5 id="VIRUS-DE-BOOT-MASTER-BOOT-RECORD-BOOT-SECTOR-VIRUSES"><a href="#VIRUS-DE-BOOT-MASTER-BOOT-RECORD-BOOT-SECTOR-VIRUSES" class="headerlink" title="VÍRUS DE BOOT (MASTER BOOT RECORD / BOOT SECTOR VIRUSES)"></a>VÍRUS DE BOOT (MASTER BOOT RECORD / BOOT SECTOR VIRUSES)</h5><p>Todos os discos e disquetes possuem uma área de inicialização reservada para informações relacionadas à formatação do disco, dos diretórios e dos arquivos nele armazenados (registro mestre do Sistema, o Master Boot Record - MBR dos discos rígidos ou a área de boot dos disquetes - Boot Sector).</p>
+<p>Como essa área é executada antes de qualquer outro programa (incluindo qualquer programa Antivírus), esses vírus são muito bem sucedidos. Para esse sucesso também contribui o fato da infecção poder ocorrer por meio de um ato simples do usuário: esquecer um disquete contaminado dentro do drive A.</p>
+<p>Como todos os discos possuem também um pequeno programa de boot (que determina onde está ou não o sistema operacional e reconhece, inclusive, os periféricos instalados no computador), os vírus de boot podem se “esconder” em qualquer disco ou disquete.</p>
+<p>A contaminação ocorre quando um boot é feito através de um disquete contaminado. O setor de boot do disquete possui o código para determinar se um disquete é “bootável” ou para mostrar a mensagem: “Disquete Sem Sistema ou Erro de Disco”. É este código, gravado no setor de boot que, ao ser contaminado, assume o controle do micro. Assim que o vírus é executado ele toma conta da memória do micro e infecciona o MBR do disco rígido.</p>
+<p>A disseminação é fácil: cada disquete não contaminado, ao ser colocado no drive e ser lido pode passar a ter uma cópia do código e, nesse caso, é contaminado e passa a ser um “vetor”.</p>
+<h5 id="VIRUS-DE-PROGRAMA-FILE-INFECTING-VIRUSES"><a href="#VIRUS-DE-PROGRAMA-FILE-INFECTING-VIRUSES" class="headerlink" title="VÍRUS DE PROGRAMA (FILE INFECTING VIRUSES)"></a>VÍRUS DE PROGRAMA (FILE INFECTING VIRUSES)</h5><p>Os vírus de programa infectam - normalmente - os arquivos com extensão.exe e.com (alguns contaminam arquivos com outras extensões, como os .dll, as bibliotecas compartilhadas e os .ovl). Alguns deles se replicam, contaminando outros arquivos, de maneira silenciosa, sem interferir com a execução dos programas que estão contaminados. Assim sendo, pode não haver sinais perceptíveis do que está acontecendo no micro.</p>
+<p>Alguns dos vírus de Programa vão se reproduzindo até que uma determinada data, ou conjunto de fatores, seja alcançado. Somente aí é que começa a sua ação.</p>
+<p>A infecção se dá pela execução de um arquivo já infectado no computador. Há diversas origens possíveis para o arquivo infectado: Internet, Rede Local ou um disquete.</p>
+<h5 id="VIRUS-MULTIPARTITE"><a href="#VIRUS-MULTIPARTITE" class="headerlink" title="VÍRUS MULTIPARTITE"></a>VÍRUS MULTIPARTITE</h5><p>É uma mistura dos tipos de boot e de programa, podendo infectar ambos: arquivos de programas e setores de boot. São mais eficazes na tarefa de se espalhar, contaminando outros arquivos e/ou discos e são mais difíceis de serem detectados e removidos.</p>
+<h5 id="VIRUS-DE-MACRO"><a href="#VIRUS-DE-MACRO" class="headerlink" title="VÍRUS DE MACRO"></a>VÍRUS DE MACRO</h5><p>Quando se usa alguns programas, por exemplo um editor de texto, e necessita-se executar uma tarefa repetidas vezes em seqüência (por exemplo, substituir todos os “vc” por “você”) pode-se editar um comando único para efetuá-las. Esse comando é chamado de macro, que pode ser salvo em um modelo para ser aplicado em outros arquivos.</p>
+<p>Além dessa opção da própria pessoa fazer um modelo os comandos básicos dos editores de texto também funcionam com modelos. Os vírus de macro atacam justamente esses arquivos comprometendo o funcionamento do programa. Os alvos principais são os próprios editores de texto (Word) e as planilhas de cálculo (Excel).</p>
+<p>A disseminação desse tipo de vírus é muito mais acentuada pois documentos são muito móveis e passam de máquina em máquina (entre colegas de trabalho, estudantes, amigos e outras pessoas). Ao escrever, editar ou, simplesmente, ler arquivos vindos de computadores infectados a contaminação ocorre. Assim, verdadeiras “epidemias” podem acontecer em pouco tempo.</p>
+<p>Além disso, os macrovírus constituem a primeira categoria de vírus multiplataforma, ou seja, não se limitam aos computadores pessoais, podendo infectar também outras plataformas que usem o mesmo programa, como o Macintosh, por exemplo.</p>
+<p>Um outro agravante em relação a esses vírus é a facilidade de lidar com as linguagens de macro, dispensando que o criador seja um especialista em programação. Isso acarretou no desenvolvimento de muitos vírus e inúmeras variantes e vírus de macro, num período curto de tempo.</p>
+<h5 id="OUTRAS-CAPACIDADES"><a href="#OUTRAS-CAPACIDADES" class="headerlink" title="OUTRAS CAPACIDADES"></a>OUTRAS CAPACIDADES</h5><p>Para tentar impedir a detecção pelos antivírus algumas capacidades foram dadas a qualquer um dos tipos de vírus acima. Assim, cada um desses três tipos de vírus podem ter outras características, podendo ser:</p>
+<h6 id="POLIMORFISMO"><a href="#POLIMORFISMO" class="headerlink" title="POLIMORFISMO"></a>POLIMORFISMO</h6><p>Têm como principal característica o fato de estar sempre em mutação, ou seja, esse vírus muda ao criar cópias dele mesmo, alterando seu código. Mas, os clones são tão funcionais quanto seu original, ou mais. O objetivo da mudança é tentar dificultar a ação dos antivírus, criando uma mutação, algo diferente daquilo que a vacina procura.</p>
+<h6 id="INVISIBILIDADE"><a href="#INVISIBILIDADE" class="headerlink" title="INVISIBILIDADE"></a>INVISIBILIDADE</h6><p>Têm a capacidade de, entre outras coisas, temporariamente se auto remover da memória, para escapar da ação dos programas antivírus.</p>
+<h6 id="ENCRIPTACAO"><a href="#ENCRIPTACAO" class="headerlink" title="ENCRIPTAÇÃO"></a>ENCRIPTAÇÃO</h6><p>Nesses é muito difícil a ação da vacina. Assim mesmo que seja detectado o antivírus vai ter grande problema para removê-lo.</p>
+<h6 id="TROJAN-CAVALOS-DE-TROIA"><a href="#TROJAN-CAVALOS-DE-TROIA" class="headerlink" title="TROJAN (CAVALOS DE TRÓIA)"></a>TROJAN (CAVALOS DE TRÓIA)</h6><p>O vírus do tipo Trojan tipicamente se disfarça como algo desejável — por exemplo, um programa legítimo. Assim como seu equivalente histórico, porém, ele guarda um poder de ataque oculto. O Trojan geralmente não se replica (embora pesquisadores tenham descoberto Trojans replicantes). Ele espera até que aconteça o evento de gatilho e então mostra uma mensagem ou destrói arquivos ou discos. Como ele geralmente não se replica, alguns pesquisadores não classificam os Trojan Horses como vírus.</p>
+<img src="/2008/10/23/seguranca-informacao/010.jpg" class="square" title="Exemplo de Trojan">
+<p align="center">Figura 10: Exemplo de Trojan</p>
+
+<h6 id="WORMS-VERMES"><a href="#WORMS-VERMES" class="headerlink" title="WORMS (VERMES)"></a>WORMS (VERMES)</h6><p>O worm é um programa projetado para se copiar rapidamente de um computador para outro, através de alguma mídia de rede: e-mail, TCP/IP, etc. De acordo com Cary Nachenburg, Pesquisador Chefe no Symantec AntiVirus Research Center (SARC, Centro de Pesquisas Antivírus), “Worms são insidiosos porque eles pouco dependem (ou não dependem) do comportamento humano para se espalhar de um computador para outro.”</p>
+<p>A maioria dos vírus, dependem de algum tipo de gatilho do usuário, como abrir um anexo, reinicializar uma máquina, ou executar um programa. Worms, no entanto, são capazes de funcionar de forma mais independente. Um exemplo disto é o vírus Explore.zip, que pode identificar programas de e-mail amplamente utilizados, como o MS Outlook, que possam existir num computador, e sistematicamente começar a enviar cópias de si mesmo para todos na lista de e-mail do usuário.</p>
+<p>Além disso, o worm está mais interessado em infectar quantas máquinas forem possíveis na rede, e menos interessado em espalhar muitas cópias de si mesmo em computadores individuais (como os primeiros vírus de computador).</p>
+<p>Os worms geralmente são classificados em worms de e-mail ou worms de protocolo, dependendo do vetor primário pelo qual eles se espalham. Ambos os tipos podem ser transferidos, com conhecimento ou não, através da web.</p>
+<h6 id="HACKERS"><a href="#HACKERS" class="headerlink" title="HACKERS"></a>HACKERS</h6><p>O perfil típico do hacker é: jovem entre 15 e 25 anos, com amplo conhecimento de redes, conhecimento de programação (geralmente em linguagens como C, C++, Java e Assembler). Contudo, existem diversos tipos de “hackers”, dos que possuem mais experiência para os que apenas “copiam” furos de segurança explorados por outros hackers. São eles:</p>
+<p><strong>WHITE-HATS</strong>: Os white-hats são os hackers que exploram problemas de segurança para divulgá-los abertamente, de forma que toda a comunidade tenha acesso à informações sobre como se proteger. Desejam abolir a “segurança por obscuridade”, que nada mais é do que tentar proteger ou manter a segurança pelo segredo de informações sobre o funcionamento de uma rede, sistema operacional ou programa em geral. Seu lema é o “full disclosure”, ou conhecimento aberto, acessível a todos.</p>
+<p><strong>BLACK-HATS</strong>: Ao contrário dos white-hats, apesar de movidos também pela curiosidade, usam suas descobertas e habilidades em favor próprio, em esquemas de extorsão, chantagem de algum tipo, ou qualquer esquema que venha a trazer algum benefício, geralmente, e obviamente, ilícito. Estes são extremamente perigosos e difíceis de identificar, pois nunca tentarão chamar a atenção. Agem da forma mais furtiva possível.</p>
+<p><strong>CRACKERS</strong>: As denominações para os crackers são muitas. Alguns classificam de crackers, aqueles que têm por objetivo invadir sistemas em rede ou computadores apenas pelo desafio. Contudo, historicamente, o nome “cracker” tem uma relação com a modificação de código, para obter funcionalidades que não existem, ou de certa forma, limitadas. Um exemplo clássico são os diversos grupos existentes na Internet que tem por finalidade criar “patches” ou mesmo “cracks” que modificam programas comerciais (limitados por mecanismos de tempo por exemplo, como shareware), permitindo seu uso irrestrito, sem limitação alguma.</p>
+<p><strong>PHREAKERS</strong>: Apesar de muitos considerarem um cientista russo chamado Nicola Tesla (que na virada do século realizava experiências assustadoras – até para os dias de hoje – com eletricidade) como o primeiro hacker da história, os primeiros hackers da era digital lidavam com telefonia. Sua especialidade é interferir com o curso normal de funcionamento das centrais telefônicas, mudar rotas, números, realizar chamadas sem tarifação, bem como realizar chamadas sem ser detectado (origem). Com a informatização das centrais telefônicas, ficou inclusive mais fácil e acessível o comprometimento de tais informações. Kevin Mitnick, considerado o maior hacker de todos os tempos, era um ótimo phreaker. Na fase final de sua captura, quando os agentes de governo ajudados pelo Tsutomu Shimomura estavam chegando a um nome, ele conseguia enganar as investigações através do controle que tinha da rede de telefonia da GTE (concessionária telefônica dos EUA).</p>
+<p><strong>WANNABES</strong>: Os wannabes ou script-kiddies são aqueles que acham que sabem, dizem para todos que sabem, se anunciam, ou divulgam abertamente suas “façanhas”, e usam em 99% dos casos scripts ou exploits conhecidos, já divulgados, denominados “receitas de bolo”, facilmente encontradas em sites como “<a target="_blank" rel="noopener" href="http://www.rootshell.com”/">www.rootshell.com”</a>, ou “xforce.iss.net”. Estes possuem relação direta com a maioria dos usuários da Internet Brasileira. São facilmente encontrados em fórums de discussão sobre o tema, e principalmente no IRC. A maioria não possui escrúpulo algum, portanto, tomar medidas de cautela é aconselhável. Os wannabes geralmente atacam sem uma razão ou objetivo, apenas para testar ou treinar suas descobertas, o que nos torna, usuários Internet, potenciais salvos.</p>
+<h5 id="ALGUNS-METODOS-DE-ATAQUE-DOS-HACKERS"><a href="#ALGUNS-METODOS-DE-ATAQUE-DOS-HACKERS" class="headerlink" title="ALGUNS MÉTODOS DE ATAQUE DOS HACKERS"></a>ALGUNS MÉTODOS DE ATAQUE DOS HACKERS</h5><p><strong>ENGENHARIA SOCIAL</strong></p>
+<p>Existe algum método mais rápido e eficiente de se descobrir uma senha? Que tal simplesmente perguntar? Por mais extraordinário que possa parecer, o método mais simples, mais usado e talvez mais eficiente de se recolher informações é simplesmente chegar e perguntar.</p>
+<p>Você também poderia subornar, mas dependendo da situação, isto pode lhe custar muito caro, então por que não tentar enganar e obter tais informações? De fato, este método é bastante utilizado, e existem hackers que sabem usá-lo com grande destreza.</p>
+<p>Essa tática de ataque é conhecida como “Engenharia Social”. Basicamente, esta é a arte de fazer com que outras pessoas concordem com você e atendam aos seus pedidos ou desejos, mesmo que você não tenha autoridade para tal. Popularmente, pode-se dizer que engenharia social é simplesmente a arte de se contar uma mentira bastante convincente.</p>
+<p>Dentro da área de segurança podemos definir engenharia social como a aquisição de informações preciosas ou privilégios de acesso por “alguém de fora”, baseado em uma relação de confiança estabelecida, inapropriadamente, com “alguém de dentro”.</p>
+<p>Profissionais utilizam este tipo de aproximação para adquirir informações confidenciais, como organogramas de organizações, números de cartões de crédito e telefone, senhas de acesso, diagrama da rede, etc. com o objetivo de avaliar as vulnerabilidades de uma organização para futuros ataques.</p>
+<p>Dizem que o único computador totalmente seguro é aquele desligado da tomada. A arte da engenharia social concentra-se no elo mais fraco da corrente da segurança de computadores: os seres humanos. O simples fato de que se pode facilmente convencer uma pessoa a ligar o computador, torna vulnerável, até mesmo, os computadores desligados.</p>
+<p>Na medida em que a parte humana de um sistema de segurança é a mais essencial, não existe computador na face da Terra que não necessite de seres humanos. Isso significa que essa é uma fraqueza universal, independente de plataforma, software, tipo de conexão de rede ou idade do equipamento. Qualquer pessoa com acesso a qualquer parte do sistema, física ou remota, pode ser uma falha de segurança em potencial. Qualquer informação adquirida pode ser utilizada para um outro ataque de engenharia social. Isso significa que qualquer pessoa, mesmo que não seja considerada integrante da política de segurança pode servir como uma porta de entrada.</p>
+<p>Como um ataque de engenharia social pode revelar muitas informações, como se pode tornar um sistema de computadores mais seguro? A resposta é educação e difusão da informação, explicando aos empregados e pessoas ligadas direta ou indiretamente ao sistema a importância de uma política de segurança, evitando assim o ataque de pessoas que poderão tentar manipulá-los para ganhar acesso a informações privadas. Isto já é um excelente começo para tornar segura sua rede ou sistema.</p>
+<p><strong>DENIAL OF SERVICE (DOS)</strong></p>
+<p>Os ataques DoS são bastante conhecidos no âmbito da comunidade de segurança de redes. Estes ataques, através do envio indiscriminado de requisições a um computador alvo, visam causar a indisponibilidade dos serviços oferecidos por ele. Fazendo uma analogia simples, é o que ocorre com as companhias de telefone nas noites de natal e ano novo, quando milhares de pessoas decidem, simultaneamente, cumprimentar à meia-noite parentes e amigos no Brasil e no exterior. Nos cinco minutos posteriores à virada do ano, muito provavelmente, você simplesmente não conseguirá completar a sua ligação, pois as linhas telefônicas estarão saturadas.</p>
+<p>Ao longo dos últimos anos, uma categoria de ataques de rede tem-se tornado bastante conhecida: a intrusão distribuída. Neste novo enfoque, os ataques não são baseados no uso de um único computador para iniciar um ataque, no lugar são utilizados centenas ou até milhares de computadores desprotegidos e ligados na Internet para lançar coordenadamente o ataque. A tecnologia distribuída não é completamente nova, no entanto, vem amadurecendo e se sofisticando de tal forma que até mesmo vândalos curiosos e sem muito conhecimento técnico podem causar danos sérios.</p>
+<img src="/2008/10/23/seguranca-informacao/011.jpg" class="square" title="Diagrama de um ataque DDos">
+<p align="center">Figura 11: Diagrama de um ataque DDos</p>
+
+<ul>
+<li><p><strong>Atacante</strong>: Quem efetivamente coordena o ataque.</p>
+</li>
+<li><p><strong>Master</strong>: Máquina que recebe os parâmetros para o ataque e comanda os agentes. </p>
+</li>
+<li><p><strong>Agente</strong>: Máquina que efetivamente concretiza o ataque DoS contra uma ou mais vítimas, conforme for especificado pelo atacante.</p>
+</li>
+<li><p><strong>Vítima</strong>: Alvo do ataque. Máquina que é “inundada” por um volume enormede pacotes, ocasionando um extremo congestionamento da rede e resultando na paralização dos serviços oferecidos por ela.</p>
+</li>
+</ul>
+<h2 id="FERRAMENTAS-DE-AUXILIO-A-SEGURANCA"><a href="#FERRAMENTAS-DE-AUXILIO-A-SEGURANCA" class="headerlink" title="FERRAMENTAS DE AUXILIO A SEGURANÇA"></a>FERRAMENTAS DE AUXILIO A SEGURANÇA</h2><h3 id="ANTIVIRUS"><a href="#ANTIVIRUS" class="headerlink" title="ANTIVÍRUS"></a>ANTIVÍRUS</h3><p>A partir do surgimento dos primeiros vírus de computador e suas conseqüências, começaram a ser desenvolvido em todo mundo diferentes alternativas de prevenção contra estas infecções, recuperando então arquivos infectados ao seu estado original e minimizando os danos causados. Desta forma, começaram a surgir diferentes soluções antivírus com variadas tecnologias. Basicamente podemos concluir que Antivírus é um programa utilizado para descontaminar um computador ou rede que estiver infectado com vírus, worm e códigos maliciosos, bem como fornecer proteção contra novas invasões.</p>
+<h3 id="MODO-DE-DETECCAO-DOS-VIRUS"><a href="#MODO-DE-DETECCAO-DOS-VIRUS" class="headerlink" title="MODO DE DETECÇÃO DOS VÍRUS"></a>MODO DE DETECÇÃO DOS VÍRUS</h3><p>Um vírus de computador é igual a qualquer outra aplicação, está composto de uma série de instruções e ao ser executado irá cumprir a ação para qual foi programado.</p>
+<p>Um conjunto de instruções que contém o código de malicioso permite sua identificação de maneira única através da forma como é programado. Estes parâmetros constituem o nome de um respectivo vírus.</p>
+<p>Algumas soluções antivírus conseguem identificar pequenas alterações no código malicioso original reconhecendo então um vírus modificado.</p>
+<p>Algumas empresas antivírus catalogam os vírus individualmente e outras por famílias de vírus, isso faz com que a informação disponibilizada por cada empresa sobre um determinado vírus varie constantemente.</p>
+<p>Quando uma solução antivírus detém a tecnologia de detectar um vírus a partir de seu código, pode ocorrer falsos alarmes de detecção, isto é denominado como falso positivo, mais este é um inconveniente necessário, pois esta analise permite detectar vírus desconhecidos quando executados.</p>
+<p>Quando uma solução antivírus detecta um vírus a partir de assinatura, é improvável a ocorrência de falsos alarmes ou falso positivo. Mais somente vírus analisados e catalogados são detectados ao serem executados, vírus desconhecidos não são detectados.</p>
+<h3 id="PROCESSO-DE-ATUALIZACAO-DO-ANTIVIRUS"><a href="#PROCESSO-DE-ATUALIZACAO-DO-ANTIVIRUS" class="headerlink" title="PROCESSO DE ATUALIZAÇÃO DO ANTIVÍRUS"></a>PROCESSO DE ATUALIZAÇÃO DO ANTIVÍRUS</h3><p>O vírus de computador sempre é desenvolvido por um programador inescrupuloso (mal intencionado) que desenvolve esta aplicação maliciosa na maioria das vezes sem um objetivo claro.</p>
+<p>Com o surgimento da Internet e seus avançados meios de comunicação que permitem quase que simultaneamente o trafego de qualquer tipo de informação e aplicação, inclusive os vírus.</p>
+<p>Um vírus começa a disseminar através da Internet até que seja descoberto (geralmente a partir de seus efeitos), é então analisado pelas empresas de antivírus, são catalogados e então vacinas específicas serão são elaboradas. Todos estes processos são realizados em pouco tempo, é dificilmente ultrapassam horas.</p>
+<p>Estas vacinas (atualizações) ficam disponíveis nos servidores das respectivas empresas e seus usuários devem fazer o download dos arquivos necessários mantendo então o antivírus atualizado.</p>
+<h3 id="HEURISTICA"><a href="#HEURISTICA" class="headerlink" title="HEURÍSTICA"></a>HEURÍSTICA</h3><p>Pouco tempo depois que surgiram as primeiras soluções antivírus, pode ser observado as limitações no desenvolvimento das analises de vírus através de métodos heurísticos, que se baseiam em complexos algoritmos matemáticos que tentam antecipar as ações que poderiam ocorrer quando um determinado código e executado.</p>
+<p>A tecnologia das Analises Heurística implementada por cada solução antivírus, nem sempre tem a mesma eficácia embora todas possui o mesmo objetivo, que é a detecção antecipada de vírus ainda desconhecidos.</p>
+<h3 id="FIREWALL"><a href="#FIREWALL" class="headerlink" title="FIREWALL"></a>FIREWALL</h3><p>Firewall é um quesito de segurança com cada vez mais importância no mundo da computação. À medida que o uso de informações e sistemas é cada vez maior, a proteção destes requer a aplicação de ferramentas e conceitos de segurança eficientes. O firewall é uma opção praticamente imprescindível, podendo ser definido como uma barreira de proteção, que controla o tráfego de dados entre seu computador e a Internet (ou entre a rede onde seu computador está instalado e a Internet). Seu objetivo é permitir somente a transmissão e a recepção de dados autorizados. Existem firewalls baseados na combinação de hardware e software e firewalls baseados somente em software.</p>
+<p>Explicando de maneira mais precisa, o firewall é um mecanismo que atua como “defesa” de um computador ou de uma rede, controlando o acesso ao sistema por meio de regras e filtragem de dados. A vantagem do uso de firewalls em redes é que somente um computador pode atuar como firewall, não sendo necessário instalá-lo em cada máquina conectada.</p>
+<img src="/2008/10/23/seguranca-informacao/012.jpg" class="square" title="Ilustração da função de um Firewall">
+<p align="center">Figura 12: Ilustração da função de um Firewall</p>
+
+<p>Há mais de uma forma de funcionamento de um firewall, que varia de acordo com o sistema, aplicação ou do desenvolvedor do programa. No entanto, existem dois tipos básicos de conceitos de firewalls: o que é baseado em filtragem de pacotes e o que é baseado em controle de aplicações.</p>
+<h4 id="FILTRAGEM-DE-PACOTES"><a href="#FILTRAGEM-DE-PACOTES" class="headerlink" title="FILTRAGEM DE PACOTES"></a>FILTRAGEM DE PACOTES</h4><p>O firewall que trabalha na filtragem de pacotes é muito utilizado em redes pequenas ou de porte médio. Por meio de um conjunto de regras estabelecidas, esse tipo de firewall determina que endereços IPs e dados podem estabelecer comunicação e/ou transmitir/receber dados. Alguns sistemas ou serviços podem ser liberados completamente (por exemplo, o serviço de e-mail da rede), enquanto outros são bloqueados por padrão, por terem riscos elevados. O grande problema desse tipo de firewall, é que as regras aplicadas podem ser muito complexas e causar perda de desempenho da rede ou não serem eficazes o suficiente.</p>
+<p>Este tipo se restringe a trabalhar nas camadas TCP/IP, decidindo quais pacotes de dados podem passar e quais não. Tais escolhas são regras baseadas nas informações endereço IP remoto, endereço IP do destinatário, além da porta TCP usada.</p>
+<p>Quando devidamente configurado, esse tipo de firewall permite que somente computadores conhecidos troquem determinadas informações entre si e tenham acesso a determinados recursos. Um firewall assim, também é capaz de analisar informações sobre a conexão e notar alterações suspeitas, além de ter a capacidade de analisar o conteúdo dos pacotes, o que permite um controle ainda maior do que pode ou não ser acessível.</p>
+<h4 id="FIREWALL-DE-APLICACAO"><a href="#FIREWALL-DE-APLICACAO" class="headerlink" title="FIREWALL DE APLICAÇÃO"></a>FIREWALL DE APLICAÇÃO</h4><p>Firewalls de controle de aplicação (exemplos de aplicação: SMTP, FTP, HTTP, etc) são instalados geralmente em computadores servidores e são conhecidos como proxy. Este tipo não permite comunicação direto entre a rede e a Internet. Tudo deve passar pelo firewall, que atua como um intermediador. O proxy efetua a comunicação entre ambos os lados por meio da avaliação do número da sessão TCP dos pacotes.</p>
+<p>Este tipo de firewall é mais complexo, porém muito seguro, pois todas as aplicações precisam de um proxy. Caso não haja, a aplicação simplesmente não funciona.</p>
+<p>O firewall de aplicação permite um acompanhamento mais preciso do tráfego entre a rede e a Internet (ou entre a rede e outra rede). É possível, inclusive, contar com recursos de log e ferramentas de auditoria. Tais características deixam claro que este tipo de firewall é voltado a redes de porte médio ou grande e que sua configuração exige certa experiência no assunto.</p>
+<h4 id="RAZOES-PARA-UTILIZAR-UM-FIREWALL"><a href="#RAZOES-PARA-UTILIZAR-UM-FIREWALL" class="headerlink" title="RAZÕES PARA UTILIZAR UM FIREWALL"></a>RAZÕES PARA UTILIZAR UM FIREWALL</h4><p>A seguir são citadas as 3 principais razões para se usar um firewall:</p>
+<p>1 - O firewall pode ser usado para ajudar a impedir que sua rede ou seu computador seja acessado sem autorização. Assim, é possível evitar que informações sejam capturadas ou que sistemas tenham seu funcionamento prejudicado pela ação de hackers;</p>
+<p>2 - O firewall é um grande aliado no combate a vírus e cavalos de tróia, uma vez que é capaz de bloquear portas que eventualmente sejam usadas pelas “pragas digitais” ou então bloquear acesso a programas não autorizados;</p>
+<p>3 - Em redes corporativas, é possível evitar que os usuários acessem serviços ou sistemas indevidos, além de ter o controle sobre as ações realizadas na rede, sendo possível até mesmo descobrir quais usuários as efetuaram.</p>
+<h3 id="BACKUP"><a href="#BACKUP" class="headerlink" title="BACKUP"></a>BACKUP</h3><p>A palavra backup significa cópia de segurança, ou seja, quando fazemos backup estamos criando uma cópia dos arquivos importantes de forma que se ocorrer algum problema nos dados da empresa teremos uma cópia atualizada para restaurar todas as informações danificadas, evitando assim o desperdício de tempo e dinheiro para a recuperação de informações, o que nem sempre é possível, sua re-inclusão e eventual interrupção dos serviços prestados pela empresa por problemas técnicos.</p>
+<p>O Backup é a ferramenta de segurança mais importante de seu sistema. Sem o backup, dificilmente temos nosso trabalho recuperado por completo em caso de perda dos dados do disco rígido. É recomendado que o backup seja realizado, pelo menos, uma vez por semana e, em casos de informações importantes, uma vez por dia.</p>
+<p>O Winchester/HDD é um dos componentes mais sensíveis do computador, por isso, quando ocorrem quedas ou picos de energia elétrica ele pode ser danificado impedindo recuperação das informações.</p>
+<p>Quando um programa qualquer (ICQ ou antivírus, por exemplo) é instalado em um computador, ele pode modificar a estrutura de outros arquivos importantes (como arquivos do sistema operacional, por exemplo) de modo, que ele possa ser executado. Esta alteração pode comprometer o bom funcionamento do computador, danificar arquivos existentes ou provocar a perda de informações importantes.</p>
+<p>Existem três possibilidades de perda de dados, falhas técnicas, ambientais e humanas:</p>
+<ul>
+<li><p><strong>Falhas técnicas</strong>: falha no subsistema de disco rígido (HD), falha de energia (resultam em dados corrompidos), sobrecarga na rede de computadores que podem gerar falhas de comunicação (resultam em dados corrompidos), falha de software nos sistemas.</p>
+</li>
+<li><p><strong>Falhas ambientais</strong>: descargas elétricas provindas de raios, enchentes.</p>
+</li>
+<li><p><strong>Falhas humanas</strong>: detém 84% das perdas de dados e são devidas à exclusão ou modificação de dados acidental ou mal-intencionada, vírus, roubo de equipamentos e sabotagem.</p>
+</li>
+</ul>
+<h2 id="CONCLUSAO"><a href="#CONCLUSAO" class="headerlink" title="CONCLUSÃO"></a>CONCLUSÃO</h2><p>Todos precisam ter consciência que os computadores quando interligados, são uma porta aberta para o mundo, com a agravante de não se poder ver quem o está olhando. Quem compartilha um universo tão diversificado, deveria, independentemente de qualquer coisa, prevenir-se contra surpresas desagradáveis.</p>
+<p>Todos morreremos um dia, uns mais cedo e outros mais tarde. Esta variação de tempo de vida tem muitas influências como: qualidade de vida, localização de moradia, alimentação saudável, prática de esportes, uso de drogas, acidentes, etc. Os sistemas também irão parar de funcionar (crash), esta também é sua tendência natural, devido à influências do meio em que se encontra, má utilização do software, má construção do software (componentes internos, atualizações de versões). Porém isto pode ser prevenido com o auxílio de sistemas antivírus, sistemas firewall (anti-invasão), sistemas de backup, política de segurança, etc.</p>
+<p>Não haverá nunca um sistema com falha zero, isto é fato. Pela própria natureza humana no mundo real, até onde conhecemos atualmente não existe ser humano imortal, bem como na natureza binária, no mundo digital. A “segurança da informação” é ponto chave para a estabilidade das empresas e continuidade de seus negócios, e desde os primórdios, onde nem se pensava em computação já existia o dito que “prevenir é melhor que remediar”, portanto, a prevenção contra ameaças digitais nunca é demais, quando se trata de usuários domésticos ou principalmente grandes corporações.</p>
+<p>Este trabalho contribuiu muito para meu desenvolvimento profissional, tive a oportunidade de adquirir conhecimentos que com certeza serão muito úteis na minha vida profissional.</p>
+<h2 id="BIBLIOGRAFIA"><a href="#BIBLIOGRAFIA" class="headerlink" title="BIBLIOGRAFIA"></a>BIBLIOGRAFIA</h2><p>THOMAS A. WADLOW, Segurança de Redes - Projeto e gerenciamento de redes seguras Editora Campus - Ano 2000.</p>
+<p>ROLF JESS FURSTENAU, Programa de Pós graduação em informática na educação (<a target="_blank" rel="noopener" href="http://penta2.ufrgs.br/edu/tutorialvirus/virus.swf">http://penta2.ufrgs.br/edu/tutorialvirus/virus.swf</a>) - Tutorial sobre os vírus.</p>
+<p>MÓDULO SECURITY, O Protal do Profissional da Segurança da Informação (<a target="_blank" rel="noopener" href="http://www.modulo.com.br/">http://www.modulo.com.br</a>).</p>
+<p>SYMANTEC CORPORATION; ( <a target="_blank" rel="noopener" href="http://www.symantec.com/">http://www.symantec.com</a>).</p>
+<p>GIORDANI RODRIGUES, InfoGuerra; Segurança e Privacidade (<a target="_blank" rel="noopener" href="http://www.infoguerra.com.br/">http://www.infoguerra.com.br</a>).</p>
+<p>SECURITY FOCUS; (<a target="_blank" rel="noopener" href="http://www.securityfocus.com/">http://www.securityfocus.com</a>).</p>
+<p>REDE NACIONAL DE ENSINO E PESQUISA; (<a target="_blank" rel="noopener" href="http://www.rnp.br/">http://www.rnp.br/</a>) EMERSON ALECRIM, Portal Info Wester; (<a target="_blank" rel="noopener" href="http://www.infowester.com/">http://www.infowester.com</a>)</p>
+<h2 id="Download-do-documento-original"><a href="#Download-do-documento-original" class="headerlink" title="Download do documento original"></a><a href="monografia-seguranca-informacao.pdf" target="_blank">Download do documento original</a></h2></body></html>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link-link" href="/tags/Infraestrutura/" rel="tag">Infraestrutura</a>, <a class="has-link-grey -link-link" href="/tags/Linux/" rel="tag">Linux</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5be9af6fb1e18cc9"></script>
+
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2009/12/01/ldap-lightweight-directory-access-protocol/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">LDAP - Lightweight Directory Access Protocol</span>
+            </a>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comentários</h3>
+        <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-comments" data-width="100%" data-href="https://meneguite.com/2008/10/23/seguranca-informacao/" data-num-posts="5"></div>
+
+
+    </div>
+</div>
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6 is-rounded" src="https://avatars0.githubusercontent.com/u/8209481" alt="avatar">
+                    
+                    <p class="is-size-4 is-block">
+                        Ronaldo Meneguite
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Just another tech enthusiast
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Brasil</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        
+        
+            <div class="level is-mobile">
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Github" href="http://github.com/meneguite">
+                    
+                        <i class="fab fa-github fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Linkedin" href="https://www.linkedin.com/in/ronaldomeneguite">
+                    
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    
+                </a>
+                
+                <a class="level-item button is-white is-marginless" target="_blank"
+                   title="Facebook" href="https://www.facebook.com/ronaldomeneguite">
+                    
+                        <i class="fab fa-facebook fa-2x"></i>
+                    
+                </a>
+                
+            </div>
+        
+        <hr />
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Artigos
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        19
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categorias
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        7
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        32
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+    
+        
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categorias
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/">
+            <span class="level-start">
+                <span class="level-item">Desenvolvimento</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/Backend/">
+            <span class="level-start">
+                <span class="level-item">Backend</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Desenvolvimento/Frontend/">
+            <span class="level-start">
+                <span class="level-item">Frontend</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/">
+            <span class="level-start">
+                <span class="level-item">Infraestrutura</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">10</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/Desenvolvimento/">
+            <span class="level-start">
+                <span class="level-item">Desenvolvimento</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/Seguranca/">
+            <span class="level-start">
+                <span class="level-item">Segurança</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li></ul></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Adapter-Pattern/">
+                        <span class="level-start">
+                            <span class="level-item">Adapter Pattern</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Aplicativos/">
+                        <span class="level-start">
+                            <span class="level-item">Aplicativos</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Autenticacao-Centralizada/">
+                        <span class="level-start">
+                            <span class="level-item">Autenticação Centralizada</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Backend/">
+                        <span class="level-start">
+                            <span class="level-item">Backend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">6</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Banco-de-Dados/">
+                        <span class="level-start">
+                            <span class="level-item">Banco de Dados</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Cloudflare/">
+                        <span class="level-start">
+                            <span class="level-item">Cloudflare</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Deno/">
+                        <span class="level-start">
+                            <span class="level-item">Deno</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Design-Patterns/">
+                        <span class="level-start">
+                            <span class="level-item">Design Patterns</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Digital-Ocean/">
+                        <span class="level-start">
+                            <span class="level-item">Digital Ocean</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Frontend/">
+                        <span class="level-start">
+                            <span class="level-item">Frontend</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Github-Pages/">
+                        <span class="level-start">
+                            <span class="level-item">Github Pages</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Golang/">
+                        <span class="level-start">
+                            <span class="level-item">Golang</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Infraestrutura/">
+                        <span class="level-start">
+                            <span class="level-item">Infraestrutura</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/LDAP/">
+                        <span class="level-start">
+                            <span class="level-item">LDAP</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Ldap/">
+                        <span class="level-start">
+                            <span class="level-item">Ldap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Linux/">
+                        <span class="level-start">
+                            <span class="level-item">Linux</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/MongoDb/">
+                        <span class="level-start">
+                            <span class="level-item">MongoDb</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/NoSql/">
+                        <span class="level-start">
+                            <span class="level-item">NoSql</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Node/">
+                        <span class="level-start">
+                            <span class="level-item">Node</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Npm/">
+                        <span class="level-start">
+                            <span class="level-item">Npm</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OAuth/">
+                        <span class="level-start">
+                            <span class="level-item">OAuth</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OAuth-2/">
+                        <span class="level-start">
+                            <span class="level-item">OAuth 2</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Observer-Pattern/">
+                        <span class="level-start">
+                            <span class="level-item">Observer Pattern</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/OpenLdap/">
+                        <span class="level-start">
+                            <span class="level-item">OpenLdap</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/PWA/">
+                        <span class="level-start">
+                            <span class="level-item">PWA</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Padroes-de-Projeto/">
+                        <span class="level-start">
+                            <span class="level-item">Padrões de Projeto</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Programacao/">
+                        <span class="level-start">
+                            <span class="level-item">Programação</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">4</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Progressive-Web-Apps/">
+                        <span class="level-start">
+                            <span class="level-item">Progressive Web Apps</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Slack/">
+                        <span class="level-start">
+                            <span class="level-item">Slack</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Tutoriais/">
+                        <span class="level-start">
+                            <span class="level-item">Tutoriais</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Typescript/">
+                        <span class="level-start">
+                            <span class="level-item">Typescript</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">2</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Utilitario/">
+                        <span class="level-start">
+                            <span class="level-item">Utilitario</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="card card-transparent is-hidden-desktop is-hidden-widescreen">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+	<div class="container">
+		<div class="level">
+			<div class="level-start has-text-centered-mobile">
+				<!-- <a class="footer-logo is-block has-mb-6" href="/">
+					
+					<img src="/images/logo.svg" alt="" height="28">
+					
+				</a> -->
+				<p class="is-size-7">
+					&copy; 2021 Ronaldo Meneguite&nbsp;
+				</p>
+			</div>
+			<div class="level-end">
+				
+				<div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+					
+					
+					<span class="control">
+						<a class="button is-white is-large" target="_blank"
+							title="Creative Commons" href="https://creativecommons.org/">
+							
+							<i class="fab fa-creative-commons fa-2x"></i>
+							
+						</a>
+					</span>
+					
+					<span class="control">
+						<a class="button is-white is-large" target="_blank"
+							title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+							
+							<i class="fab fa-creative-commons-by fa-2x"></i>
+							
+						</a>
+					</span>
+					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</footer>
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+
+<script>moment.locale("pt-BR");</script>
+
+
+    
+    
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+
+    
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+
+<script src="/js/back-to-top.js"></script>
+
+
+
+    
+    
+
+    
+    
+    
+
+
+
+<script src="/js/main.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Digite alguma coisa..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Artigos',
+                PAGES: 'Páginas',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+<link rel="stylesheet" href="/css/search.css">
+
+
+<link rel="stylesheet" href="/css/insight.css">
+
+    
+</body>
+</html>

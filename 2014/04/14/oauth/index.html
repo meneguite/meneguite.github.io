@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://meneguite.com/2014/04/14/oauth/004.jpg">
 <meta property="og:image" content="https://meneguite.com/2014/04/14/oauth/005.jpg">
 <meta property="article:published_time" content="2014-04-14T21:00:00.000Z">
-<meta property="article:modified_time" content="2020-02-09T21:15:55.509Z">
+<meta property="article:modified_time" content="2021-07-14T19:19:40.840Z">
 <meta property="article:author" content="Ronaldo Meneguite">
 <meta property="article:tag" content="OAuth">
 <meta property="article:tag" content="Autenticação Centralizada">
@@ -191,7 +191,7 @@
                     <time class="level-item has-text-grey" datetime="2014-04-14T21:00:00.000Z">14/04/2014</time>
                     
                         <div class="level-item">
-                            <a class="has-link-grey -link" href="/categories/Infraestrutura/">Infraestrutura</a>
+                            <a class="has-link-grey -link" href="/categories/Infraestrutura/">Infraestrutura</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Infraestrutura/Seguranca/">Segurança</a>
                         </div>
                     
                     
@@ -209,7 +209,7 @@
         <div class="content">
             <html><head></head><body><p>O OAuth é um padrão aberto para autorização, responsável por fornecer um método para acessar os recursos do servidor em nome de seu proprietário, além de fornecer também um processo para que os usuários possam autorizar o acesso de terceiros aos seus recursos, sem compartilhar suas credenciais.</p>
 <p>O OAuth permite a aplicações acessar dados de um usuário de forma segura, sem que para isso o usuário necessite disponibilizar suas senhas.</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="Historia"><a href="#Historia" class="headerlink" title="História"></a>História</h2><p>O OAuth teve seu início por volta de novembro de 2006, quando Blaine Cook foi trabalhar na implementação Twitter OpenID e ao buscar uma maneira de usar o OpenID em conjunto com a API do Twitter se juntou a outros que possuíam necessidades similares, como Chris Messina, David Recordon e Larry Halff,  analisaram as funcionalidades do OpenID e soluções práticas de outras empresas, e chegaram a conclusão de que não havia nenhum padrão aberto para a delegação de acesso à API. Em julho de 2007, agora com o apoio do Google, foi elaborada uma especificação inicial e o projeto foi aberto a qualquer pessoa interessada em contribuir. Em 3 de Outubro de 2007, a versão final do Núcleo OAuth 1.0 foi lançada.</p>
 <p>A primeira versão do OAuth foi projetada para lidar com autorização de aplicações web cliente-servidor, não definindo como lidar com autorização em aplicações móveis, desktop, javascript ou extensões do navegador por exemplo. Assim essas aplicações ao implementar o OAuth 1.0, normalmente possuíam métodos inconsistentes e muitas vezes de qualidade inferior,  visto que eram obrigados a adaptar o protocolo a sua necessidade. </p>
@@ -232,12 +232,12 @@
 <h2 id="Perfis-de-Clientes-no-OAuth-2-0"><a href="#Perfis-de-Clientes-no-OAuth-2-0" class="headerlink" title="Perfis de Clientes no OAuth 2.0"></a>Perfis de Clientes no OAuth 2.0</h2><p>Existem três perfis de clientes implementados no OAuth 2.0, são eles: Aplicação executada pelo servidor (server-side), Aplicação executada pelo navegador de internet do cliente (client-side) e Aplicações nativas</p>
 <h3 id="Aplicacao-executada-pelo-servidor-server-side"><a href="#Aplicacao-executada-pelo-servidor-server-side" class="headerlink" title="Aplicação executada pelo servidor (server-side)"></a>Aplicação executada pelo servidor (server-side)</h3><p>Para esse perfil a aplicação web é acessada por um usuário, proprietário do recurso, e ao ser consultada faz as chamadas da API apropriadas usando uma linguagem de programação do lado do servidor, não disponibilizando ao usuário o acesso aos tokens OAuth emitidos pelo servidor de autorização . </p>
 <p>Na ilustração abaixo é demonstrado o fluxo de uma aplicação que busca autorização pelo lado do servidor.</p>
-<img src="/2014/04/14/oauth/002.jpg" class title="Aplicação executada pelo servidor (server-side)">
+<img src="/2014/04/14/oauth/002.jpg" class="" title="Aplicação executada pelo servidor (server-side)">
 <p align="center">Aplicação executada pelo servidor (server-side)</p>
 
 <h3 id="Aplicacao-executada-pelo-navegador-do-cliente-client-side"><a href="#Aplicacao-executada-pelo-navegador-do-cliente-client-side" class="headerlink" title="Aplicação executada pelo navegador do cliente (client-side)"></a>Aplicação executada pelo navegador do cliente (client-side)</h3><p>Nesse perfil o acesso a API é efetuada diretamente no cliente, por intermédio de seu navegador, onde o mesmo tem acesso ao código do aplicativo e suas solicitações. Dessa forma o aplicativo pode ser distribuído em linguagem javascript, ou em uma extensão do navegador ou ainda usando uma tecnologia plug-in como o Flash. </p>
 <p>Esse perfil, por rodar em um ambiente com pouco ou nenhum controle, possui fragilidades as quais fazem com que, por medida de segurança, alguns provedores não permitam o armazenamento de credenciais para clientes que utilizam esse perfil.</p>
-<img src="/2014/04/14/oauth/003.jpg" class title="Aplicação executada pelo cliente (client-side)">
+<img src="/2014/04/14/oauth/003.jpg" class="" title="Aplicação executada pelo cliente (client-side)">
 <p align="center">Aplicação executada pelo cliente (client-side)</p>
 
 <h3 id="Aplicacoes-nativas"><a href="#Aplicacoes-nativas" class="headerlink" title="Aplicações nativas"></a>Aplicações nativas</h3><p>Aplicações com esse perfil são desenvolvidas para rodar como um aplicativo nativo em diversos dispositivos como computadores, smartphones ou tablets. Podendo assim aproveitar de todos os recursos do sistema operacional ao qual o dispositivo disponibiliza. Essas aplicações possuem características muito similares às executadas pelos navegadores de internet, como por exemplo, o fato de não ser um ambiente confiável para o armazenamento de credenciais. Porém como destaca Boyd(2012), uma vez que o aplicativo é instalado, pode não ter acesso a todos os recursos, como teria em um navegador de internet.</p>
@@ -246,7 +246,7 @@
 <h3 id="Concessao-de-codigo-de-autorizacao"><a href="#Concessao-de-codigo-de-autorizacao" class="headerlink" title="Concessão de código de autorização"></a>Concessão de código de autorização</h3><p>Esse tipo de concessão é mais adequado para aplicações web que utilizam o perfil server-side. Depois que o proprietário do recurso autorizou o acesso a seus dados, eles são redirecionados de volta para a aplicação web com um código de autorização como um parâmetro de consulta na URL, sendo que este código deve ser trocado por um token de acesso pelo aplicativo cliente. Esta troca é feita de servidor para servidor e requer o client_id e client_secret, impedindo até mesmo o proprietário do recurso de obter o token de acesso. </p>
 <p>Este tipo de concessão também permite o acesso de longa duração para uma API usando fichas de atualização.</p>
 <p>Uma representação desse fluxo é demonstrada na ilustração abaixo, onde podemos visualizar a solicitação do recurso pelo cliente para o proprietário do recurso, que responde com uma concessão de autorização gerada pelo servidor de autorização, logo após a concessão de autorização é enviada ao servidor de autorização, que responde com um token de acesso que é usado para acessar o servidor de recursos e obter os dados aos quais obteve autorização prévia.</p>
-<img src="/2014/04/14/oauth/004.jpg" class title="Fluxo de Código de Autorização">
+<img src="/2014/04/14/oauth/004.jpg" class="" title="Fluxo de Código de Autorização">
 <p align="center">Fluxo de Código de Autorização</p>
 
 <h3 id="Concessao-implicita"><a href="#Concessao-implicita" class="headerlink" title="Concessão implícita"></a>Concessão implícita</h3><p>As concessões implícitas estão disponíveis como um método simplificado de geração do token de acesso para clientes públicos baseados em navegadores, pois ao invés de gerar uma concessão intermediária, como acontece no fluxo de Código de autorização, o token de acesso é emitido diretamente ao cliente depois de autenticar o proprietário do recurso.</p>
@@ -257,7 +257,7 @@
 <li>3ª Etapa: Com login efetuado com sucesso, o facebook concede ao aplicativo um token de acesso.</li>
 <li>4ª Etapa: O aplicativo pode obter acesso aos recursos do usuário ao se utilizar do token recebido na etapa anterior.</li>
 </ul>
-<img src="/2014/04/14/oauth/005.jpg" class title="Fluxo de concessão implícita">
+<img src="/2014/04/14/oauth/005.jpg" class="" title="Fluxo de concessão implícita">
 <p align="center">Fluxo de concessão implícita</p>
 <p align="center">Fonte: KULP (2013)</p>
 
@@ -266,7 +266,7 @@
 <h3 id="Concessao-de-credenciais-para-o-cliente"><a href="#Concessao-de-credenciais-para-o-cliente" class="headerlink" title="Concessão de credenciais para o cliente"></a>Concessão de credenciais para o cliente</h3><p>A concessão de credenciais de um cliente permite que um aplicativo possa obter um token de acesso a recurso de propriedade do cliente quando a autorização foi previamente definida com o servidor de autorização. Sendo esse tipo de concessão adequada para aplicações que precisam acessar APIs, tais como serviços de armazenamento ou banco de dados em nome da aplicação ou do fornecedor da aplicação e não em nome de um usuário específico.</p>
 <h3 id="Concessao-de-credenciais-para-um-dispositivo"><a href="#Concessao-de-credenciais-para-um-dispositivo" class="headerlink" title="Concessão de credenciais para um dispositivo"></a>Concessão de credenciais para um dispositivo</h3><p>O concessão de credenciais para um dispositivo foi criada para permitir que o protocolo OAuth possa ser usado em dispositivos mais limitados, sem os recursos necessários para obter uma autorização por si só. Essa consiste em iniciar o fluxo no dispositivo e então utilizar dispositivo auxiliar, como um computador, por exemplo, para acessar um site e aprovar o acesso, digitando um código de autorização exibida no dispositivo.</p>
 <h2 id="Bibliografia"><a href="#Bibliografia" class="headerlink" title="Bibliografia"></a>Bibliografia</h2><p>BOYD, R. Getting Started with OAuth 2.0. Sebastopol: O’Reilly Media, 2012.</p>
-<p>KULP, T. Access Online Services with the Windows Runtime and OAuth. MSDN Magazine, 2014. Disponivel em:<br><<a target="_blank" rel="noopener" href="http://msdn.microsoft.com/pt-br/magazine/jj883954(en-us).aspx">http://msdn.microsoft.com/pt-br/magazine/jj883954(en-us).aspx</a>>. Acesso em: Março 2014.</p>
+<p>KULP, T. Access Online Services with the Windows Runtime and OAuth. MSDN Magazine, 2014. Disponivel em:<br>&lt;<a target="_blank" rel="noopener" href="http://msdn.microsoft.com/pt-br/magazine/jj883954(en-us).aspx">http://msdn.microsoft.com/pt-br/magazine/jj883954(en-us).aspx</a>&gt;. Acesso em: Março 2014.</p>
 </body></html>
         </div>
         
@@ -396,7 +396,7 @@
                         Artigos
                     </p>
                     <p class="title has-text-weight-normal">
-                        16
+                        19
                     </p>
                 </div>
             </div>
@@ -406,7 +406,7 @@
                         Categorias
                     </p>
                     <p class="title has-text-weight-normal">
-                        5
+                        7
                     </p>
                 </div>
             </div>
@@ -416,7 +416,7 @@
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        31
+                        32
                     </p>
                 </div>
             </div>
@@ -465,9 +465,25 @@
                 <span class="level-item">Infraestrutura</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">7</span>
+                <span class="level-item tag">10</span>
             </span>
-        </a></li>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/Desenvolvimento/">
+            <span class="level-start">
+                <span class="level-item">Desenvolvimento</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Infraestrutura/Seguranca/">
+            <span class="level-start">
+                <span class="level-item">Segurança</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li></ul></li>
             </ul>
         </div>
     </div>
@@ -619,7 +635,7 @@
                             <span class="level-item">Infraestrutura</span>
                         </span>
                         <span class="level-end">
-                            <span class="level-item tag">1</span>
+                            <span class="level-item tag">4</span>
                         </span>
                     </a>
                 </li>
@@ -642,6 +658,17 @@
                         </span>
                         <span class="level-end">
                             <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/Linux/">
+                        <span class="level-start">
+                            <span class="level-item">Linux</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">3</span>
                         </span>
                     </a>
                 </li>
